@@ -1,11 +1,56 @@
-    
+###################################
+
+#AC by DEQUE VERSION
+import sys
+input = sys.stdin.readline
+from collections import deque
+mod=998244353
+Q=int(input())
+X=deque()
+X.append(1)
+ANS=1
+for tests in range(Q):
+    L=list(map(int,input().split()))
+    if L[0]==1:
+        x=L[1]
+        X.append(x)
+        ANS=(ANS*10+x)%mod
+    elif L[0]==2:
+        x=X.popleft()
+        ANS=(ANS-x*pow(10,len(X),mod))%mod #powの第３引数としてmodを入れることで高速化
+    else:
+        print(ANS%mod)       
+        
+###################################
+
+#TLE by DEQUE VERSION
+import sys
+input = sys.stdin.readline
+from collections import deque
+mod=998244353
+Q=int(input())
+X=deque()
+X.append(1)
+ANS=1
+
+for tests in range(Q):
+    L=list(map(int,input().split()))
+    if L[0]==1:
+        x=L[1]
+        X.append(x)
+        ANS=(ANS*10+x)%mod　#都度ANSを更新
+    elif L[0]==2:
+        x=X.popleft()　#xは削除する数字
+        ANS=(ANS-x*pow(10,len(X)))%mod
+    else:
+        print(ANS%mod)
+        
 ###################################
 
 #TLE by DEQUE VERSION
 from collections import deque
 import sys
 input = sys.stdin.readline
-
 q = int(input())
 S = deque([1]) 
 mod = 998244353
