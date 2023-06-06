@@ -119,16 +119,16 @@ for i in range(N):
             E[j].append(i)
 #print(E)#各ポイントの近隣
 
-Q=[0]#0とついながっているところ、チェック用
+Q=[0]#0とついながっているところ、作業用
 USED=[0]*N
-USED[0]=1#0とついながっているところ、蓄積用
+USED[0]=1#0とついながっているところ、結果蓄積用
  
 while Q:#要素がなくなるまで
   x=Q.pop()#右端を出す
-  for to in E[x]:#E[0]と繋がった各要素to、加えるべき
-    if USED[to]==0:#toはカウントしていない
+  for to in E[x]:#E[0]と繋がった各要素to、USEDとQに加えるべき
+    if USED[to]==0:#toはまだカウントされていない
       USED[to]=1#toをカウントした
-      Q.append(to)#to各要素をQに加える、次の段階でtoと繋がった要素をリストアップ
+      Q.append(to)#to各要素をQに加える、次段階でtoと繋がった要素をリストアップ
 
 for i in range(N):
     if USED[i]==0:
