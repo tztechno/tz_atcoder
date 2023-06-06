@@ -137,3 +137,45 @@ for i in range(N):
         print("Yes")
     
 ####################################
+#MY ANS
+
+import sys
+input = sys.stdin.readline
+n,D=map(int,input().split())
+XY=[]
+for i in range(n):
+  x,y=map(int,input().split())
+  XY+=[(x,y)]
+E=[]
+for i in range(n):
+  E+=[set([i])]
+for i in range(n):
+  for j in range(i+1,n):
+    (x0,y0)=XY[i]
+    (x1,y1)=XY[j]
+    if (x1-x0)**2+(y1-y0)**2<=D**2:
+      E[i].add(j)
+      E[j].add(i)
+
+ANS=[0]*n
+ANS[0]=1
+Q=list(E[0])
+Q.remove(0)
+
+C=[0]
+while Q:
+  x=Q.pop()
+  if x not in C:
+    C+=[x]
+    for ei in list(E[x]):
+      if ANS[ei]==0:
+        ANS[ei]=1
+        Q.append(ei)
+
+for i in range(n):
+  if ANS[i]==1:
+    print('Yes')
+  else:
+    print('No')
+       
+####################################
