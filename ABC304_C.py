@@ -105,3 +105,35 @@ for i in range(n):
     print('No')
     
 ####################################
+#titia
+
+N,D=map(int,input().split())
+XY=[list(map(int,input().split())) for i in range(N)]
+E=[[] for i in range(N)]
+for i in range(N):
+    for j in range(i):
+        a,b=XY[i]
+        c,d=XY[j]
+        if (a-c)**2+(b-d)**2<=D*D:
+            E[i].append(j)
+            E[j].append(i)
+#print(E)#各ポイントの近隣
+
+Q=[0]#0とついながっているところ、チェック用
+USED=[0]*N
+USED[0]=1#0とついながっているところ、蓄積用
+ 
+while Q:#要素がなくなるまで
+  x=Q.pop()#右端を出す
+  for to in E[x]:#E[0]と繋がった各要素to、加えるべき
+    if USED[to]==0:#toはカウントしていない
+      USED[to]=1#toをカウントした
+      Q.append(to)#to各要素をQに加える、次の段階でtoと繋がった要素をリストアップ
+
+for i in range(N):
+    if USED[i]==0:
+        print("No")
+    else:
+        print("Yes")
+    
+####################################
