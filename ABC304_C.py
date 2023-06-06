@@ -1,4 +1,4 @@
-##################
+####################################
 #TLE
 
 n,D=map(int,input().split())
@@ -35,7 +35,8 @@ for i in range(n):
   else:
     print('No')
     
-##################
+####################################
+#TLE
 
 n,D=map(int,input().split())
 XY=[]
@@ -69,4 +70,36 @@ for i in range(n):
   else:
     print('No')
 
-##################
+####################################
+#TLE
+
+n,D=map(int,input().split())
+XY=[]
+for i in range(n):
+  x,y=map(int,input().split())
+  XY+=[(x,y)]
+#print(XY)
+E=[]
+for i in range(n):
+  E+=[set([i])]
+#print(E)
+for i in range(n):
+  for j in range(i+1,n):
+    (x0,y0)=XY[i]
+    (x1,y1)=XY[j]
+    if (x1-x0)**2+(y1-y0)**2<=D**2:
+      E[i].add(j)
+      E[j].add(i)
+for i in range(n):
+  for j in range(i+1,n):
+    if E[i] & E[j]!=set():
+      E[i]=E[i]|E[j]
+      E[j]=E[i]|E[j]
+E3=list(E[0])
+for i in range(n):
+  if i in E3:
+    print('Yes')
+  else:
+    print('No')
+    
+####################################
