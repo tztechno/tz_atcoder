@@ -1,23 +1,23 @@
 ########################################
-#TLE
+#WA,TLE
+
+import sys
+input = sys.stdin.readline
 
 n,m,h,k=map(int,input().split())
-S=list(input())#移動方法
+S=list(input())
 
 XY=[]
 for i in range(m):
   x,y=map(int,input().split())
   XY+=[[x,y]]
 
- 
 def position(S):
   P=[[0,0]]
   for s in S:
     PX=P[-1]
-    #print(PX)
     if s=='R':
       PX=[PX[0]+1,PX[1]]
-      #print(PX)
       P+=[PX]
     elif s=='L':
       PX=[PX[0]-1,PX[1]]
@@ -30,8 +30,7 @@ def position(S):
       P+=[PX]
   return P
  
-P=position(S) #軌跡を作る
-#print(P)
+P=position(S)
  
 pw=h          
 for pi in P[1:]:
@@ -39,9 +38,8 @@ for pi in P[1:]:
   if pw<0:
     print('No')
     exit()
-  if pi in XY and pw<k:
+  elif pi in XY and pw<k:
     pw=k
-  #print(pw)
 print('Yes')
 
 ########################################
