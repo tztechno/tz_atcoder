@@ -43,3 +43,41 @@ for pi in P[1:]:
 print('Yes')
 
 ########################################
+#titia
+
+import sys
+input = sys.stdin.readline
+ 
+N,M,H,K=map(int,input().split())
+S=input().strip()
+ 
+P=set([tuple(map(int,input().split())) for i in range(M)])
+ 
+x=0
+y=0
+ 
+for s in S:
+    if s=="R":
+        x+=1
+    elif s=="L":
+        x-=1
+    elif s=="U":
+        y+=1
+    elif s=="D":
+        y-=1
+ 
+    H-=1
+ 
+    if H<0:
+        print("No")
+        exit()
+ 
+    if (x,y) in P and H<K:
+        H=K
+        P.remove((x,y))
+ 
+if H>=0:
+    print("Yes")
+else:
+    print("No")
+########################################
