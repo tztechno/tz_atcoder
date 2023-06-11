@@ -35,6 +35,9 @@ def objective(parameters):
         cost += PS[j] ** 2
     return cost
 
+# Define the estimator
+estimator = svm.SVC()
+
 # Define the parameter grid for GridSearchCV
 parameter_grid = {}
 for i in range(m):
