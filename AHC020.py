@@ -1,5 +1,5 @@
 ####################################
-##grid search version
+## RE,grid search version
 
 #library block
 from sklearn import svm, datasets
@@ -7,7 +7,6 @@ from sklearn.model_selection import GridSearchCV
 import sys
 input = sys.stdin.readline
 
-#input block
 n,m,k=map(int,input().split())
 XY=[]
 for i in range(n):
@@ -21,8 +20,8 @@ AB=[]
 for i in range(k):
     a,b=map(int,input().split())
     AB+=[(a,b)]
-    
-#function block
+
+# Define the objective function
 def objective(parameters):
     MS = [1] * m
     PS = [10] * n
@@ -35,37 +34,34 @@ def objective(parameters):
         cost += PS[j] ** 2
     return cost
 
-# Define the estimator
-estimator = svm.SVC()
-
 # Define the parameter grid for GridSearchCV
 parameter_grid = {}
 for i in range(m):
-    parameter_grid['m'+str(i)] = [0,1]
+    parameter_grid['m' + str(i)] = [0, 1]
 for j in range(n):
-    parameter_grid['p'+str(j)] = list(range(10001))
+    parameter_grid['p' + str(j)] = list(range(1000))
 
 # Perform grid search
-grid_search = GridSearchCV(estimator=None, 
+grid_search = GridSearchCV(estimator=svm.SVC(), 
                            param_grid=parameter_grid, 
                            scoring='neg_mean_squared_error', 
                            cv=5)
-grid_search.fit(XY,AB)
 
+grid_search.fit(XY, AB)
 best_params = grid_search.best_params_
 
 P = []
 for i in range(n):
-    P.append(best_params['p'+str(i)])
+    P.append(best_params['p' + str(i)])
 B = []
 for i in range(m):
-    B.append(best_params['m'+str(i)])
+    B.append(best_params['m' + str(i)])
 
 print(*P)
 print(*B)
 
 ####################################
-##optuna version
+## RE, optuna version
 
 import sys
 input = sys.stdin.readline
