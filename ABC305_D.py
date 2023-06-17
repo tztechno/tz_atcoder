@@ -34,8 +34,8 @@ for i in range(N):
         SUM[i+1]=SUM[i]+(A[i]-A[i-1])
     else:
         SUM[i+1]=SUM[i]
-
 SUM.append(SUM[-1])
+
 Q=int(input())
 for tests in range(Q):
     x,y=map(int,input().split())
@@ -44,14 +44,11 @@ for tests in range(Q):
         s1=SUM[k+1]-(A[k]-x)
     else:
         s1=SUM[k+1]
-
     k=bisect(A,y)
     if k>0 and k%2==0:
         s2=SUM[k+1]-(A[k]-y)
     else:
         s2=SUM[k+1]
-
-    #print(s1,s2)
     print(s2-s1)
             
 #################################
