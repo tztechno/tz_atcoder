@@ -1,4 +1,3 @@
-
 ####################################
 
 text = '''
@@ -11,11 +10,21 @@ text = '''
 lines = text.strip().split('\n')
 n, w = map(int, lines[0].split())
 WV = []
-
 for line in lines[1:]:
     w, v = map(int, line.split())
     WV.append((w, v))
 
+####################################
+
+text='''
+mynavi
+monday
+'''
+
+lines = text.strip().split('\n')
+S = lines[0]
+T = lines[1]
+print(S,T)
 
 ####################################
 
