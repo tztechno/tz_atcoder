@@ -1,5 +1,18 @@
 #kyopro-tessoku-book(KTB)
 ######################################################
+#stpete AC
+S=['']+list(input())
+T=['']+list(input())
+s=len(S)
+t=len(T)
+DP=[]
+for i in range(s):
+  DP+=[[0]*(t)]
+for i in range(1,s):
+  for j in range(1,t):
+    DP[i][j]=max(DP[i-1][j],DP[i][j-1],DP[i-1][j-1]+int(S[i]==T[j]))
+print(DP[s-1][t-1])
+######################################################
 S = input()
 T = input()
 N = len(S)
