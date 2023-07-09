@@ -21,5 +21,7 @@ wv = [tuple(map(int, input().split())) for _ in range(n)]
   
 #########################################################
 
+N,K=map(int,input().split())
+A=[int(i) for i in input().split()]
 
 #########################################################
