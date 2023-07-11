@@ -1,15 +1,12 @@
 from bisect import bisect_left
 
-my_list = [1, 3, 5, 7, 9]
+# ソートされたリスト
+lst = [1, 3, 5, 7, 9]
 
-# 4 を挿入するべきインデックスを求める
-index = bisect_left(my_list, 4)
-print(index)  # 出力: 2
+# 指定した値を挿入するべき位置（左側）のインデックスを取得
+index = bisect_left(lst, 4)
+print(index)  # 出力結果: 2
 
-# 6 を挿入するべきインデックスを求める
-index = bisect_left(my_list, 6)
-print(index)  # 出力: 3
-
-# 10 を挿入するべきインデックスを求める
-index = bisect_left(my_list, 10)
-print(index)  # 出力: 5
+# インデックスを使用して挿入操作を行う場合
+lst.insert(index, 4)
+print(lst)  # 出力結果: [1, 3, 4, 5, 7, 9]
