@@ -1,4 +1,6 @@
-    #cumulative sum
+###################################################
+
+#cumulative sum
 
     for i in range(1, H+1):
         for j in range(1, W+1):
@@ -31,3 +33,5 @@ matrix = [[1, 2, 3],
 cumulative_sum = cumulative_sum_2d(matrix)
 for row in cumulative_sum:
     print(row)
+    
+###################################################
