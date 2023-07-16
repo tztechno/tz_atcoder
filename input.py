@@ -15,7 +15,6 @@ input = sys.stdin.readline
 #########################################################
 
 input = stdin.buffer.readline
-
 n, w = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
   
@@ -44,3 +43,10 @@ N, *PA = map(int, sys.stdin.buffer.read().split())
 
 #########################################################
 
+N = int(input())
+P = [ None ] * (N + 1)
+A = [ None ] * (N + 1)
+for i in range(1, N+1):
+    P[i], A[i] = map(int, input().split())
+
+#########################################################
