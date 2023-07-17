@@ -1,3 +1,5 @@
+##############################################
+
 from collections import deque
 
 # 空の deque の作成
@@ -20,3 +22,11 @@ length = len(my_deque)       # length = 0
 # deque の反転
 reversed_deque = my_deque.copy()
 reversed_deque.reverse()     # deque([], [1, 2])
+
+##############################################
+
+from collections import deque
+Ni=deque(range(1,n+1))
+print(Ni)
+
+##############################################
