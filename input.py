@@ -44,9 +44,9 @@ N, *PA = map(int, sys.stdin.buffer.read().split())
 #########################################################
 
 N = int(input())
-P = [ None ] * (N + 1)
-A = [ None ] * (N + 1)
-for i in range(1, N+1):
+P = [ None ] * N
+A = [ None ] * N
+for i in range(N):
     P[i], A[i] = map(int, input().split())
 
 #########################################################
