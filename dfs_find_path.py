@@ -1,5 +1,33 @@
 ####################################################################################################
 
+n=int(input())
+A=[0]+list(map(int,input().split()))
+
+USED=[0]*(n+1)
+
+for i in range(1,n+1):
+    if USED[i]==0:
+        Q=[i]
+        while True:
+            x=Q[-1]
+            USED[x]=1
+            to=A[x]
+
+            if USED[to]==0:
+                Q.append(to)
+            else:
+                break
+
+        last=Q[-1]
+        f=Q.index(A[last])
+
+        ANS=Q[f:]
+        print(len(ANS))
+        print(*ANS)
+        break
+
+####################################################################################################
+
 def find_path(graph, start, end, path=[]):
     path = path + [start]  # 現在の道に現在のノードを追加する
 
