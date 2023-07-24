@@ -1,3 +1,6 @@
+# the Nim game, "piles" refer to the distinct groups of objects or items 
+# that players can remove during their turns in the game.
+
 def calculate_grundy(n):
     if n == 0:
         return 0
