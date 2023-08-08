@@ -17,7 +17,13 @@ input = sys.stdin.readline
 input = stdin.buffer.readline
 n, w = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
-  
+
+#########################################################
+
+import sys
+sys.setrecursionlimit(10 ** 9)
+input = sys.stdin.readline
+
 #########################################################
 
 N,K=map(int,input().split())
