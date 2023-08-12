@@ -17,6 +17,10 @@ input = sys.stdin.readline
 input = stdin.buffer.readline
 n, w = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
+#########################################################
+
+# 再帰呼び出しの深さの上限を 120000 に設定
+sys.setrecursionlimit(120000)
 
 #########################################################
 
