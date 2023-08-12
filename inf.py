@@ -1,1 +1,1 @@
-INF = float('inf')で無限大の値を設定します。
+INF = float('inf') #無限大の値を設定します。
