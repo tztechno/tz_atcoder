@@ -1,3 +1,5 @@
+##################################################
+
 def is_connected_graph(vertices, edges):
     graph = {}
     for vertex in vertices:
@@ -29,3 +31,29 @@ if is_connected_graph(vertices, edges):
     print("The graph is connected.")
 else:
     print("The graph is not connected.")
+
+##################################################
+
+def is_connected(vertices, edges, vertex1, vertex2):
+    graph = {}
+    for vertex in vertices:
+        graph[vertex] = []
+
+    for edge in edges:
+        u, v = edge
+        graph[u].append(v)
+        graph[v].append(u)
+
+    visited = set()
+
+    def dfs(node):
+        visited.add(node)
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                dfs(neighbor)
+
+    dfs(vertex1)
+
+    return vertex2 in visited
+
+##################################################
