@@ -1,5 +1,5 @@
 import sys
-# import pypyjit
+import pypyjit
 import itertools
 import heapq
 import math
@@ -10,8 +10,7 @@ import bisect
  
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
-# pypyjit.set_param('max_unroll_recursion=-1')
- 
+pypyjit.set_param('max_unroll_recursion=-1')
  
 def readints(): return map(int, input().split())
 def readlist(): return list(map(int, input().split()))
