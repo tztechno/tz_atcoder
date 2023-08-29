@@ -1,4 +1,32 @@
 ##########################################################
+#stpete AC, use DP
+N=int(input())
+P=[None]*(N)
+A=[None]*(N)
+for i in range(N):
+  P[i],A[i]=map(int,input().split())
+DP=[]
+for i in range(N+1):
+  DP+=[[0]*(N+1)]
+#LEN is lenghth before removing
+for LEN in range(N,1,-1): #LEN:N..2
+  for L in range(0,N-1):
+    R=L+LEN-1
+    if R<=N-1:
+      #print(L,R,LEN) #LR:0...N-1
+      score0=score1=0
+      if L+1<=P[L]-1<=R:
+        score0=A[L]
+      if L<=P[R]-1<=R-1:
+        score1=A[R]
+      DP[L+1][R]=max(DP[L+1][R],DP[L][R]+score0)
+      DP[L][R-1]=max(DP[L][R-1],DP[L][R]+score1)
+ANS=[]
+for i in range(len(DP)):
+  ANS+=[max(DP[i])]
+print(max(ANS))
+
+##########################################################
 #stpete WA, use itertools
 import itertools
 from itertools import permutations
