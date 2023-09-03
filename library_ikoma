@@ -1,0 +1,25 @@
+_INPUT = """\
+
+"""
+import sys
+if sys.argv[-1] == 'DEBUG':
+    import io
+    sys.stdin = io.StringIO(_INPUT)
+input = sys.stdin.readline
+
+
+from collections import defaultdict,deque,Counter
+from itertools import product,permutations,combinations,accumulate
+from bisect import bisect_left,bisect_right,bisect
+from math import gcd,sqrt,log,exp,inf,pi,nan
+from heapq import heappush,heappop,heapify,heappushpop,heapreplace,merge,nlargest,nsmallest
+from heapq import _heappop_max,_heapify_max,_siftdown_max
+heappop_max = _heappop_max;heapify_max = _heapify_max
+def heappush_max(heap:list,item): heap.append(item); _siftdown_max(heap, 0, len(heap)-1)
+YES="Yes";NO="No";pans = lambda x:print(YES if x else NO)
+INF=float("inf")
+write = lambda x: sys.stdout.write(str(x)+"\n")
+debug = lambda *x: print(*x,file=sys.stderr)
+def dbgv(st, end=" "):
+    for s in st.split(): print(f"{s} = {eval(s)}",end=end, file=sys.stderr)
+    print(file=sys.stderr)
