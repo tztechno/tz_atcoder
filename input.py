@@ -60,3 +60,11 @@ for i in range(N):
     P[i], A[i] = map(int, input().split())
 
 #########################################################
+
+# Captures the input as a binary number and converts it to a decimal number and outputs it
+a = []
+for _ in range(m):
+    a.append(int(input().replace(" ", ""), 2))
+print(a)
+
+#########################################################
