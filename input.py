@@ -11,12 +11,16 @@ N,K=map(int,input().split())
 
 import sys
 input = sys.stdin.readline
+M=int(input())
+S=[input().strip() for i in range(3)]
+print(S)
 
 #########################################################
 
 input = stdin.buffer.readline
 n, w = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
+
 #########################################################
 
 # 再帰呼び出しの深さの上限を 120000 に設定
