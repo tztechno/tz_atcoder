@@ -14,3 +14,11 @@ normal_mapping = dict(zip(class_names, N))
 reverse_mapping = dict(zip(N, class_names))    
 
 ####################################################
+
+FACT = {2: 3, 3: 1, 5: 2}
+i = 3
+count = FACT.get(i, 0)
+print(count)
+#iある時値を取り出す、iない時0を返す
+
+####################################################
