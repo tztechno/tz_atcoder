@@ -1,3 +1,21 @@
+
+#########################################################
+
+input_data = '''
+6
+6 2 5 3 1 4
+'''
+
+# You can use the `splitlines()` method to split the input data into lines.
+lines = input_data.strip().splitlines()
+
+# Extract N from the first line and A from the second line.
+N = int(lines[0])
+A = list(map(int, lines[1].split()))
+
+### N = int(input())
+### A = list(map(int,input().split()))
+
 #########################################################
 
 AB=[tuple(map(int,input().split())) for i in range(N)]
