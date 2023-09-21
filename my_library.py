@@ -12,6 +12,5 @@ import networkx as nx
 INF = float("INF")
 FourNb=[(-1,0),(1,0),(0,1),(0,-1)]
 cursol=dict(zip('UDRL',FourNb))
-
-alp=[chr(ord('a')+i)for i in range(26)]
+alp=[chr(ord('a')+i) for i in range(26)]
 
