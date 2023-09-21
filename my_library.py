@@ -1,7 +1,7 @@
 
 import sys
 input = sys.stdin.readline
-
+#S=input().strip()#改行除く
 from math import gcd,sqrt,log,exp,inf,pi,nan
 from collections import defaultdict,deque,Counter
 from itertools import product,permutations,combinations,accumulate
