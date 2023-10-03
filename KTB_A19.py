@@ -23,6 +23,35 @@ print(DP[N][WL])
 #######################################################
 
 #stpete TLE13/25
+#bitDP法
+
+import sys
+input = sys.stdin.readline
+N,w = map(int,input().split())
+WV=[]
+for i in range(N):
+    wi,vi = list(map(int,input().split()))
+    WV+=[(wi,vi)]
+
+DP=[]
+for i in range(1<<N):
+    DP+=[()]
+DP[0]=(0,0)
+
+for mask in range(1<<N):
+    for i in range(N):
+        if not mask & (1<<i):
+            DP[mask|(1<<i)]=(DP[mask][0]+WV[i][0],DP[mask][1]+WV[i][1])
+#print(DP)
+max0=0
+for dp in DP:
+    if dp[0]<=w:
+        max0=max(max0,dp[1])
+print(max0)
+
+#######################################################
+
+#stpete TLE13/25
 
 import numpy as np
 
