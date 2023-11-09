@@ -35,6 +35,15 @@ print(S)
 
 #########################################################
 
+import sys
+input = sys.stdin.readline
+    
+S = [input()[:-1] for _ in range(N)]: 
+
+# 末尾の改行文字 ([:-1]) を削除し、Sリストに格納します
+
+#########################################################
+
 input = stdin.buffer.readline
 n, w = map(int, input().split())
 wv = [tuple(map(int, input().split())) for _ in range(n)]
