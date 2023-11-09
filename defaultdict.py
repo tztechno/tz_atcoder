@@ -1,3 +1,11 @@
+
+########################################
+
+from collections import defaultdict
+cnt = defaultdict(int)
+
+########################################
+
 from collections import defaultdict
 
 # defaultdictの初期化
