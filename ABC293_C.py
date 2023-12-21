@@ -55,8 +55,45 @@ for pro in product((1,0),repeat=H+W-2):
 print(ans)
 
 ###############################################
+### my revision using product w/AC
 
-# MYBEST but TLE21
+from itertools import product,permutations,combinations,accumulate
+
+H,W=map(int,input().split())
+A0=[]
+for i in range(H):
+  A0+=[list(map(int,input().split()))]
+
+def check(ci):
+  P=[0,0]
+  R=[A0[0][0]]
+  for cii in ci:
+    if cii==0:
+      P[1]+=1
+    elif cii==1:
+      P[0]+=1
+    R+=[A0[P[0]][P[1]]]
+  return R
+
+D=['R']*(W-1)+['D']*(H-1)
+C0=list(product((1,0),repeat=H+W-2))
+C1=[]
+for ci in C0:
+  if sum(ci)==H-1:
+    C1+=[ci]
+#print(C1)
+T=0
+for ci in C1:
+  R=check(ci)
+  if len(set(R))==H+W-1:
+    T+=1
+
+print(T)
+    
+
+###############################################
+# MYBEST w/TLE21
+# permutations is the cause of delay
 
 from itertools import product,permutations,combinations,accumulate
 
