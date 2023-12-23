@@ -1,3 +1,6 @@
+
+####################################################
+
 from bisect import bisect_left, bisect_right
 
 # Sorted list of numbers
@@ -31,3 +34,21 @@ print(index)  # 出力結果: 2
 # インデックスを使用して挿入操作を行う場合
 lst.insert(index, 4)
 print(lst)  # 出力結果: [1, 3, 4, 5, 7, 9]
+
+
+####################################################
+
+from bisect import bisect
+
+# ソートされたリスト
+my_list = [1, 3, 3, 6, 7, 8, 12]
+
+# 二分探索で挿入ポイントを見つける
+# bisect_left: 要素が既に存在する場合、その要素の左側の挿入ポイントを返す
+# bisect_right: 要素が既に存在する場合、その要素の右側の挿入ポイントを返す
+# ここでは bisect_left を使用しています
+insert_point = bisect(my_list, 5)
+
+print("挿入ポイント:", insert_point)
+
+####################################################
