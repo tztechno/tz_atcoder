@@ -1,5 +1,122 @@
-#ABC293_C
-#Make Takahashi Happy
+
+#ABC293_C Make Takahashi Happy
+
+################################################
+h, w = map(int, input().split())
+A = [list(map(int, input().split())) for _ in range(h)]
+
+import sys
+from collections import defaultdict
+sys.setrecursionlimit(10 ** 8)
+dict = defaultdict(int)
+stamp = [[True for _ in range(w)] for _ in range(h)]
+dy = [1, 0]
+dx = [0, 1]
+cnt = 0
+def dfs(y, x):
+  global cnt
+  stamp[y][x] = False
+  dict[A[y][x]] += 1
+  if (y, x) in ((h - 1, w - 2), (h - 2, w - 1)):
+    if dict[A[h - 1][w - 1]] == 0:
+      cnt += 1
+  else:
+    for i in range(2):
+      ny, nx = y + dy[i], x + dx[i]
+      if 0 <= ny < h and 0 <= nx < w:
+        if stamp[ny][nx] and not dict[A[ny][nx]]:
+          dfs(ny, nx)
+  stamp[y][x] = True
+  dict[A[y][x]] -= 1
+dfs(0, 0)
+
+print(cnt)
+################################################
+h,w=map(int,input().split())
+a=[]
+for i in range(h):
+    a.append(list(map(int,input().split())))
+ans=0
+for bit in range(1<<(h+w-2)):
+    record=[a[0][0]]
+    i,j=0,0
+    for shift in range(h+w-2):
+        if bit>>shift&1:
+            if i<h-1:
+                i+=1
+            else:
+                break
+        else:
+            if j<w-1:
+                j+=1
+            else:
+                break
+        record.append(a[i][j])
+    if len(set(record))==h+w-1:
+        ans+=1
+print(ans)
+################################################
+import sys
+import copy
+sys.setrecursionlimit(10**7)
+
+H,W=map(int,input().split())
+A=[]
+for i in range(H):
+    A.append(list(map(int,input().split())))
+import sys
+sys.setrecursionlimit(10**7)
+global ans
+ans=0
+def dfs(x,y,X):
+    if x<H and y<W:
+        X.append(A[x][y])
+        if len(X)==H+W-1:
+            if len(set(X))==H+W-1:
+                global ans
+                ans+=1
+        Y=copy.copy(X)
+        dfs(x+1,y,Y)
+        Y=copy.copy(X)
+        dfs(x,y+1,Y)
+    else:
+        return
+dfs(0,0,[])
+print(ans)
+################################################
+import sys
+input = sys.stdin.readline
+
+H,W=map(int,input().split())
+A=[list(map(int,input().split())) for i in range(H)]
+
+ANS=0
+for i in range(1<<(H+W-2)):
+    x=0
+    y=0
+
+    flag=1
+    SET={A[0][0]}
+
+    for j in range(H+W-2):
+        if i & (1<<j) != 0:
+            if x+1<H and not(A[x+1][y] in SET):
+                x+=1
+                SET.add(A[x][y])
+            else:
+                flag=0
+                break
+        else:
+            if y+1<W and not(A[x][y+1] in SET):
+                y+=1
+                SET.add(A[x][y])
+            else:
+                flag=0
+                break
+
+    ANS+=flag
+
+print(ANS)
 
 ################################################
 
@@ -90,7 +207,6 @@ for ci in C1:
 
 print(T)
     
-
 ###############################################
 # MYBEST w/TLE21
 # permutations is the cause of delay
