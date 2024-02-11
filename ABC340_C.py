@@ -55,15 +55,37 @@ print(result)
 ###############################################
 import sys
 input = sys.stdin.readline
-
 n=int(input())
 from functools import lru_cache
 @lru_cache(maxsize=None)
-
 def calc(n):
     if n<=1:
         return 0
     return n+calc(n//2)+calc((n+1)//2)
-
 print(calc(n))
+###############################################
+### MY TLE
+import math
+from heapq import heappush,heappop
+N=int(input())
+A=[-N]
+def div(x):
+  a=math.ceil(x/2)
+  b=math.floor(x/2) 
+  return a,b
+X=0
+for i in range(N):  
+  v=heappop(A)
+  if v<=-2:
+    a,b=div(v)
+    heappush(A,a)
+    heappush(A,b)
+    X+=abs(v)
+    #print(A)
+  else:
+    print(X)
+    exit()
+###############################################
+### MY TLE
+    
 ###############################################
