@@ -87,5 +87,23 @@ for i in range(N):
     exit()
 ###############################################
 ### MY TLE
+N=int(input())
+B=[N]
+X=0
+
+def div(B):
+  global X
+  B.sort()
+  x=B[-1]
+  if x<=1:
+    exit()
+  X+=x
+  B=B[0:-1]
+  B+=[x//2,(x+1)//2]
+  return B
+
+while max(B)>1: 
+  B=div(B)
+print(X)  
     
 ###############################################
