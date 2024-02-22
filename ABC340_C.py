@@ -61,6 +61,16 @@ def calc(n):
     return n+calc(n//2)+calc((n+1)//2)
 print(calc(n))
 ###############################################
+from functools import lru_cache
+@lru_cache(maxsize=None)
+def paypay(x):
+  if x<=1:
+    return 0
+  else:
+    return x+paypay(x//2)+paypay((x+1)//2)
+N=int(input())
+print(paypay(N))
+###############################################
 ### MY TLE
 import math
 from heapq import heappush,heappop
