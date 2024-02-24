@@ -14,7 +14,7 @@ import networkx as nx
 
 
 from functools import lru_cache
-
+@lru_cache(maxsize=None)
 
 from atcoder.segtree import SegTree
 from atcoder.fenwicktree import FenwickTree
