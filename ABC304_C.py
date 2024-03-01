@@ -1,3 +1,86 @@
+//ABC304_C virus 
+
+########################################
+########################################
+N,D = map(int, input().split())
+X_Y=[]
+stack=[0]
+for i in range (N):
+    x,y=map(int, input().split())
+    X_Y.append([x,y,"No"])
+X_Y[0][2]="Yes"
+while stack:
+    now=stack.pop()
+    now=X_Y[now]
+    for i in range (N):
+        if X_Y[i][2]=="Yes":
+            pass
+        elif (now[0]-X_Y[i][0])**2+(now[1]-X_Y[i][1])**2<=D**2:
+            stack.append(i)
+            X_Y[i][2]="Yes"
+
+for i in X_Y:
+    print(i[2])
+########################################
+N, D = map(int, input().split())
+r = [[0, 0]]
+for i in range(1, N + 1): r.append(list(map(int, input().split())))
+graph = [[] for _ in range(N + 1)]
+for i in range(1, N + 1):
+    for j in range(i + 1, N + 1):
+        if (r[i][0] - r[j][0])**2 + (r[i][1] - r[j][1])**2 <= D**2:
+            graph[i].append(j)
+            graph[j].append(i)
+seen = ["No" for _ in range(N + 1)]
+seen[1] = "Yes"
+stack = [1]
+while len(stack) > 0:
+    now = stack.pop()
+    for i in graph[now]:
+        if seen[i] == "No":
+            seen[i] = "Yes"
+            stack.append(i)
+for i in range(1, N + 1): print(seen[i])
+########################################
+N, D = map(int, input().split())
+
+people = []
+for n in range(N):
+  X, Y = map(int, input().split())
+  people.append((X, Y))
+  
+from collections import deque
+
+virus_queue = deque()
+# 初期状態で人1が感染している
+virus_queue.append(people[0])
+virus_holder_set = {0}
+dxx2 = D ** 2
+
+while len(virus_queue) > 0:
+  virus_holder = virus_queue.pop()
+  vh_x, vh_y = virus_holder
+  
+  for i in range(len(people)):
+    if i in virus_holder_set:
+      continue
+
+    person = people[i]
+    x, y = person
+    
+    distance = (vh_x - x) ** 2 + (vh_y - y) ** 2
+    if distance <= dxx2:
+      virus_queue.append(person)
+      virus_holder_set.add(i)
+
+for i in range(len(people)):
+  if i in virus_holder_set:
+    print('Yes')
+  else:
+    print('No')
+
+########################################
+
 ####################################
 #TLE
 
