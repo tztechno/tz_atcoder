@@ -1,4 +1,26 @@
 ###########################################
+#titia
+import sys
+input = sys.stdin.readline
+from collections import Counter
+N,T=map(int,input().split())
+SCORE=[0]*N
+C=Counter(SCORE)
+NOW=1
+for i in range(T):
+    a,b=map(int,input().split())
+    a-=1
+    k=SCORE[a]
+    C[k]-=1
+    if C[k]==0:
+        NOW-=1
+    SCORE[a]+=b
+    if C[SCORE[a]]==0:
+        NOW+=1
+    C[SCORE[a]]+=1
+    print(NOW)
+###########################################
+###########################################
 ###########################################
 ###########################################
 ###########################################
