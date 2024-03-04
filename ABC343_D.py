@@ -24,6 +24,23 @@ for i in range(T):
 ###########################################
 ###########################################
 ###########################################
+#AC
+from collections import defaultdict,deque,Counter
+N,T=map(int,input().split())
+A=[0]*N
+C=Counter(A)
+ct=1
+for i in range(T):
+  a,b=map(int,input().split())
+  v=A[a-1]#value
+  A[a-1]+=b
+  C[v+b]+=1
+  if C[v+b]==1:
+    ct+=1
+  C[v]-=1
+  if C[v]==0:
+    ct-=1
+  print(ct)
 ###########################################
 #TLE19
 from collections import defaultdict,deque,Counter
