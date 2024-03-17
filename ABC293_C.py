@@ -2,6 +2,14 @@
 #ABC293_C Make Takahashi Happy
 
 ################################################
+
+total=H+W-2
+for i in range(1<<total):
+  for j in range(total):
+    if i&(1<<j)!=0:#縦に進む場合
+    else:#横に進む場合
+
+################################################
 h, w = map(int, input().split())
 A = [list(map(int, input().split())) for _ in range(h)]
 
