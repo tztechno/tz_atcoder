@@ -44,6 +44,17 @@ for a in A:
     else:
         print(R)
 ####################################
+N,L,R=map(int,input().split())
+A=list(map(int,input().split()))
+for a in A:
+    if L<=a<=R:
+        print(a)
+    elif a<L:
+        print(L)
+    else:
+        print(R)
+要素との差が最小の数字、L,R,Ai
+####################################
 [MY TLE]
 N,L,R=map(int,input().split())
 A=list(map(int,input().split()))
