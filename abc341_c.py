@@ -1,7 +1,131 @@
 ######################################################################
 
-TLE: python,php,
-AC: C++,C#,rust,go,
+TLE: python,php,kotlin,
+AC: C++,C#,rust,go,java,
+
+######################################################################
+
+#kotlin,TLE
+
+import java.util.Scanner
+
+fun movePiece(pos: Pair<Int, Int>, t: CharArray, s: Array<CharArray>, map: Map<Char, Pair<Int, Int>>): Int {
+    var c = 1
+    var currentPos = pos
+    for (direction in t) {
+        val moveBy = map[direction]
+        currentPos = Pair(currentPos.first + moveBy!!.first, currentPos.second + moveBy.second)
+        if (currentPos.first < 0 || currentPos.first >= s.size || currentPos.second < 0 || currentPos.second >= s[0].size) {
+            continue
+        }
+        if (s[currentPos.first][currentPos.second] == '#') {
+            c = 0
+            break
+        }
+    }
+    return c
+}
+
+fun main() {
+    val scanner = Scanner(System.`in`)
+
+    val (h, w, n) = scanner.nextLine().split(" ").map { it.toInt() }
+
+    val t = scanner.nextLine().toCharArray()
+
+    val s = Array(h) { CharArray(w) }
+    val p = mutableListOf<Pair<Int, Int>>()
+
+    for (i in 0 until h) {
+        val line = scanner.nextLine().toCharArray()
+        s[i] = line
+        for (j in 0 until w) {
+            if (line[j] == '.') {
+                p.add(Pair(i, j))
+            }
+        }
+    }
+
+    val map = mapOf('U' to Pair(-1, 0), 'D' to Pair(1, 0), 'R' to Pair(0, 1), 'L' to Pair(0, -1))
+
+    var count = 0
+    for (pos in p) {
+        val add = movePiece(pos, t, s, map)
+        count += add
+    }
+
+    println(count)
+}
+
+
+######################################################################
+
+＃javaでAC
+
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Main {
+
+    public static int movePiece(int[] pos, char[] t, char[][] s, HashMap<Character, int[]> map) {
+        int c = 1;
+        int[] currentPos = new int[]{pos[0], pos[1]};
+        for (char direction : t) {
+            int[] moveBy = map.get(direction);
+            currentPos[0] += moveBy[0];
+            currentPos[1] += moveBy[1];
+            if (currentPos[0] < 0 || currentPos[0] >= s.length || currentPos[1] < 0 || currentPos[1] >= s[0].length) {
+                continue;
+            }
+            if (s[currentPos[0]][currentPos[1]] == '#') {
+                c = 0;
+                break;
+            }
+        }
+        return c;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] inputs = scanner.nextLine().split(" ");
+        int h = Integer.parseInt(inputs[0]);
+        int w = Integer.parseInt(inputs[1]);
+        int n = Integer.parseInt(inputs[2]);
+
+        char[] t = scanner.nextLine().toCharArray();
+
+        char[][] s = new char[h][w];
+        ArrayList<int[]> p = new ArrayList<>();
+
+        for (int i = 0; i < h; i++) {
+            String line = scanner.nextLine();
+            char[] row = line.toCharArray();
+            s[i] = row;
+            for (int j = 0; j < w; j++) {
+                if (row[j] == '.') {
+                    p.add(new int[]{i, j});
+                }
+            }
+        }
+
+        HashMap<Character, int[]> map = new HashMap<>();
+        map.put('U', new int[]{-1, 0});
+        map.put('D', new int[]{1, 0});
+        map.put('R', new int[]{0, 1});
+        map.put('L', new int[]{0, -1});
+
+        int count = 0;
+        for (int[] pos : p) {
+            int add = movePiece(pos, t, s, map);
+            count += add;
+        }
+
+        System.out.println(count);
+    }
+}
+
 ​
 ######################################################################
 
