@@ -241,6 +241,8 @@ while chk[now]==-1:
 print(len(ans[chk[now]:]))
 print(*ans[chk[now]:])
 #############################################
+[important solution]
+
 n = int(input())
 a = [0]+list(map(int,input().split()))
 now = 1
