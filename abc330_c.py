@@ -52,6 +52,20 @@ for x in range(2000020):
 
 print(ANS)
 #######################################
+[my AC ans]
+
+import math
+d=int(input())
+ANS=d
+d2=int(math.sqrt(d))+2
+for x in range(d2):
+  y2=int(math.sqrt(abs(d-x**2)))
+  for y in range(y2-1,y2+2):
+    z=x**2+y**2
+    ANS=min(abs(d-z),ANS)
+print(ANS)
+
+#######################################
 [my TLE ans]
 
 import math
