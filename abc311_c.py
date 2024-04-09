@@ -259,6 +259,32 @@ print(*b)
 
 #############################################
 #############################################
+[my ans]
+
+from collections import defaultdict,deque,Counter
+
+n = int(input())
+a = [0]+list(map(int,input().split()))
+
+now = 1
+NOW=[]
+for i in range(n*2):
+  NOW += [now]
+  now = a[now]
+
+C=Counter(NOW)
+#print(C)
+
+ans=[]
+for c in list(C):
+  if C[c]>=2:
+    ans+=[c]
+
+print(len(ans))
+print(*ans)
+
+#############################################
+#############################################
 import sys
 def input():
     return sys.stdin.readline().rstrip()
