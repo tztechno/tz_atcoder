@@ -122,6 +122,35 @@ print(ANS)
 
 ###############################################
 
+[stpete TLE ans4]
+
+
+h,w=map(int,input().split())
+
+S=[]
+for i in range(h):
+  s=list(input())
+  S+=[s]
+
+t=0
+for i in range(h):
+  for j in range(w):
+    if S[i][j]=='#':
+      t+=1
+      target=[(i,j)]
+      while len(target)>0:
+        (i,j)=target[-1]
+        for p in range(-1,2):
+          for q in range(-1,2):
+            (x,y)=(i+p,j+q)
+            if 0<=x<h and 0<=y<w and S[x][y]=='#':
+              S[x][y]='.'
+              target+=[(x,y)]
+ 
+print(t)
+
+###############################################
+
 [stpete WA ans3]
 
 h,w=map(int,input().split())
