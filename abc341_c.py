@@ -569,8 +569,14 @@ for p in P:
 print(C)
 
 ######################################################################
+
+[my AC]
+[prepare map dict]
+[fuction of list of start * list of direction]
+
 H,W,N=map(int,input().split())
 T=list(input())
+
 S=[]
 P=[]
 for i in range(H):
@@ -580,50 +586,7 @@ for i in range(H):
     if si[j]=='.':
       P+=[(i,j)]
 
-map=dict()
-map['U']=(-1,0)
-map['D']=(1,0)
-map['R']=(0,1)
-map['L']=(0,-1)
-
-def move(P,T):
-  s=0
-  for p in P:
-    flag=1
-    for t in T:
-      p=(p[0]+map[t][0],p[1]+map[t][1])
-      if S[p[0]][p[1]]=='#':
-        flag=0
-        break
-    if flag==1:
-      s+=1
-  return s
-
-ans=move(P,T)
-print(ans)
-
-######################################################################
-
-#python
-#TLE2
-#list of start * list of direction
-
-H,W,N=map(int,input().split())
-T=list(input())
-S=[]
-P=[]
-for i in range(H):
-  si=list(input())
-  S+=[si]
-  for j in range(W):
-    if si[j]=='.':
-      P+=[(i,j)]
-
-map=dict()
-map['U']=(-1,0)
-map['D']=(1,0)
-map['R']=(0,1)
-map['L']=(0,-1)
+map={'U':(-1,0),'D':(1,0),'R':(0,1),'L':(0,-1)}
 
 def move(P,T):
   s=0
