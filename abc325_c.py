@@ -320,3 +320,37 @@ for i in range(h):
 print(t)
 
 ###############################################
+[MY AC]
+[ Not Conduct S[x][y]='.' ]
+[ Not Conduct first USE[i][j]=1 ]
+
+import sys
+input = sys.stdin.readline
+
+h,w=map(int,input().split())
+
+S=[]
+USE=[]
+for i in range(h):
+  s=list(input())
+  S+=[s]
+  USE+=[[0]*w]
+
+t=0  
+for i in range(h):
+  for j in range(w):
+    if S[i][j]=='#' and USE[i][j]==0:
+      t+=1
+      target=[(i,j)]
+      while target:
+        (i,j)=target.pop()
+        for p in range(-1,2):
+          for q in range(-1,2):
+            (x,y)=(i+p,j+q)
+            if 0<=x<h and 0<=y<w and S[x][y]=='#' and USE[x][y]==0:
+                target.append((x,y))
+                USE[x][y]=1
+
+print(t)
+
+###############################################
