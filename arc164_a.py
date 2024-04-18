@@ -54,3 +54,23 @@ for i in range(T):
       print('No')
 
 #######################################
+[MY SageMath TLE]
+
+T = Integer(input())
+for i in range(T):
+    n, k = map(Integer, input().split())
+    m = ceil(log(n).n() / log(3).n())
+    t = Integer(0)
+    for j in range(m, -1, -1):
+        t += n // (3**j)
+        n = n % (3**j)
+    if k < t:
+        print('No')
+    elif k == t:
+        print('Yes')
+    elif k > t:
+        if (k - t) % 2 == 0:
+            print('Yes')
+        else:
+            print('No')
+#######################################
