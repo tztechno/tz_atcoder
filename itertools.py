@@ -1,4 +1,13 @@
+#######################################################
 
+from itertools import permutations
+n,a,b,c,d=map(int,input().split())
+counts = {'A': a, 'B': b, 'C': c, 'D': d}
+chars = []
+for char, count in counts.items():
+    chars.extend([char] * count)
+#print(chars)
+perms = permutations(chars)
 
 #######################################################
 
