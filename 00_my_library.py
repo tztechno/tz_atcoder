@@ -1,7 +1,7 @@
 
 import sys
 input = sys.stdin.readline
-#S=input().strip()#改行除く
+S=input().strip()#改行除く
 #S=input()[0:-1]#改行除く
 
 sys.setrecursionlimit(10**8)
