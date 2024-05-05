@@ -78,6 +78,36 @@ for s in S:
         p = T_map[s] + 1  # 次の検索の開始位置を更新する
 print(*A)
 ###########################################
+[my AC]
+S=list(input())
+T=list(input())
+i=0
+ANS=[]
+for s in S:
+  t=T[i]
+  i+=1
+  while s!=t:
+    t=T[i]
+    i+=1
+  if s==t:
+    ANS+=[i]
+print(*ANS)
+###########################################
+[my TLE][do not use pop]
+S=list(input())
+T=list(input())
+i=0
+ANS=[]
+for s in S:
+  t=T.pop(0)
+  i+=1
+  while s!=t:
+    t=T.pop(0)
+    i+=1
+  if s==t:
+    ANS+=[i]
+print(*ANS)
+###########################################
 [my AC][順番の逆転を回避する仕組みを加える]
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(deque)
