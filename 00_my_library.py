@@ -20,8 +20,16 @@ from atcoder.segtree import SegTree
 from atcoder.fenwicktree import FenwickTree
 from atcoder.dsu import DSU
 
-
-
+------------------------------------------------
+for i in range(1 << K):
+    for j in range(K):  # 修正点
+        if (i >> j) & 1 == 0:  # 修正点
+------------------------------------------------
+for i in range(1 << K):
+    bit_string = bin(i)[2:].zfill(K)  # ビット列を K 桁に拡張
+    for j, b in enumerate(bit_string):
+        if b == '0':
+------------------------------------------------
 
 from operator import itemgetter
 from decimal import Decimal
