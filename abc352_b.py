@@ -93,6 +93,21 @@ for s in S:
     ANS+=[i]
 print(*ANS)
 ###########################################
+[my AC][use pop() with reversed list, fast]
+S=list(input())
+T=list(input())[::-1]
+i=0
+ANS=[]
+for s in S:
+  t=T.pop()
+  i+=1
+  while s!=t:
+    t=T.pop()
+    i+=1
+  if s==t:
+    ANS+=[i]
+print(*ANS)
+###########################################
 [my TLE][do not use pop]
 S=list(input())
 T=list(input())
