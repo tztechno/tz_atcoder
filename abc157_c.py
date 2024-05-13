@@ -8,9 +8,6 @@ abc157_c.py
 #################################################
 #################################################
 #################################################
-#################################################
-#################################################
-#################################################
 n, m = map(int, input().split())
 
 s = [0] * m
@@ -63,4 +60,78 @@ for i in range(1000):
 
 print(-1)
             
+#################################################
+n,m=map(int,input().split())
+condition=[]
+
+for _ in range(m):
+    s,c=map(int,input().split())
+    condition.append((s-1,str(c)))
+l,r=10**(n-1),10**n
+if n==1:
+    l=0
+for num in range(l,r):
+    is_valid=1
+    num=str(num)
+    for s,c in condition:
+        if num[s]!=c:
+            is_valid=0
+    if is_valid:
+        print(num)
+        exit()
+print(-1)
+#################################################
+a,b=map(int,input().split())
+x=[]
+y=0
+for i in range(b):
+    x.append(list(map(int,input().split())))
+#print(x)
+for i in range(10**5):
+    if len(str(i))==a:
+        y=0
+        for j in range(b):
+            if str(i)[x[j][0]-1]!=str(x[j][1]):
+                y=1
+                break
+        if y==0:
+            print(i)
+            exit()
+print(-1)
+#################################################
+N, M = map(int, input().split())
+l = []
+for _ in range(M):
+  l.append(list(map(int, input().split())))
+
+for i in range(10**(N-1) - (4-N)//3, 10**N):
+  li = [int(x) for x in list(str(i))]
+  point = 0
+  for j in range(M):
+    if li[l[j][0]-1] == l[j][1]:
+      point += 1
+  if point == M:
+    print(i)
+    exit()
+
+print(-1)
+#################################################
+[WA5,MY BEST]
+N,M=map(int,input().split())
+A=[]
+for i in range(N):
+  A+=['0']
+cnt={}
+for i in range(M):
+    s,c=map(int,input().split())
+    if cnt.get(s-1,'x')=='x':
+      cnt[s-1]=c
+      A[s-1]=str(c)
+    elif cnt.get(s-1,'x')!='x' and cnt.get(s-1,'x')!=c:
+      print(-1)
+      exit()
+if N>1 and A[0]=='0':
+  print(-1)
+else:
+  print(''.join(A))
 #################################################
