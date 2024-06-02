@@ -103,6 +103,37 @@ if M==[] or P==[] or max(M)<min(P):
 print("No")
 
 ##############################################
+[double sorted pattern only AC]
+N,K=map(int,input().split())
+A=sorted(list(map(int,input().split())))
+B=[A,A[::-1]]
+
+def rightmost(lst, x):
+    for i in range(len(lst) - 1, -1, -1):
+        if lst[i] < x:
+            return i
+    return -1  
+    
+def leftmost(lst, x):
+    for i in range(len(lst)):
+        if lst[i] >= x:
+            return i
+    return -1  
+
+for b in B:
+  x=[0]
+  for i in range(N):
+    x+=[x[-1]+b[i]]
+  if rightmost(x, K)!=-1 and leftmost(x, K)!=-1 and rightmost(x, K)<leftmost(x, K):  
+    print('Yes')
+    print(*b)
+    exit()
+  elif rightmost(x, K)==-1 or leftmost(x, K)==-1:  
+    print('Yes')
+    print(*b)
+    exit()
+else:
+  print('No')
 ##############################################
 [sorted pattern only WA11]
 N,K=map(int,input().split())
