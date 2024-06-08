@@ -20,7 +20,7 @@ for subset in enumerate_subsets(my_set):
 
 
 #############################################################
-#abc180_c [WA]
+#abc180_c [TLE]
 
 n=int(input())
 
@@ -49,9 +49,14 @@ def all_subsets(s_list):
 
 subsets = all_subsets(F)
 #print(set(subsets))
-
+ANS=[]
 for s in set(subsets):
   ans=1
   for si in s:
     ans*=si
-  print(ans)
+  ANS+=[ans]
+ANS.sort()
+for a in ANS:
+  print(a)
+
+
