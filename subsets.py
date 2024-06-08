@@ -17,3 +17,41 @@ my_set = {1, 2, 3}
 # 部分集合を列挙
 for subset in enumerate_subsets(my_set):
     print(subset)
+
+
+#############################################################
+#abc180_c
+
+n=int(input())
+
+def prime_factorization(n):
+    factors = []
+    while n % 2 == 0:
+        factors.append(2)
+        n = n // 2
+    for i in range(3, int(n**0.5) + 1, 2):
+        while n % i == 0:
+            factors.append(i)
+            n = n // i
+    if n > 2:
+        factors.append(n)
+    return factors
+    
+F=prime_factorization(n)
+#print(F)
+
+#集合の部分集合を網羅的に作る
+from itertools import chain, combinations
+
+def all_subsets(s_list):
+    "集合 s のすべての部分集合を生成する"
+    return list(chain.from_iterable(combinations(s_list, r) for r in range(len(s_list) + 1)))
+
+subsets = all_subsets(F)
+#print(set(subsets))
+
+for s in set(subsets):
+  ans=1
+  for si in s:
+    ans*=si
+  print(ans)
