@@ -1,3 +1,5 @@
+# 部分集合を列挙する
+
 from itertools import chain, combinations
 
 def enumerate_subsets(s):
