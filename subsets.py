@@ -20,7 +20,7 @@ for subset in enumerate_subsets(my_set):
 
 
 #############################################################
-#abc180_c
+#abc180_c [WA]
 
 n=int(input())
 
