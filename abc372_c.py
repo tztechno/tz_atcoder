@@ -12,6 +12,7 @@ i番目のクエリは以下の通りです。
 例えば、abはabcの部分文字列ですが、acはabcの部分文字列ではありません。
 
 #######################################
+[ok]
 
 N, Q = map(int, input().split())
 S = list(input())
@@ -80,6 +81,7 @@ for tests in range(Q):
     print(ANS)
 
 #######################################
+[ok]
 
 n, q = map(int, input().split())
 s=list(input())
