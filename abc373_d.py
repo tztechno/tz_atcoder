@@ -3,6 +3,8 @@
 abc373_d.py
 ######################################################
 ######################################################
+[NOT UNDERSTAND]
+
 import sys
 sys.setrecursionlimit(10**9)
 
@@ -32,6 +34,8 @@ for i in range(n):
 
 print(*ans)
 ######################################################
+[NOT UNDERSTAND]
+
 from collections import defaultdict,deque
 
 n,m=map(int,input().split())
@@ -60,6 +64,8 @@ for i in range(1,n+1):
         S.add(nx)
 print(*ans[1:])
 ######################################################
+[NOT UNDERSTAND]
+
 import sys
 input = sys.stdin.readline
 
