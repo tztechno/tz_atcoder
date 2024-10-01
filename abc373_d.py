@@ -39,6 +39,7 @@ for i in range(N):
 print(*ans)
 
 ######################################################
+[unique approach, not understand]
 
 from heapq import heapify, heappop, heappush
 
