@@ -1,6 +1,11 @@
 abc373_e.py
 ######################################################
 ######################################################
+######################################################
+######################################################
+######################################################
+######################################################
+
 n,X,K=map(int,input().split())
 a=list(map(int,input().split()))
 A=sum(a)
@@ -34,7 +39,9 @@ for i in range(n):
       ng=m
   ans[p]=ok if ok<=K-A else -1
 print(*ans)
+
 ######################################################
+
 from bisect import bisect_left
 n,m,k = map(int,input().split())
 a = list(map(int,input().split()))
@@ -58,7 +65,10 @@ for v in a:
             else: wa = wj
     c.append(ac if ac<=d else -1)
 print(*c)
+
 ######################################################
+[not understand]
+
 import sys
 input = sys.stdin.readline
 from bisect import bisect
