@@ -5,6 +5,43 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
+######################################################
+######################################################
+######################################################
+[my WA ans]
+
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(deque)
+N,M=map(int,input().split())
+U=[]
+V=[]
+for i in range(M):
+  u,v,w=map(int,input().split())
+  u-=1
+  v-=1
+  cnt[u].append((v,w))
+  cnt[v].append((u,-w))
+  U+=[u]
+  V+=[v]
+#print(cnt)
+DONE=[False]*N
+ANS=[0]*N
+for u in U:
+  nexts=cnt[u]
+  for nt in nexts:
+    if DONE[nt[0]]==False:
+      ANS[nt[0]]=ANS[u]+nt[1]
+      DONE[nt[0]]=True
+for v in V:
+  nexts=cnt[v]
+  for nt in nexts:
+    if DONE[nt[0]]==False:
+      ANS[nt[0]]=ANS[u]+nt[1]
+      DONE[nt[0]]=True        
+#print(DONE)
+print(*ANS)
+
+######################################################
 [my WA ans]
 
 from collections import defaultdict,deque,Counter
