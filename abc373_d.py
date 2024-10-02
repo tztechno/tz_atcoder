@@ -6,9 +6,37 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
+[my chatGPT AC ans]
+
+from collections import defaultdict,deque,Counter
+
+cnt = defaultdict(deque)
+N,M=map(int,input().split())
+for i in range(M):
+  u,v,w=map(int,input().split())
+  u-=1
+  v-=1
+  cnt[u].append((v,w))
+  cnt[v].append((u,-w))
+DONE=[False]*N
+ANS=[0]*N
+
+for i in range(N):
+    if DONE[i]:
+        continue
+    stack = [i]
+    DONE[i] = True
+    while stack:
+        u = stack.pop()
+        for v, w in cnt[u]:
+            if not DONE[v]:
+                ANS[v] = ANS[u] + w
+                DONE[v] = True
+                stack.append(v)
+
+print(*ANS)
 ######################################################
-######################################################
-[my WA ans]
+[my AC6 WA23 ans]
 
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(deque)
@@ -22,6 +50,7 @@ for i in range(M):
 DONE=[False]*N
 ANS=[0]*N
 DONE[0]=True
+
 for i in range(N):
   if cnt[i]:
     nexts=cnt[i]
@@ -29,6 +58,42 @@ for i in range(N):
       if DONE[nt[0]]==False:
         ANS[nt[0]]=ANS[i]+nt[1]
         DONE[nt[0]]=True
+        
+for i in range(N):
+  if DONE[i]==False:
+    nexts=cnt[i]
+    for nt in nexts:
+      if DONE[nt[0]]==False:
+        ANS[nt[0]]=ANS[i]+nt[1]
+        DONE[nt[0]]=True
+        
+print(*ANS)
+
+######################################################
+[my AC6 WA23 ans]
+
+from collections import defaultdict,deque,Counter
+
+cnt = defaultdict(deque)
+N,M=map(int,input().split())
+for i in range(M):
+  u,v,w=map(int,input().split())
+  u-=1
+  v-=1
+  cnt[u].append((v,w))
+  cnt[v].append((u,-w))
+DONE=[False]*N
+ANS=[0]*N
+DONE[0]=True
+
+for i in range(N):
+  if cnt[i]:
+    nexts=cnt[i]
+    for nt in nexts:
+      if DONE[nt[0]]==False:
+        ANS[nt[0]]=ANS[i]+nt[1]
+        DONE[nt[0]]=True
+        
 print(*ANS)
 
 ######################################################
