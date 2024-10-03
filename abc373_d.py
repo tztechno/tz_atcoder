@@ -5,7 +5,6 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
-
 [my chatGPT AC ans]
 
 from collections import defaultdict,deque,Counter
@@ -35,7 +34,6 @@ for i in range(N):
 print(*ANS)
 
 ######################################################
-
 [my AC6 WA23 ans]
 
 from collections import defaultdict,deque,Counter
