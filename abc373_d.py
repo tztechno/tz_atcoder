@@ -35,7 +35,7 @@ for j in range(N):
 print(*ANS)
 
 ######################################################
-[my AC6 WA23 ans]
+[my WA ans]
 
 from collections import defaultdict,deque,Counter
 
