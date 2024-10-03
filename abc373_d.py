@@ -4,37 +4,7 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
-######################################################
-[my chatGPT AC ans]
-
-from collections import defaultdict,deque,Counter
-cnt=defaultdict(deque)
-N,M=map(int,input().split())
-for i in range(M):
-  u,v,w=map(int,input().split())
-  u-=1
-  v-=1
-  cnt[u].append((v,w))
-  cnt[v].append((u,-w))
-DONE=[False]*N
-ANS=[0]*N
-for i in range(N):
-    if DONE[i]:
-        continue
-    stack = [i]
-    DONE[i] = True
-    while stack:
-        u = stack.pop()
-        for v, w in cnt[u]:
-            if not DONE[v]:
-                ANS[v] = ANS[u] + w
-                DONE[v] = True
-                stack.append(v)
-
-print(*ANS)
-
-######################################################
-[my AC6 WA23 ans]
+[my AC ans]
 
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(deque)
@@ -45,26 +15,23 @@ for i in range(M):
   v-=1
   cnt[u].append((v,w))
   cnt[v].append((u,-w))
-DONE=[False]*N
+  
+VISITED=[False]*N
 ANS=[0]*N
-DONE[0]=True
 
-for i in range(N):
-  if cnt[i]:
-    nexts=cnt[i]
-    for nt in nexts:
-      if DONE[nt[0]]==False:
-        ANS[nt[0]]=ANS[i]+nt[1]
-        DONE[nt[0]]=True
-        
-for i in range(N):
-  if DONE[i]==False:
-    nexts=cnt[i]
-    for nt in nexts:
-      if DONE[nt[0]]==False:
-        ANS[nt[0]]=ANS[i]+nt[1]
-        DONE[nt[0]]=True
-        
+for j in range(N):
+  if VISITED[j]:
+    continue
+  VISITED[j]=True
+  stack=[j]
+  while stack:
+    u=stack.pop()
+    for v,w in cnt[u]:
+      if VISITED[v]==False:
+        ANS[v]=ANS[u]+w
+        VISITED[v]=True
+        stack+=[v]
+      
 print(*ANS)
 
 ######################################################
