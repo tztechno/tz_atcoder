@@ -3,6 +3,38 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
+[my AC ans]
+
+from collections import defaultdict,deque,Counter
+N,M=map(int,input().split())
+cnt = []
+for i in range(N):
+  cnt+=[[]]
+for i in range(M):
+  u,v,w=map(int,input().split())
+  u-=1
+  v-=1
+  cnt[u].append((v,w))
+  cnt[v].append((u,-w))
+  
+VISITED=[False]*N
+ANS=[0]*N
+
+for j in range(N):
+  if VISITED[j]:
+    continue
+  VISITED[j]=True
+  stack=[j]
+  while stack:
+    u=stack.pop()
+    for v,w in cnt[u]:
+      if VISITED[v]==False:
+        ANS[v]=ANS[u]+w
+        VISITED[v]=True
+        stack+=[v]
+      
+print(*ANS)
+
 ######################################################
 [my AC ans]
 
