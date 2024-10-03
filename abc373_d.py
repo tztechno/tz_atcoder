@@ -5,12 +5,11 @@ abc373_d.py
 ######################################################
 ######################################################
 ######################################################
-######################################################
+
 [my chatGPT AC ans]
 
 from collections import defaultdict,deque,Counter
-
-cnt = defaultdict(deque)
+cnt=defaultdict(deque)
 N,M=map(int,input().split())
 for i in range(M):
   u,v,w=map(int,input().split())
@@ -20,7 +19,6 @@ for i in range(M):
   cnt[v].append((u,-w))
 DONE=[False]*N
 ANS=[0]*N
-
 for i in range(N):
     if DONE[i]:
         continue
@@ -35,7 +33,9 @@ for i in range(N):
                 stack.append(v)
 
 print(*ANS)
+
 ######################################################
+
 [my AC6 WA23 ans]
 
 from collections import defaultdict,deque,Counter
