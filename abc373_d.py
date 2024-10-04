@@ -9,7 +9,7 @@ DFS : set VISITED and STACK
 ######################################################
 ######################################################
 ######################################################
-[my TLE ans]
+[my AC]
 
 N,M=map(int,input().split())
 from collections import defaultdict,deque
@@ -23,7 +23,7 @@ for i in range(M):
 
 VISIT=[False]*N
 ANS=[0]*N
-STACK=[]
+STACK=[] #############
 
 for i in range(N):
   if VISIT[i]:
@@ -34,15 +34,16 @@ for i in range(N):
   while STACK:
     u=STACK.pop()
     for v,w in cnt[u]:
-      ANS[v]=ANS[u]+w
-      VISIT[v]=True
-      STACK+=[v]
+      if VISIT[v]==False: #########
+        ANS[v]=ANS[u]+w
+        VISIT[v]=True
+        STACK+=[v]
       
 print(*ANS)
 
 ######################################################
 
-[my AC ans]
+[my AC]
 
 from collections import defaultdict,deque,Counter
 N,M=map(int,input().split())
@@ -75,7 +76,7 @@ for j in range(N):
 print(*ANS)
 
 ######################################################
-[my AC ans]
+[my AC]
 
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(deque)
@@ -103,33 +104,6 @@ for j in range(N):
         VISITED[v]=True
         stack+=[v]
       
-print(*ANS)
-
-######################################################
-[my WA ans]
-
-from collections import defaultdict,deque,Counter
-
-cnt = defaultdict(deque)
-N,M=map(int,input().split())
-for i in range(M):
-  u,v,w=map(int,input().split())
-  u-=1
-  v-=1
-  cnt[u].append((v,w))
-  cnt[v].append((u,-w))
-DONE=[False]*N
-ANS=[0]*N
-DONE[0]=True
-
-for i in range(N):
-  if cnt[i]:
-    nexts=cnt[i]
-    for nt in nexts:
-      if DONE[nt[0]]==False:
-        ANS[nt[0]]=ANS[i]+nt[1]
-        DONE[nt[0]]=True
-        
 print(*ANS)
 
 ######################################################
