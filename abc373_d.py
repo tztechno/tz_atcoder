@@ -4,6 +4,44 @@ abc373_d.py
 ######################################################
 DFS : set VISITED and STACK
 ######################################################
+######################################################
+######################################################
+######################################################
+######################################################
+######################################################
+[my TLE ans]
+
+N,M=map(int,input().split())
+from collections import defaultdict,deque
+cnt = defaultdict(deque)
+for i in range(M):
+  u,v,w=map(int,input().split())
+  u-=1
+  v-=1
+  cnt[u].append((v,w))
+  cnt[v].append((u,-w))
+
+VISIT=[False]*N
+ANS=[0]*N
+STACK=[]
+
+for i in range(N):
+  if VISIT[i]:
+    continue
+  VISIT[i]=True
+  STACK+=[i]
+  
+  while STACK:
+    u=STACK.pop()
+    for v,w in cnt[u]:
+      ANS[v]=ANS[u]+w
+      VISIT[v]=True
+      STACK+=[v]
+      
+print(*ANS)
+
+######################################################
+
 [my AC ans]
 
 from collections import defaultdict,deque,Counter
