@@ -10,6 +10,33 @@ abc373_e.py
 ######################################################
 ######################################################
 ######################################################
+[not understand]
+
+N, M, K = map(int, input().split())
+A = [*map(int, input().split())]
+
+if N == M:
+    exit(print(*[0]*N))
+
+A, I = zip(*sorted([(A[i], i) for i in range(N)], reverse=True))  # 降順
+acc = [s := 0] + [s := s+a for a in A]  # 累積和
+remain = K - acc[N]
+
+ans = [0]*N
+y = -1
+r = M
+l = r-1
+for i in range(N-1, -1, -1):
+    if M <= i:
+        def f(i, l): return A[l]*(r+1-l) - (acc[r]-acc[l]) - A[i] - 1
+
+        while l and f(i, l-1) < remain:  # 残票と同じか越えたら抜ける
+            l -= 1  # 前に移動
+
+        y = (remain - f(i, l)) // (r+1-l) + A[l]
+    ans[I[i]] = -1 if remain < (x := max(0, y - A[i])) else x
+print(*ans)
+
 ######################################################
 [not understand]
 
