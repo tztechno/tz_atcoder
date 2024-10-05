@@ -47,6 +47,48 @@ print(ANS)
 
 ########################################################################################
 [my WA]
+
+import math
+from itertools import permutations
+def euclidean_distance(point1, point2):
+    return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
+
+n,S,T=map(int,input().split())
+N=list(range(n))
+P=[]
+TIME=0
+for i in range(n):
+  a,b,c,d=map(int,input().split())
+  P+=[[(a,b),(c,d)]]
+  TIME+=euclidean_distance((a,b),(c,d))/T #on razor
+#print(TIME)  
+
+L=list(permutations(N))
+V=[]
+for i in range(2**n):
+  b=bin(i)[2:].zfill(n)
+  V+=[b]
+  
+TIME3=10**9
+for li in L:#線分の順番
+  for vi in V:#向のパターン
+    R=[[(0,0)]]
+    TIME2=TIME
+    for i,vii in enumerate(list(vi)):
+      #print(P[i])
+      if vii=='0':
+        TIME2+=euclidean_distance(R[-1][-1],P[i][0])/S
+        R+=[P[i]]
+      else:
+        TIME2+=euclidean_distance(R[-1][-1],P[i][1])/S
+        R+=[P[i][::-1]]
+    #print(TIME2)
+    TIME3=min(TIME3,TIME2)
+print(TIME3)  
+
+########################################################################################
+[my WA]
+
 N,S,T=map(int,input().split())
 
 P=[]
