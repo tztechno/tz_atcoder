@@ -38,7 +38,7 @@ for i in range(N-1, -1, -1):
 print(*ans)
 
 ######################################################
-[not understand]
+[not understand,二分探索とbisectモジュール]
 
 n,X,K=map(int,input().split())
 a=list(map(int,input().split()))
