@@ -3,8 +3,19 @@ abc374_d.py
 ########################################################################################
 ########################################################################################
 ########################################################################################
+
+for li in L:
+  for bit in range(1<<n):
+    #各liにおける全てのケース
+    for i in range(n):
+      #番目を順にチェック
+      if bit & (1<<i):
+        #1の場合、normal
+      else:
+        #0の場合、reverse
+
 ########################################################################################
-[my WA]
+[my AC]
 
 from itertools import permutations
 import math
@@ -21,22 +32,23 @@ TIME=10**9
 N=list(range(n))
 L=list(permutations(N))
 for li in L:
-  time=0
-  P1=(0,0)
-  for bit in range(n):
-    D=P[li[bit]]
-    if bit & (1<<i):
-      time+=dist(P1,D[0])/S
-      time+=dist(D[0],D[1])/T
-      P1=D[1]
-    else:
-      time+=dist(P1,D[1])/S
-      time+=dist(D[1],D[0])/T
-      P1=D[0]
-  TIME=min(TIME,time)
-  
+  for bit in range(1<<n):
+    #bitが各liに対する全ての場合を示す
+    time=0
+    P1=(0,0)
+    for i in range(n):
+      D=P[li[i]]
+      if bit & (1<<i):
+        time+=dist(P1,D[0])/S
+        time+=dist(D[0],D[1])/T
+        P1=D[1]
+      else:
+        time+=dist(P1,D[1])/S
+        time+=dist(D[1],D[0])/T
+        P1=D[0]
+    TIME=min(TIME,time)
+    
 print(TIME)
-
 
 ########################################################################################
 [almost undestand][手本]
