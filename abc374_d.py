@@ -57,6 +57,11 @@ if __name__ == "__main__":
     print(res)
 
 ########################################################################################
+[almost undestand]
+---------------------------------------------------------
+if bit & (1<<i): の条件は、2進数で表したときに bit の i 番目のビットが 1であるかどうか をチェックしています。
+bit & (1<<i) は、bit の2進数表現の i番目 のビットが 1 である場合に真 (True) となり、0 であれば偽 (False) となります。
+---------------------------------------------------------
 
 from itertools import permutations
 import math
@@ -73,14 +78,14 @@ def dis(x0,y0,x1,y1):
     return res
 
 ans=inf
-for p in list(permutations(range(N))):
+for p in list(permutations(range(N))):   ######
 #    print(p)
     for bit in range(1<<N):
         x,y=0,0
         s=0
         for i in range(N):
             a,b,c,d=L[p[i]]
-            if bit & (1<<i):
+            if bit & (1<<i):   ######
                 s+=dis(x,y,c,d)/S
                 s+=dis(a,b,c,d)/T
                 x,y=a,b
@@ -90,6 +95,7 @@ for p in list(permutations(range(N))):
                 x,y=c,d
         ans=min(ans,s)
 print(ans)
+
 ########################################################################################
 [not understand]
 
