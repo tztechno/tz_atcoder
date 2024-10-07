@@ -4,57 +4,39 @@ abc374_d.py
 ########################################################################################
 ########################################################################################
 ########################################################################################
+[my WA]
 
-import sys
+from itertools import permutations
+import math
+n,S,T=map(int,input().split())
+P=[]
+for i in range(n):
+  a,b,c,d=map(int,input().split())
+  P+=[[(a,b),(c,d)]]
 
-sys.setrecursionlimit(int(1e6))
-input = lambda: sys.stdin.readline().rstrip("\r\n")
+def dist(point1, point2):
+    return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
+TIME=10**9
+N=list(range(n))
+L=list(permutations(N))
+for li in L:
+  time=0
+  P1=(0,0)
+  for bit in range(n):
+    D=P[li[bit]]
+    if bit & (1<<i):
+      time+=dist(P1,D[0])/S
+      time+=dist(D[0],D[1])/T
+      P1=D[1]
+    else:
+      time+=dist(P1,D[1])/S
+      time+=dist(D[1],D[0])/T
+      P1=D[0]
+  TIME=min(TIME,time)
+  
+print(TIME)
 
-from functools import lru_cache
-from math import sqrt
-
-
-INF = int(4e18)
-
-
-def min2(a, b):
-    return a if a < b else b
-
-
-if __name__ == "__main__":
-    N, S, T = map(int, input().split())
-    A, B, C, D = [], [], [], []
-    for _ in range(N):
-        a, b, c, d = map(int, input().split())
-        A.append(a)
-        B.append(b)
-        C.append(c)
-        D.append(d)
-
-    def calc(x1, y1, x2, y2):
-        return sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-
-    T1 = [calc(A[i], B[i], C[i], D[i]) / T for i in range(N)]
-
-    MASK = (1 << N) - 1
-
-    @lru_cache(None)
-    def dfs(visited: int, x: int, y: int) -> float:
-        if visited == MASK:
-            return 0
-        res = INF
-        for next_ in range(N):
-            if (visited >> next_) & 1:
-                continue
-            a, b, c, d = A[next_], B[next_], C[next_], D[next_]
-            res = min2(res, calc(x, y, a, b) / S + T1[next_] + dfs(visited | (1 << next_), c, d))
-            res = min2(res, calc(x, y, c, d) / S + T1[next_] + dfs(visited | (1 << next_), a, b))
-        return res
-
-    res = dfs(0, 0, 0)
-    dfs.cache_clear()
-    print(res)
 
 ########################################################################################
 [almost undestand][手本]
@@ -178,44 +160,4 @@ for li in L:#線分の順番
     TIME3=min(TIME3,TIME2)
 print(TIME3)  
 
-########################################################################################
-[my WA]
-
-N,S,T=map(int,input().split())
-
-P=[]
-mapping={}
-for i in range(N):
-  a,b,c,d=map(int,input().split())
-  P+=[(a,b),(c,d)]
-  mapping[(a,b)]=(c,d)
-  mapping[(c,d)]=(a,b)
-
-import math
-
-def euclidean_distance(point1, point2):
-    return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
-
-def find_nearest_point(target_point, points_list):
-    nearest_point = None
-    min_distance = float('inf')
-    for point in points_list:
-        distance = euclidean_distance(target_point, point)
-        if distance < min_distance:
-            min_distance = distance
-            nearest_point = point
-    return nearest_point, min_distance
-
-NOTVISITED=P
-START=(0,0)
-TIME=0
-while NOTVISITED:
-  nearest,dist=find_nearest_point(START,NOTVISITED)
-  NOTVISITED.remove(nearest)
-  NOTVISITED.remove(mapping[nearest])
-  TIME+=dist/S
-  TIME+=euclidean_distance(nearest,mapping[nearest])/T
-  START=mapping[nearest]
-
-print(TIME) 
 ########################################################################################
