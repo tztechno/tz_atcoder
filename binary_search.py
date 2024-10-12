@@ -1,5 +1,20 @@
 #####################################################
 
+OK=0
+NG=10**10
+
+while NG > OK + 1:
+    mid = (OK + NG) // 2
+    
+    [midを使ってscoreを求める式]
+    
+    if score <= M:
+        OK = mid
+    else:
+        NG = mid
+
+#####################################################
+
 def binary_search(arr, target):
     left = 0
     right = len(arr) - 1
