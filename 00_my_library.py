@@ -12,7 +12,6 @@ from bisect import bisect_left,bisect_right,bisect
 from heapq import heappush,heappop,heapify,heappushpop,heapreplace,merge,nlargest,nsmallest
 import networkx as nx
 
-
 from functools import lru_cache
 @lru_cache(maxsize=None)
 
@@ -30,6 +29,15 @@ for i in range(1 << K):
     for j, b in enumerate(bit_string):
         if b == '0':
 ------------------------------------------------
+OK=0
+NG=10**10
+while NG > OK + 1:
+    mid = (OK + NG) // 2
+    if score <= M:
+        OK = mid
+    else:
+        NG = mid
+------------------------------------------------
 
 from operator import itemgetter
 from decimal import Decimal
@@ -38,12 +46,10 @@ from collections import defaultdict,deque,Counter
 cnt = defaultdict(int)
 cnt = defaultdict(deque)
 
-
 INF = float("INF")
 FourNb=[(-1,0),(1,0),(0,1),(0,-1)]
 cursol=dict(zip('UDRL',FourNb))
 alp=[chr(ord('a')+i) for i in range(26)]
-
 
 input_data = '''
 6
@@ -53,10 +59,8 @@ lines = input_data.strip().splitlines()
 N = int(lines[0])
 A = list(map(int, lines[1].split()))
 
-
 N = int(input())
 A = list(map(int,input().split()))
-
 
 from collections import deque
 
