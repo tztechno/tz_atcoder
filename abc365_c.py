@@ -26,7 +26,54 @@
 
 
 #############################################
+[my WA]
 
+from bisect import bisect_left,bisect_right,bisect
+from collections import defaultdict,deque,Counter
+
+N,M=map(int,input().split())
+A=list(map(int,input().split()))
+
+A.sort()
+B=[0]
+for a in A:
+  B+=[B[-1]+a]
+
+amin=min(A)
+amax=max(A)
+s=amin
+bl=bisect_left(A,s)
+T=B[bl]+s*(N-bl)
+S=[s]
+P=set()
+
+while T!=M:
+  #print(T,M,s)
+  if (T,s) not in P:
+    P.add((T,s))
+  else:
+    break
+  
+  if T<M:
+    s2=(s+amax)//2
+    bl2=bisect_left(A,s2)
+    T=B[bl2]+s2*(N-bl2)
+    s=s2
+    if T<M:
+      S+=[s2]
+
+  elif T>M:
+    s2=(s+amin)//2
+    bl2=bisect_left(A,s2)
+    T=B[bl2]+s2*(N-bl2)
+    s=s2
+    if T<M:
+      S+=[s2]
+      
+if sum(A)<=M:
+  print('infinite')
+else:
+  print(max(S))
 
 #############################################
 [my TLE]
