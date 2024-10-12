@@ -31,7 +31,28 @@ while NG > OK + 1:
 
 
 #############################################
+[my AC]
 
+N,M=map(int,input().split())
+A=list(map(int,input().split()))
+
+if sum(A)<=M:
+  print('infinite')
+  exit()
+
+OK=0
+NG=10**10
+while NG > OK + 1:
+    mid = (OK + NG) // 2
+    score=0
+    for a in A:
+      score+=min(mid,a)
+    if score <= M:
+        OK = mid
+    else:
+        NG = mid
+        
+print(OK)
 
 #############################################
 [understood]
