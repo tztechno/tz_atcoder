@@ -8,7 +8,6 @@
 
 from collections import defaultdict
 
-
 def do():
     all_count = 0
     S = input()
@@ -34,6 +33,7 @@ if __name__ == '__main__':
     do()
 
 #################################################################
+[not understand]
 
 import string
 from collections import defaultdict
@@ -53,6 +53,7 @@ for i in range(1, len(S) - 1):
     for j in list(string.ascii_uppercase):
         ans += lcnt[j] * rcnt[j]
 print(ans)
+
 #################################################################
 
 S = list(input())
