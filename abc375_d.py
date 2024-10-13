@@ -77,6 +77,7 @@ for s in S:
 print(ans)
     
 #################################################################
+[not understand]
 
 import sys
 input = sys.stdin.readline
