@@ -18,7 +18,7 @@ for i in range(n):
 print(t)
 
 #################################################################
-
+[not understand]
 
 from collections import defaultdict
 
@@ -69,6 +69,7 @@ for i in range(1, len(S) - 1):
 print(ans)
 
 #################################################################
+[not understand]
 
 S = list(input())
 
