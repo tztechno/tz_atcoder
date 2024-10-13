@@ -18,7 +18,7 @@ for i in range(n):
 print(t)
 
 #################################################################
-[not understand]
+[almost understand]
 
 from collections import defaultdict
 
