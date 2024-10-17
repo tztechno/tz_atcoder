@@ -107,37 +107,34 @@ for ans in ANS:
     print("".join(ans))
 
 ##########################################################
-[np.arrayを使わない条件で書き換え、cGPT]
-[my WA 話にならん]
+[my WA]
+[use list, use rotate matrix]
 
 import sys
-input = sys.stdin.readline
 
-# 入力を受け取る
-N = int(input().strip())
-A = []
-for i in range(N):
-    A.append(list(input().strip()))
+def rotate_matrix(matrix):
+    return [list(reversed(row)) for row in zip(*matrix)]
 
-def rotate_submatrix_clockwise(A, start, end):
-    size = end - start
-    for i in range(size):
-        # 90度時計回りに回転させる
-        top = A[start][start + i]
-        A[start][start + i] = A[end - 1 - i][start]
-        A[end - 1 - i][start] = A[end - 1][end - 1 - i]
-        A[end - 1][end - 1 - i] = A[start + i][end - 1]
-        A[start + i][end - 1] = top
+def rotate_layers(matrix, N):
+    for j in range(N // 2):
+        sub_matrix = [row[j:N-j] for row in matrix[j:N-j]]
+        rotated_sub_matrix = rotate_matrix(rotate_matrix(rotate_matrix(sub_matrix)))
+        
+        for i in range(j, N-j):
+            matrix[i][j:N-j] = rotated_sub_matrix[i-j]
+    
+    return matrix
 
-# 各サブマトリックスを回転
-for j in range(N // 2):
-    rotate_submatrix_clockwise(A, j, N - j)
+# 入力の読み込み
+N = int(sys.stdin.readline().strip())
+A = [list(sys.stdin.readline().strip()) for _ in range(N)]
 
-# 結果を出力
-for row in A:
+# 行列の回転
+rotated_A = rotate_layers(A, N)
+
+# 結果の出力
+for row in rotated_A:
     print(''.join(row))
-
-
 ##########################################################
 [my TLE9]
 
