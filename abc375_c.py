@@ -109,35 +109,10 @@ for ans in ANS:
     print("".join(ans))
 
 ##########################################################
-[my WA]
-[use list, use rotate matrix]
 
-import sys
 
-def rotate_matrix(matrix):
-    return [list(reversed(row)) for row in zip(*matrix)]
 
-def rotate_layers(matrix, N):
-    for j in range(N // 2):
-        sub_matrix = [row[j:N-j] for row in matrix[j:N-j]]
-        rotated_sub_matrix = rotate_matrix(rotate_matrix(rotate_matrix(sub_matrix)))
-        
-        for i in range(j, N-j):
-            matrix[i][j:N-j] = rotated_sub_matrix[i-j]
-    
-    return matrix
 
-# 入力の読み込み
-N = int(sys.stdin.readline().strip())
-A = [list(sys.stdin.readline().strip()) for _ in range(N)]
-
-# 行列の回転
-rotated_A = rotate_layers(A, N)
-
-# 結果の出力
-for row in rotated_A:
-    print(''.join(row))
-    
 ##########################################################
 [my TLE9]
 
