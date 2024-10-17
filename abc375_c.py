@@ -109,6 +109,7 @@ for ans in ANS:
     print("".join(ans))
 
 ##########################################################
+[almost understood]
 
 対象の正方形に対して
 spiral_rotate は層ごとに異なる回転を適用する
