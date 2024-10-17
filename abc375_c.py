@@ -110,11 +110,28 @@ for ans in ANS:
 
 ##########################################################
 
+対象の正方形に対して
+spiral_rotate は層ごとに異なる回転を適用する
 
-
+def spiral_rotate(matrix):
+    N = len(matrix)
+    rotated = [[0 for _ in range(N)] for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            X = min(i, j, N-1-i, N-1-j)
+            if X % 4 == 0:
+                rotated[i][j] = matrix[N-1-j][i]
+            elif X % 4 == 1:
+                rotated[i][j] = matrix[N-1-i][N-1-j]
+            elif X % 4 == 2:
+                rotated[i][j] = matrix[j][N-1-i]
+            else:
+                rotated[i][j] = matrix[i][j]
+    return rotated
 
 ##########################################################
-[my TLE9]
+[my TLE]
+[単純回転はそもそも間違い]
 
 import sys
 import numpy as np
