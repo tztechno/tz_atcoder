@@ -2,21 +2,44 @@
 #################################################################
 #################################################################
 #################################################################
-#################################################################
-#################################################################
-[my TLE, O(n^2)]
+[my AC]
 
-import sys
-input = sys.stdin.readline
+from collections import defaultdict,deque,Counter
 S=list(input())
-n=len(S)
-t=0
-for i in range(n):
-  for j in range(i+2,n):
-    if S[i]==S[j]:
-      t+=j-i-1
-print(t)
+M=sorted(set(S))
+Sr=S
+Cr=Counter(Sr)
+Cl=Counter([])
+T=0
+for si in Sr:
+  Cr[si]-=1
+  t=0
+  for m in M:
+    t+=Cr[m]*Cl[m]
+    #print(m,Cr[m],Cl[m])
+  Cl[si]+=1
+  T+=t
+print(T)
+#################################################################
+[my TLE28]
 
+from collections import defaultdict,deque,Counter
+SR=list(input())
+M=sorted(set(SR))
+CR=Counter(SR)
+SL=[]
+CL=Counter(SL)
+T=0
+for si in SR:
+  CR[si]-=1
+  t=0
+  for m in M:
+    t+=CR[m]*CL[m]
+    #print(m,CR[m],CL[m])
+  SL+=[si]
+  CL=Counter(SL)
+  T+=t
+print(T)
 #################################################################
 [almost understand]
 
