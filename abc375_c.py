@@ -63,6 +63,7 @@ def main():
     
 if __name__ == '__main__':
     main()
+    
 ##########################################################
 
 import sys
@@ -79,6 +80,7 @@ for i in range(n):
     s[ni][nj] = a[i][j]
 for t in s:
   print("".join(t))
+    
 ##########################################################
 [titia]
 
@@ -135,6 +137,7 @@ rotated_A = rotate_layers(A, N)
 # 結果の出力
 for row in rotated_A:
     print(''.join(row))
+    
 ##########################################################
 [my TLE9]
 
