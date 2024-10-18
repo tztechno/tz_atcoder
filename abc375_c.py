@@ -84,6 +84,11 @@ for t in s:
 ##########################################################
 [titia]
 
+X % 4 == 0 の場合: 時計回りに90度回転
+X % 4 == 1 の場合: 時計回りに180度回転
+X % 4 == 2 の場合: 時計回りに270度回転
+X % 4 == 3 の場合: 回転なし（元の位置のまま）
+
 import sys
 input = sys.stdin.readline
 
@@ -135,20 +140,29 @@ def spiral_rotate(matrix):
     return rotated
 
 ##########################################################
-[my TLE]
-[単純回転はそもそも間違い]
+[my WA]
 
-import sys
-import numpy as np
-input = sys.stdin.readline
-N = int(input().strip())
-A0 = []
+N=int(input())
+S=[]
 for i in range(N):
-    A0.append(list(input().strip())) 
-A = np.array(A0)
-for j in range(N // 2):
-    A[j:N-j, j:N-j] = np.rot90(A[j:N-j, j:N-j], k=3)
+  S+=[list(input())]
+ANS=[]
 for i in range(N):
-    print(''.join(A[i])) 
+  ANS+=[list('.')*N]
+for i in range(N//2+1):
+  for j in range(N//2+1):
+    X=min(i,j,N-i-1,N-j-1)%4
+    #マス (y,N+1−x) の色をマス (x,y) 
+    if X==0:
+      ANS[i][j]=S[j][N-i-1]
+    elif X==1:
+      ANS[i][j]=S[N-j-1][N-i-1]
+    elif X==2:
+      ANS[i][j]=S[N-j-1][i]
+    elif X==3:
+      ANS[i][j]=S[i][j]
+for i in range(N):
+  print(''.join(ANS[i]))
+  
   
 ##########################################################
