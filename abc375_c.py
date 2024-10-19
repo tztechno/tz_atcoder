@@ -160,7 +160,7 @@ def spiral_rotate(matrix):
 
 ##########################################################
 
-[my WA]
+[my AC]
 
 N=int(input())
 S=[]
@@ -168,19 +168,21 @@ for i in range(N):
   S+=[list(input())]
 ANS=[]
 for i in range(N):
-  ANS+=[list('.')*N]
-for i in range(N//2+1):
-  for j in range(N//2+1):
+  ANS+=[list('.'*N)]
+  
+for i in range(N):
+  for j in range(N):
     X=min(i,j,N-i-1,N-j-1)%4
-    #マス (y,N+1−x) の色をマス (x,y) 
+
     if X==0:
-      ANS[i][j]=S[j][N-i-1]
-    elif X==1:
-      ANS[i][j]=S[N-j-1][N-i-1]
-    elif X==2:
       ANS[i][j]=S[N-j-1][i]
+    elif X==1:
+      ANS[i][j]=S[N-i-1][N-j-1]
+    elif X==2:
+      ANS[i][j]=S[j][N-i-1]
     elif X==3:
       ANS[i][j]=S[i][j]
+      
 for i in range(N):
   print(''.join(ANS[i]))
   
