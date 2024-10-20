@@ -75,7 +75,7 @@ print(ANS)
         
 
 #####################################################
-[my WA]
+[my AC]
 
 N,Q=map(int,input().split())
 L=1
@@ -85,14 +85,36 @@ for i in range(Q):
   h,t=map(str,input().split())
   if h=='R':
     R2=int(t)
-    add=(R2-R)%N
-    #print('R',add,R,R2)
+    add=0
+    if L<R<R2:
+      add=R2-R
+    elif L<R2<R:
+      add=R-R2
+    elif R<L<R2:
+      add=R+(N-R2)
+    elif R<R2<L:
+      add=R2-R      
+    elif R2<L<R:
+      add=R2+(N-R)
+    elif R2<R<L:
+      add=R-R2      
     T+=add
     R=R2
   elif h=='L':
     L2=int(t)
-    add=(L2-L)%N
-    #print('L',add,L,L2)
+    add=0
+    if L<R<L2:
+      add=L+(N-L2)
+    elif L<L2<R:
+      add=L2-L       
+    elif R<L<L2:
+      add=L2-L        
+    elif R<L2<L:
+      add=L-L2        
+    elif L2<L<R:
+      add=L-L2           
+    elif L2<R<L:
+      add=L2+(N-L)
     T+=add
     L=L2
 print(T)
