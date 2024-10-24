@@ -1,7 +1,33 @@
 ###########################################################
 ###########################################################
 ###########################################################
+[my WA]
+
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(deque)
+n,M=map(int,input().split())
+for i in range(M):
+  a,b=map(int,input().split())
+  cnt[a-1].append(b-1) #有向だからこれだけ
+N=list(range(n))
+VISITED=[]
+STACK=[]
+for i in N:
+  if i not in VISITED:
+    VISITED+=[i]
+    STACK+=[i]
+  nx=STACK.pop()
+  for j in cnt[nx]:
+    if j not in VISITED:
+      VISITED+=[j]
+      STACK+=[j]
+if len(VISITED)<3:
+  print(-1)
+else:
+  print(len(VISITED))
+    
 ###########################################################
+[good solution, not undesrstand]
 
 N,M=map(int,input().split())
 G=[set() for _ in range(N)]
@@ -17,13 +43,15 @@ Q.append(0)
 while Q:
     now=Q.popleft()
     for nxt in G[now]:
-        if nxt==0:exit(print(dist[now]+1))
+        if nxt==0:
+            exit(print(dist[now]+1))
         if dist[nxt]==1<<30:
             dist[nxt]=dist[now]+1
             Q.append(nxt)
 print(-1)
 
 ###########################################################
+[giveup]
 
 N=8**6
 g=[[]for _ in range(N)]
@@ -35,7 +63,9 @@ for c in Q:
   if e<2:exit(print(d[c]))
   if d[e]<2:d[e]=d[c]+1;Q+=e,
 print(-1)
+
 ###########################################################
+
 import sys
 input = sys.stdin.readline
 
