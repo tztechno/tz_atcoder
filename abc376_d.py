@@ -5,27 +5,30 @@
 
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(deque)
-n,M=map(int,input().split())
+N,M=map(int,input().split())
 for i in range(M):
   a,b=map(int,input().split())
-  cnt[a-1].append(b-1) #有向だからこれだけ
-N=list(range(n))
+  cnt[a-1].append(b-1)
+#print(cnt)
 VISITED=[]
-STACK=[]
-for i in N:
-  if i not in VISITED:
-    VISITED+=[i]
-    STACK+=[i]
-  nx=STACK.pop()
-  for j in cnt[nx]:
-    if j not in VISITED:
-      VISITED+=[j]
-      STACK+=[j]
-if len(VISITED)<3:
-  print(-1)
-else:
-  print(len(VISITED))
-    
+DIST=0
+for i in range(N):
+  VISITED+=['NOT']
+VISITED[0]=0
+#print(VISITED)
+STACK=[0]
+while STACK:
+  now=STACK.pop(0)
+  nexts=cnt[now]
+  for nx in nexts:
+    if VISITED[nx]==0:
+      print(DIST+1)
+      exit()
+    if VISITED[nx]=='NOT':
+      STACK.append(nx)
+      DIST+=1
+print(-1)
+
 ###########################################################
 [good solution, perfectly undesrstand]
 
