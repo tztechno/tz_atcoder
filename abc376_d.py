@@ -27,7 +27,7 @@ else:
   print(len(VISITED))
     
 ###########################################################
-[good solution, not undesrstand]
+[good solution, perfectly undesrstand]
 
 N,M=map(int,input().split())
 G=[set() for _ in range(N)]
