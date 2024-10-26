@@ -1,34 +1,5 @@
 ###########################################################
 ###########################################################
-[cgpt修正案　WA]
-
-from collections import defaultdict, deque
-
-cnt = defaultdict(deque)
-N, M = map(int, input().split())
-
-for i in range(M):
-    a, b = map(int, input().split())
-    cnt[a - 1].append(b - 1)
-
-VISITED = [False] * N  # 全ノードを未訪問に初期化
-DIST = 0
-VISITED[0] = True  # スタートノードを訪問済みに
-
-queue = deque([(0, DIST)])  # ノードとその距離を格納する
-
-while queue:
-    now, dist = queue.popleft()
-    for nx in cnt[now]:
-        if not VISITED[nx]:
-            if nx == N - 1:
-                print(dist + 1)  # 終点に到達したら距離を出力
-                exit()
-            VISITED[nx] = True
-            queue.append((nx, dist + 1))
-
-print(-1)
-
 ###########################################################
 [my WA]
 
