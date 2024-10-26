@@ -16,6 +16,7 @@ for i in range(N):
   VISITED+=['NOT']
 VISITED[0]=0
 #print(VISITED)
+
 STACK=[0]
 while STACK:
   now=STACK.pop(0)
@@ -25,9 +26,13 @@ while STACK:
       print(DIST+1)
       exit()
     if VISITED[nx]=='NOT':
+      VISITED[nx]=0
       STACK.append(nx)
       DIST+=1
+
 print(-1)
+
+
 
 ###########################################################
 [good solution, perfectly undesrstand]
