@@ -1,5 +1,23 @@
 #####################################################
 #####################################################
+[my AC]
+
+import sys
+input = sys.stdin.readline
+
+N,M=map(int,input().split())
+
+OK=set()
+for i in range(M):
+  a,b=map(int,input().split())
+  i=a-1
+  j=b-1
+  for x,y in [(0,0),(2,1),(1,2),(-1,2),(-2,1),(-2,-1),(-1,-2),(1,-2),(2,-1)]:
+    if 0<=i+x<N and 0<=j+y<N:
+      OK.add((i+x,j+y))
+
+print(N*N-len(OK))
+
 #####################################################
 [my TLE]
 
@@ -25,8 +43,8 @@ for p in OUT2:
     OUT3.add(p)
 print(N*N-len(OUT3))
 
-
 #####################################################
+
 import sys
 input = sys.stdin.readline
 
@@ -43,4 +61,5 @@ for i in range(M):
             SET.add((a+x,b+y))
 
 print(N*N-len(SET))
+
 #####################################################
