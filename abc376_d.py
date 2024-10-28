@@ -27,11 +27,12 @@ while STACK:
       VISITED[ni]=True
       ANS+=1
       STACK+=[ni]
-  #print(STACK)
+    elif ni==0:
+      print(ANS)
+      exit()
 
-print(ANS)
+print(-1)
 #print(VISITED)
-      
 
 
 ###########################################################
