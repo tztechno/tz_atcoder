@@ -3,7 +3,6 @@
 ###########################################################
 [my WA 1028]
 
-
 N,M=map(int,input().split())
 
 from collections import defaultdict,deque,Counter
@@ -17,7 +16,7 @@ for i in range(M):
 VISITED=[False]*N
 VISITED[0]=True
 STACK=[0]
-ANS=1
+ANS=0
 
 while STACK:
   now=STACK.pop()
@@ -28,8 +27,10 @@ while STACK:
       ANS+=1
       STACK+=[ni]
     elif ni==0:
+      ANS+=1
       print(ANS)
       exit()
+  #print(STACK)
 
 print(-1)
 #print(VISITED)
