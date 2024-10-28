@@ -6,7 +6,7 @@
 import sys
 input = sys.stdin.readline
 N,M=map(int,input().split())
-A=set(range(1,M+1))
+A=set(range(1,M))
 for i in range(N):
   l,r=map(int,input().split())
   if l==r:
@@ -18,7 +18,6 @@ if M==0:
   print(0)
 else:
   print(len(A)+M)
-
 
 #####################################################
 
