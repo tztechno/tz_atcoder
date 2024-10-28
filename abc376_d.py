@@ -3,6 +3,7 @@
 ###########################################################
 [my WA 1028]
 
+
 N,M=map(int,input().split())
 
 from collections import defaultdict,deque,Counter
@@ -17,7 +18,7 @@ VISITED=[False]*N
 VISITED[0]=True
 STACK=[0]
 ANS=0
-ORDER=[0]
+ANS2=[]
 
 while STACK:
   now=STACK.pop()
@@ -25,19 +26,17 @@ while STACK:
   for ni in nxs:
     if 0 in nxs:
       ANS+=1
-      ORDER+=[0]
-      print(ANS)
-      #print(ORDER)
-      exit()
+      ANS2+=[ANS]
     elif VISITED[ni]==False:
       VISITED[ni]=True
       ANS+=1
       STACK+=[ni]
       ORDER+=[ni]
 
-print(-1)
-#print(VISITED)
+print(max(-1,min(ANS2)))
+
       
+        
 
 
 ###########################################################
