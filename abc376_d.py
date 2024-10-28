@@ -27,16 +27,17 @@ while STACK:
     if 0 in nxs:
       ANS+=1
       ANS2+=[ANS]
+
     elif VISITED[ni]==False:
       VISITED[ni]=True
       ANS+=1
       STACK+=[ni]
-      ORDER+=[ni]
 
 print(max(-1,min(ANS2)))
 
       
-        
+  
+
 
 
 ###########################################################
