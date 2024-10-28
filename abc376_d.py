@@ -1,37 +1,37 @@
 ###########################################################
 ###########################################################
 ###########################################################
-[my WA]
+[my WA 1028]
+
+
+N,M=map(int,input().split())
 
 from collections import defaultdict,deque,Counter
+
 cnt = defaultdict(deque)
-N,M=map(int,input().split())
+
 for i in range(M):
   a,b=map(int,input().split())
   cnt[a-1].append(b-1)
-#print(cnt)
-VISITED=[]
-DIST=0
-for i in range(N):
-  VISITED+=['NOT']
-VISITED[0]=0
-#print(VISITED)
-
+  
+VISITED=[False]*N
+VISITED[0]=True
 STACK=[0]
+ANS=1
+
 while STACK:
-  now=STACK.pop(0)
-  nexts=cnt[now]
-  for nx in nexts:
-    if VISITED[nx]==0:
-      print(DIST+1)
-      exit()
-    if VISITED[nx]=='NOT':
-      VISITED[nx]=0
-      STACK.append(nx)
-      DIST+=1
+  now=STACK.pop()
+  nxs=cnt[now]
+  for ni in nxs:
+    if VISITED[ni]==False:
+      VISITED[ni]=True
+      ANS+=1
+      STACK+=[ni]
+  #print(STACK)
 
-print(-1)
-
+print(ANS)
+#print(VISITED)
+      
 
 
 ###########################################################
