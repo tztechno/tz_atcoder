@@ -1,23 +1,29 @@
 #####################################################
 #####################################################
 #####################################################
-[my WA 2024-10-28]
+[my TLE 2024-10-28]
 
 import sys
 input = sys.stdin.readline
-N,M=map(int,input().split())
-A=set(range(1,M))
+N,m=map(int,input().split())
+M=list(range(1,m+1))
+R=[]
 for i in range(N):
   l,r=map(int,input().split())
-  if l==r:
-    M-=1
-  elif l<r:
-    for j in range(l,r):
-      A-=set([j])
-if M==0:
-  print(0)
-else:
-  print(len(A)+M)
+  R+=[(l,r)]
+T=[]
+for i in range(1,m+1):
+  for j in range(i,m+1):
+    t=0
+    for ri in R:
+      if ri[0]>=i and ri[1]<=j: #ijが安全包含される
+        t=1
+        break
+    if t==0: #どれにも完全包含されない
+      T+=[(i,j)]
+print(len(set(T)))
+#print(set(T))
+        
 
 #####################################################
 
