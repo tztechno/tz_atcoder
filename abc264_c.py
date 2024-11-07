@@ -4,6 +4,44 @@
 ##########################################################
 ##########################################################
 ##########################################################
+
+import sys
+input = sys.stdin.readline
+
+H1,W1=map(int,input().split())
+A=[list(map(int,input().split())) for i in range(H1)]
+
+H2,W2=map(int,input().split())
+A2=[list(map(int,input().split())) for i in range(H2)]
+
+
+for i in range(1<<H1):
+    for j in range(1<<W1):
+
+        C=[]
+
+        for k in range(H1):
+            if i & (1<<k) != 0 :
+                C.append(A[k])
+
+        #print(C)
+
+        for k in range(len(C)):
+            D=[]
+            for l in range(W1):
+                if j & (1<<l) != 0:
+                    D.append(C[k][l])
+
+            C[k]=D
+
+        #print(C)
+
+        if C==A2:
+            print("Yes")
+            exit()
+
+print("No")
+
 ##########################################################
 [my ans TLE]
 
