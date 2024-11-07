@@ -5,7 +5,8 @@
 ##########################################################
 ##########################################################
 ##########################################################
-[my ans WA]
+[my ans TLE]
+
 H1,W1=map(int,input().split())
 A0=[]
 for i in range(H1):
@@ -26,7 +27,7 @@ B=np.array(B0)
 for c in CP:
   Ai=A[list(c[0])]
   Ai2=Ai[:,list(c[1])]
-  if Ai2.flatten().all()==B.flatten().all():
+  if np.array_equal(Ai2,B):
     print('Yes')
     exit()
 else:
