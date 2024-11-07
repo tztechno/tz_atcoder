@@ -4,6 +4,23 @@
 #############################################################
 
 #############################################################
+[my ans TLE]
+
+N,M=map(int,input().split())
+A=list(map(int,input().split()))
+B=[0]
+for ai in A:
+  B+=[(B[-1]+ai%M)%M]
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(int)
+for i in range(1,N+1):
+  for j in range(i,N+1):
+    cnt[(B[j]-B[i-1])%M]+=1
+ANS=0
+for c in list(cnt):
+  ANS+=c*cnt[c]
+print(ANS)
+
 
 #############################################################
 
