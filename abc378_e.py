@@ -23,6 +23,7 @@ print(ANS)
 
 
 #############################################################
+[cannot understand]
 
 #!/usr/bin/env python3
 from itertools import accumulate
