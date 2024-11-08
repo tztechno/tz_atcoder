@@ -14,16 +14,13 @@ A=[list(map(int,input().split())) for i in range(H1)]
 H2,W2=map(int,input().split())
 A2=[list(map(int,input().split())) for i in range(H2)]
 
-
 for i in range(1<<H1):
     for j in range(1<<W1):
-
         C=[]
-
         for k in range(H1):
             if i & (1<<k) != 0 :
                 C.append(A[k])
-
+                
         #print(C)
 
         for k in range(len(C)):
@@ -31,7 +28,7 @@ for i in range(1<<H1):
             for l in range(W1):
                 if j & (1<<l) != 0:
                     D.append(C[k][l])
-
+                    
             C[k]=D
 
         #print(C)
@@ -43,6 +40,42 @@ for i in range(1<<H1):
 print("No")
 
 ##########################################################
+
+[CGPT 加速化　TLE4]
+
+import numpy as np
+from itertools import product, combinations
+
+H1, W1 = map(int, input().split())
+A = np.array([list(map(int, input().split())) for _ in range(H1)])
+
+H2, W2 = map(int, input().split())
+B = np.array([list(map(int, input().split())) for _ in range(H2)])
+
+# 行を選択するインデックスを取得
+H = {i for i in range(H1) if any(all(elem in A[i] for elem in B[j]) for j in range(H2))}
+if not H:
+    print('No')
+    exit()
+
+# 列を選択するインデックスを取得
+A2 = A[list(H)]
+W = {i for i in range(W1) if any(all(elem in A2[:, i] for elem in B[:, j]) for j in range(W2))}
+if not W:
+    print('No')
+    exit()
+
+# 抽出した行列の部分一致を確認
+A3 = A2[:, list(W)]
+for ch in combinations(range(A3.shape[0]), H2):
+    for cw in combinations(range(A3.shape[1]), W2):
+        if np.array_equal(A3[np.ix_(ch, cw)], B):
+            print('Yes')
+            exit()
+print('No')
+
+##########################################################
+
 [MY ANS TLE4]
 
 import numpy as np
@@ -101,7 +134,6 @@ for c in CP:
     exit()
 else:
   print('No')
-  
   
 ##########################################################
 ##########################################################
