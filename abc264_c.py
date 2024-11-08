@@ -53,15 +53,38 @@ H2,W2=map(int,input().split())
 B0=[]
 for i in range(H2):
   B0+=[list(map(int,input().split()))]
+  
 import numpy as np
-H=list(range(H1))
-W=list(range(W1))
-from itertools import product,permutations,combinations,accumulate
-CH=list(combinations(H,H2))
-CW=list(combinations(W,W2))
-CP=list(product(CH,CW))
 A=np.array(A0)
 B=np.array(B0)
+
+H=set()
+for i in range(H1):
+  Ai=A[i]
+  for j in range(H2):
+    Bj=B[j]
+    if all(element in Ai for element in Bj):
+      H.add(i)
+if H==set():
+  print('No')
+  exit()
+ 
+W=set()
+for i in range(W1):
+  Ai=A[:,i]
+  for j in range(W2):
+    Bj=B[:,j]
+    if all(element in Ai for element in Bj):
+      W.add(i)
+if W==set():
+  print('No')
+  exit()
+  
+from itertools import product,permutations,combinations,accumulate
+CH=list(combinations(list(H),H2))
+CW=list(combinations(list(W),W2))
+CP=list(product(CH,CW))
+
 for c in CP:
   Ai=A[list(c[0])]
   Ai2=Ai[:,list(c[1])]
@@ -70,6 +93,7 @@ for c in CP:
     exit()
 else:
   print('No')
+  
   
 ##########################################################
 ##########################################################
