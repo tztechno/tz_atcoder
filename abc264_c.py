@@ -3,6 +3,35 @@
 ##########################################################
 ##########################################################
 ##########################################################
+
+H1, W1 = map(int, input().split())
+A = [list(map(int, input().split())) for _ in range(H1)]
+H2, W2 = map(int, input().split())
+B = [list(map(int, input().split())) for _ in range(H2)]
+
+for bit_h in range(1 << H1):
+  tmp = []
+  for i in range(H1):
+    if bit_h & (1 << i):
+      tmp.append(A[i][:])
+  
+  for bit_w in range(1 << W1):
+    Flag = [False] * W1
+    for j in range(W1):
+      if bit_w & (1 << j):
+        Flag[j] = True
+    
+    C = [[] for _ in range(len(tmp))]
+    for i in range(len(tmp)):
+      for j in range(W1):
+        if Flag[j]:
+          C[i].append(tmp[i][j])
+    
+    if B == C:
+      exit(print("Yes"))
+
+print("No")
+
 ##########################################################
 
 import sys
