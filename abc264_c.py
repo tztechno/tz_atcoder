@@ -82,19 +82,19 @@ if W==set():
   exit()
   
 from itertools import product,permutations,combinations,accumulate
-CH=list(combinations(list(H),H2))
+CH=list(combinations(list(range(len(A2))),H2))
 CW=list(combinations(list(W),W2))
 CP=list(product(CH,CW))
 
 for c in CP:
-  Ai=A[list(c[0])]
+  Ai=A2[list(c[0])]
   Ai2=Ai[:,list(c[1])]
   if np.array_equal(Ai2,B):
     print('Yes')
     exit()
 else:
   print('No')
-
+  
 ##########################################################
 ##########################################################
 ##########################################################
