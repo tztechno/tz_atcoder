@@ -53,7 +53,6 @@ H2,W2=map(int,input().split())
 B0=[]
 for i in range(H2):
   B0+=[list(map(int,input().split()))]
-  
 import numpy as np
 A=np.array(A0)
 B=np.array(B0)
@@ -68,10 +67,12 @@ for i in range(H1):
 if H==set():
   print('No')
   exit()
- 
+
+A2=A[list(H)]
+
 W=set()
 for i in range(W1):
-  Ai=A[:,i]
+  Ai=A2[:,i]
   for j in range(W2):
     Bj=B[:,j]
     if all(element in Ai for element in Bj):
@@ -93,8 +94,7 @@ for c in CP:
     exit()
 else:
   print('No')
-  
-  
+
 ##########################################################
 ##########################################################
 ##########################################################
