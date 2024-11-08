@@ -45,6 +45,9 @@ print("No")
 ##########################################################
 [MY ANS TLE4]
 
+import numpy as np
+from itertools import product,permutations,combinations,accumulate
+
 H1,W1=map(int,input().split())
 A0=[]
 for i in range(H1):
@@ -53,7 +56,7 @@ H2,W2=map(int,input().split())
 B0=[]
 for i in range(H2):
   B0+=[list(map(int,input().split()))]
-import numpy as np
+
 A=np.array(A0)
 B=np.array(B0)
 
@@ -81,19 +84,24 @@ if W==set():
   print('No')
   exit()
   
-from itertools import product,permutations,combinations,accumulate
-CH=list(combinations(list(range(len(A2))),H2))
-CW=list(combinations(list(W),W2))
-CP=list(product(CH,CW))
+A3=A2[:,list(W)]
+#print(A3.shape)
 
+CH=list(combinations(list(range(A3.shape[0])),H2))
+CW=list(combinations(list(range(A3.shape[1])),W2))
+CP=list(product(CH,CW))
+#print(A2)
 for c in CP:
-  Ai=A2[list(c[0])]
+  #print(c)
+  Ai=A3[list(c[0])]
   Ai2=Ai[:,list(c[1])]
+
   if np.array_equal(Ai2,B):
     print('Yes')
     exit()
 else:
   print('No')
+  
   
 ##########################################################
 ##########################################################
