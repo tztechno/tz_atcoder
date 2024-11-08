@@ -43,7 +43,7 @@ for i in range(1<<H1):
 print("No")
 
 ##########################################################
-[my ans TLE]
+[MY ANS TLE4]
 
 H1,W1=map(int,input().split())
 A0=[]
