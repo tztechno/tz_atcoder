@@ -9,6 +9,36 @@
 #################################################################
 
 #################################################################
+N, M = map(int,input().split())
+X = list(map(int,input().split()))
+A = list(map(int,input().split()))
+XA = list(zip(X,A))
+XA.sort()
+X, A = zip(*XA)
+    
+full = N*(N+1)//2
+
+def check():
+    if X[0] != 1:
+        return False
+    cnt = 0
+    for i in range(M-1):
+        cnt += A[i]
+        if cnt < X[i+1] - 1:
+            return False
+    return True
+
+if sum(A) == N:
+    cnt = 0
+    for i in range(M):
+        full -= A[i]*X[i]
+    if check(): print(full)
+    else:print(-1)
+else:
+    print(-1)
+
+
+
 
 #################################################################
 import sys
