@@ -71,38 +71,30 @@ print("No")
 
 ##########################################################
 
-[CGPT 加速化　TLE4]
+[CGPT 相談　WA]
 
-import numpy as np
-from itertools import product, combinations
+from itertools import product
 
-H1, W1 = map(int, input().split())
-A = np.array([list(map(int, input().split())) for _ in range(H1)])
+H1, W1 = map(int, input().split()) 
+A0 = [list(map(int, input().split())) for _ in range(H1)] 
 
-H2, W2 = map(int, input().split())
-B = np.array([list(map(int, input().split())) for _ in range(H2)])
+H2, W2 = map(int, input().split()) 
+B0 = [list(map(int, input().split())) for _ in range(H2)]  
 
-# 行を選択するインデックスを取得
-H = {i for i in range(H1) if any(all(elem in A[i] for elem in B[j]) for j in range(H2))}
-if not H:
-    print('No')
-    exit()
-
-# 列を選択するインデックスを取得
-A2 = A[list(H)]
-W = {i for i in range(W1) if any(all(elem in A2[:, i] for elem in B[:, j]) for j in range(W2))}
-if not W:
-    print('No')
-    exit()
-
-# 抽出した行列の部分一致を確認
-A3 = A2[:, list(W)]
-for ch in combinations(range(A3.shape[0]), H2):
-    for cw in combinations(range(A3.shape[1]), W2):
-        if np.array_equal(A3[np.ix_(ch, cw)], B):
-            print('Yes')
-            exit()
-print('No')
+for a_indices in product(range(H1), repeat=H2): 
+    for b_indices in product(range(W1), repeat=W2): 
+        match = True
+        for i in range(H2):
+            for j in range(W2):
+                if A0[a_indices[i]][b_indices[j]] != B0[i][j]:
+                    match = False
+                    break
+            if not match:
+                break
+        if match:
+            print("Yes")
+else:
+  print("No")
 
 ##########################################################
 
