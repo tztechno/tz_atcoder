@@ -74,24 +74,22 @@ print("No")
 
 ##########################################################
 
-[MY ANS TLE4]
+[MY ANS TLE8]
 
+import numpy as np
 from itertools import combinations
 
 H1, W1 = map(int, input().split()) 
 A0 = [list(map(int, input().split())) for _ in range(H1)] 
-
 H2, W2 = map(int, input().split()) 
 B0 = [list(map(int, input().split())) for _ in range(H2)]  
-
-import numpy as np
 A=np.array(A0)
 B=np.array(B0)
 
-for a_indices in combinations(range(H1), H2): 
-  for b_indices in combinations(range(W1), W2): 
-    A2=A[list(a_indices)]
-    A3=A2[:,list(b_indices)]
+for a_ind in combinations(range(H1), H2): 
+  for b_ind in combinations(range(W1), W2): 
+    A2=A[list(a_ind)]
+    A3=A2[:,list(b_ind)]
     if np.all(np.equal(A3,B)):
       print('Yes')
       exit()
