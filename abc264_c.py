@@ -93,8 +93,9 @@ for a_indices in product(range(H1), repeat=H2):
                 break
         if match:
             print("Yes")
-else:
-  print("No")
+            exit()
+print("No")
+
 
 ##########################################################
 
