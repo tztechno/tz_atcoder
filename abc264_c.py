@@ -71,7 +71,7 @@ print("No")
 
 ##########################################################
 
-[CGPT 相談　TLE]
+[CGPT 相談　WA,TLE15]
 
 from itertools import product
 
