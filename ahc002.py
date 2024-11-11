@@ -43,6 +43,8 @@ def calculate_cost(route):
 
 # ルート生成
 def generate_neighbor(route):
+    # 一時的にAの状態をリセットし、新しいルートを生成
+    temp_A = [row[:] for row in A]
     i, j = route[-1]
     neighbors = []
     
@@ -59,8 +61,10 @@ def generate_neighbor(route):
     # ランダムに隣接セルを選択
     if neighbors:
         next_position = random.choice(neighbors)
-        A[next_position[0]][next_position[1]] = 1  # 新しい位置を訪問済みに設定
-        return route + [next_position]
+        route.append(next_position)
+        # 訪問済みマークの更新
+        A[next_position[0]][next_position[1]] = 1
+        return route
     return route  # 隣接セルがすべて訪問済みの場合は変更なし
 
 # 焼きなまし法のメインループ
@@ -69,13 +73,18 @@ current_cost = calculate_cost(current_route)
 temperature = initial_temperature
 
 for _ in range(num_iterations):
-    new_route = generate_neighbor(current_route)
+    new_route = generate_neighbor(current_route[:])  # 現在のルートのコピーを作成
     new_cost = calculate_cost(new_route)
     
     # ルート変更の確率的受け入れ
     if new_cost < current_cost or random.random() < math.exp((current_cost - new_cost) / temperature):
+        # ルート更新時のみ訪問状態を反映
         current_route = new_route
         current_cost = new_cost
+    else:
+        # 更新されなかった場合は訪問状態をリセット
+        for cell in new_route[len(current_route):]:
+            A[cell[0]][cell[1]] = 0
     
     # 温度を下げる
     temperature *= cooling_rate
@@ -98,6 +107,7 @@ def udgen(route):
 
 # 結果の表示
 print(udgen(current_route))
+
 
 ###################################################################
 [焼きなまし with error: same tile twice]
