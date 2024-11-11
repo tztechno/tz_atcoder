@@ -11,7 +11,286 @@
 ###########################################################
 
 ###########################################################
+[pts 490000]
 
+import time
+import random
+import math
+from collections import defaultdict
+
+t0 = time.time()
+
+#入力
+N = int(input())  #N = 5000
+pos = [list(map(int,input().split())) for _ in range(N*2)]
+
+#前処理
+W = 5000
+K = 20
+buckets = [[0]*(K+1) for _ in range(K+1)]
+dx = [0,1,0,-1]
+dy = [1,0,-1,0]
+
+#サバ
+for i in range(N):
+    x,y = pos[i]
+    buckets[x//W][y//W] += 1
+#イワシ
+for i in range(N,N*2):
+    x,y = pos[i]
+    buckets[x//W][y//W] -= 1
+
+
+class State:
+    def __init__(self):
+        self.data = [[0]*K for _ in range(K)]
+        self.length = 0
+        self.score = 0
+        self.size = 0
+
+
+def calc(state):
+    vis = [[0]*K for _ in range(K)]
+    length = 0
+    score = 0
+    cnt = 0
+    
+    for i in range(K):
+        for j in range(K):
+            if state.data[i][j]:
+                stack = [(i,j)]
+                while stack:
+                    x,y = stack.pop()
+                    if vis[x][y]:
+                        continue
+                    vis[x][y] = 1
+                    score += buckets[x][y]
+                    cnt += 1
+                    for k in range(4):
+                        nx,ny = x+dx[k],y+dy[k]
+                        if nx < 0 or ny < 0 or nx >= K or ny >= K:
+                            length += W
+                            continue
+                        if not state.data[nx][ny]:
+                            length += W
+                            continue
+                        if vis[nx][ny]:
+                            continue
+                        stack.append((nx,ny))
+                break
+        else:
+            continue
+        break
+    
+    for i in range(K):
+        for j in range(K):
+            if not state.data[i][j]:
+                stack = [(i,j)]
+                while stack:
+                    x,y = stack.pop()
+                    if vis[x][y]:
+                        continue
+                    vis[x][y] = 1
+                    cnt += 1
+                    for k in range(4):
+                        nx,ny = x+dx[k],y+dy[k]
+                        if nx < 0 or ny < 0 or nx >= K or ny >= K:
+                            continue
+                        if state.data[nx][ny]:
+                            continue
+                        if vis[nx][ny]:
+                            continue
+                        stack.append((nx,ny))
+                break
+        else:
+            continue
+        break
+    
+    
+    if cnt < K*K:
+        return -1,-1
+    else:
+        return score,length
+
+def output(state):
+    vis = [[0]*K for _ in range(K)]
+    to = defaultdict(lambda:[])
+    sx,sy = -1,-1
+    
+    for i in range(K):
+        for j in range(K):
+            if state.data[i][j]:
+                sx,sy = i,j
+                stack = [(i,j)]
+                while stack:
+                    x,y = stack.pop()
+                    if vis[x][y]:
+                        continue
+                    vis[x][y] = 1
+                    for k in range(4):
+                        nx,ny = x+dx[k],y+dy[k]
+                        if nx < 0 or ny < 0 or nx >= K or ny >= K:
+                            if k == 0:
+                                to[(x,y+1)].append((x+1,y+1))
+                                to[(x+1,y+1)].append((x,y+1))
+                            if k == 1:
+                                to[(x+1,y)].append((x+1,y+1))
+                                to[(x+1,y+1)].append((x+1,y))
+                            if k == 2:
+                                to[(x,y)].append((x+1,y))
+                                to[(x+1,y)].append((x,y))
+                            if k == 3:
+                                to[(x,y)].append((x,y+1))
+                                to[(x,y+1)].append((x,y))
+                            continue
+                        if not state.data[nx][ny]:
+                            if k == 0:
+                                to[(x,y+1)].append((x+1,y+1))
+                                to[(x+1,y+1)].append((x,y+1))
+                            if k == 1:
+                                to[(x+1,y)].append((x+1,y+1))
+                                to[(x+1,y+1)].append((x+1,y))
+                            if k == 2:
+                                to[(x,y)].append((x+1,y))
+                                to[(x+1,y)].append((x,y))
+                            if k == 3:
+                                to[(x,y)].append((x,y+1))
+                                to[(x,y+1)].append((x,y))
+                            continue
+                        if vis[nx][ny]:
+                            continue
+                        stack.append((nx,ny))
+                break
+        else:
+            continue
+        break
+    
+    res = [(sx*W,sy*W)]
+    px,py = -1,-1
+    x,y = sx,sy
+    while True:
+        for nx,ny in to[(x,y)]:
+            if (nx,ny) == (px,py):
+                continue
+            px,py = x,y
+            x,y = nx,ny
+            break
+        if (x,y) == (sx,sy):
+            break
+        res.append((x*W,y*W))
+    
+    print(len(res))
+    for x,y in res:
+        print(x,y)
+    
+    
+    
+#焼きなまし
+length_max = 4*10**5
+state = State()
+weight = 0.002
+penalty = 0.1
+
+def eval_score(score,length):
+    res = score-weight*length
+    if length > length_max:
+        res -= (length-length_max)*penalty
+    return res
+
+x1,y1,x2,y2 = K,K,-1,-1
+for i in range(K):
+    for j in range(K):
+        if buckets[i][j] > 30:
+            x1 = min(x1,i)
+            y1 = min(y1,j)
+            x2 = max(x2,i)
+            y2 = max(y2,j)
+for i in range(x1,x2+1):
+    for j in range(y1,y2+1):
+        state.data[i][j] = 1
+        state.size += 1
+        
+score,length = calc(state)
+state.score,state.length = eval_score(score,length),length
+#output(state)
+start_temperature = 100
+end_temperature = 1
+time_start = time.time()
+def get_temperature():
+    return start_temperature-(start_temperature-end_temperature)*(time.time()-time_start)/1.8
+itr = 0
+
+while time.time()-time_start < 1.8:
+    #if itr%100 == 0:
+        #output(state)
+    itr += 1
+    x,y = random.randrange(K),random.randrange(K)
+    
+    if state.data[x][y]:
+        #check
+        if state.size == 1:
+            continue
+        
+        #attempt
+        state.data[x][y] = 0
+        
+        raw_score_new,length_new = calc(state)
+        if raw_score_new == -1:
+            #cancel
+            state.data[x][y] = 1
+            continue
+        else:
+            score_new = eval_score(raw_score_new,length_new)
+            if score_new >= state.score:
+                #accept
+                state.score,state.length = score_new,length_new
+                state.size -= 1
+            else:
+                if random.random() < math.exp((score_new-state.score)/get_temperature()):
+                    #accept
+                    state.score,state.length = score_new,length_new
+                    state.size -= 1
+                else:
+                    #cancel
+                    state.data[x][y] = 1
+                    continue
+    else:
+        #check
+        for k in range(4):
+            nx,ny = x+dx[k],y+dy[k]
+            if nx < 0 or ny < 0 or nx >= K or ny >= K:
+                continue
+            if state.data[nx][ny]:
+                break
+        else:
+            continue
+        
+        #attempt
+        state.data[x][y] = 1
+        
+        raw_score_new,length_new = calc(state)
+        if raw_score_new == -1:
+            #cancel
+            state.data[x][y] = 0
+            continue
+        else:
+            score_new = eval_score(raw_score_new,length_new)
+            if score_new >= state.score:
+                #accept
+                state.score,state.length = score_new,length_new
+                state.size += 1
+            else:
+                if random.random() < math.exp((score_new-state.score)/get_temperature()):
+                    #accept
+                    state.score,state.length = score_new,length_new
+                    state.size += 1
+                else:
+                    #cancel
+                    state.data[x][y] = 0
+                    continue
+        
+#print(state.score,state.length,itr)
+output(state)
 ###########################################################
 [pts 200000][my ans]
 
