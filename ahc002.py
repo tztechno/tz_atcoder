@@ -16,6 +16,88 @@
 ###################################################################
 
 ###################################################################
+[焼きなまし]
+
+import random
+import math
+
+# 初期位置の設定
+x, y = map(int, input().split())
+T = [list(map(int, input().split())) for _ in range(50)]
+P = [list(map(int, input().split())) for _ in range(50)]
+
+h, w = 50, 50
+goal_x, goal_y = 49, 49  # 目的地（例として設定）
+A = [[0 for _ in range(50)] for _ in range(50)]
+A[x][y] = 1  # スタート位置は訪問済みに設定
+
+# 焼きなまし法のパラメータ
+initial_temperature = 100.0
+cooling_rate = 0.99
+num_iterations = 1000
+
+# 目的関数
+def calculate_cost(route):
+    last_x, last_y = route[-1]
+    return abs(last_x - goal_x) + abs(last_y - goal_y)  # マンハッタン距離を使った目的関数
+
+# ルート生成
+def generate_neighbor(route):
+    i, j = route[-1]
+    neighbors = []
+    
+    # 隣接するセルへの移動（未訪問のみ）
+    if 0 <= i+1 < h and A[i+1][j] == 0:
+        neighbors.append([i+1, j])
+    if 0 <= i-1 < h and A[i-1][j] == 0:
+        neighbors.append([i-1, j])
+    if 0 <= j+1 < w and A[i][j+1] == 0:
+        neighbors.append([i, j+1])
+    if 0 <= j-1 < w and A[i][j-1] == 0:
+        neighbors.append([i, j-1])
+    
+    # ランダムに隣接セルを選択
+    if neighbors:
+        next_position = random.choice(neighbors)
+        A[next_position[0]][next_position[1]] = 1  # 新しい位置を訪問済みに設定
+        return route + [next_position]
+    return route  # 隣接セルがすべて訪問済みの場合は変更なし
+
+# 焼きなまし法のメインループ
+current_route = [[x, y]]
+current_cost = calculate_cost(current_route)
+temperature = initial_temperature
+
+for _ in range(num_iterations):
+    new_route = generate_neighbor(current_route)
+    new_cost = calculate_cost(new_route)
+    
+    # ルート変更の確率的受け入れ
+    if new_cost < current_cost or random.random() < math.exp((current_cost - new_cost) / temperature):
+        current_route = new_route
+        current_cost = new_cost
+    
+    # 温度を下げる
+    temperature *= cooling_rate
+
+# 移動履歴を生成
+def udgen(route):
+    trace = ''
+    for i in range(1, len(route)):
+        d1i, d1j = route[i]
+        d0i, d0j = route[i - 1]
+        if d1j - d0j == 1:
+            trace += 'R'
+        elif d1j - d0j == -1:
+            trace += 'L'
+        elif d1i - d0i == 1:
+            trace += 'D'
+        elif d1i - d0i == -1:
+            trace += 'U'
+    return trace
+
+# 結果の表示
+print(udgen(current_route))
 
 ###################################################################
 [焼きなまし with error: same tile twice]
