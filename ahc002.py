@@ -16,7 +16,7 @@
 ###################################################################
 
 ###################################################################
-[焼きなまし with error]
+[焼きなまし AC]
 
 import sys
 import random
@@ -41,7 +41,9 @@ for i in range(50):
 
 h, w = 50, 50
 A = [[0 for _ in range(50)] for _ in range(50)]
+visited_tiles = set()  # 訪問済みタイルの種類を追跡するセット
 A[si][sj] = 1  # スタート位置は訪問済みに設定
+visited_tiles.add(T[si][sj])  # スタート位置のタイルを訪問済みに追加
 
 # 焼きなまし法のパラメータ
 initial_temperature = 100.0
@@ -57,14 +59,14 @@ def generate_neighbor(route):
     i, j = route[-1]
     neighbors = []
     
-    # 未訪問の隣接セルを候補に追加
-    if 0 <= i+1 < h and A[i+1][j] == 0:
+    # 未訪問かつ未踏タイルの隣接セルを候補に追加
+    if 0 <= i+1 < h and A[i+1][j] == 0 and T[i+1][j] not in visited_tiles:
         neighbors.append([i+1, j])
-    if 0 <= i-1 < h and A[i-1][j] == 0:
+    if 0 <= i-1 < h and A[i-1][j] == 0 and T[i-1][j] not in visited_tiles:
         neighbors.append([i-1, j])
-    if 0 <= j+1 < w and A[i][j+1] == 0:
+    if 0 <= j+1 < w and A[i][j+1] == 0 and T[i][j+1] not in visited_tiles:
         neighbors.append([i, j+1])
-    if 0 <= j-1 < w and A[i][j-1] == 0:
+    if 0 <= j-1 < w and A[i][j-1] == 0 and T[i][j-1] not in visited_tiles:
         neighbors.append([i, j-1])
     
     # 未訪問の隣接セルがなければ現在位置で停止
@@ -75,6 +77,7 @@ def generate_neighbor(route):
     next_position = random.choice(neighbors)
     route.append(next_position)
     A[next_position[0]][next_position[1]] = 1  # 訪問済みとしてマーク
+    visited_tiles.add(T[next_position[0]][next_position[1]])  # タイルを訪問済みに追加
     return route
 
 # 焼きなまし法のメインループ
@@ -91,9 +94,10 @@ for _ in range(num_iterations):
         current_route = new_route
         current_score = new_score
     else:
-        # 更新されなかった場合、Aの状態をリセット
+        # 更新されなかった場合、Aの状態と訪問済みタイルリストをリセット
         for cell in new_route[len(current_route):]:
             A[cell[0]][cell[1]] = 0
+            visited_tiles.discard(T[cell[0]][cell[1]])  # タイルも訪問済みから除外
     
     # 温度を下げる
     temperature *= cooling_rate
