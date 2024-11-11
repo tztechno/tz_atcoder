@@ -54,11 +54,10 @@ def calculate_score(route):
 
 # 隣接セルへのルート生成（訪問済みチェック込み）
 def generate_neighbor(route):
-    temp_A = [row[:] for row in A]
     i, j = route[-1]
     neighbors = []
     
-    # 未訪問の隣接セルへの移動
+    # 未訪問の隣接セルを候補に追加
     if 0 <= i+1 < h and A[i+1][j] == 0:
         neighbors.append([i+1, j])
     if 0 <= i-1 < h and A[i-1][j] == 0:
@@ -68,12 +67,14 @@ def generate_neighbor(route):
     if 0 <= j-1 < w and A[i][j-1] == 0:
         neighbors.append([i, j-1])
     
+    # 未訪問の隣接セルがなければ現在位置で停止
+    if not neighbors:
+        return route  # 停止（routeに変更なしで戻る）
+    
     # ランダムに未訪問の隣接セルを選択
-    if neighbors:
-        next_position = random.choice(neighbors)
-        route.append(next_position)
-        A[next_position[0]][next_position[1]] = 1
-        return route
+    next_position = random.choice(neighbors)
+    route.append(next_position)
+    A[next_position[0]][next_position[1]] = 1  # 訪問済みとしてマーク
     return route
 
 # 焼きなまし法のメインループ
@@ -116,6 +117,7 @@ def udgen(route):
 # 結果の表示
 print(udgen(current_route))
 print("Score:", current_score)
+
 
 ###################################################################
 
