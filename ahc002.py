@@ -16,7 +16,7 @@
 ###################################################################
 
 ###################################################################
-[焼きなまし]
+[焼きなまし with error]
 
 import sys
 import random
@@ -118,6 +118,7 @@ print(udgen(current_route))
 print("Score:", current_score)
 
 ###################################################################
+
 import sys
 import time
 from heapq import heappop, heappush, nsmallest
@@ -172,7 +173,10 @@ while True:
     if time.time() - start > 1.88:
         break
 print(*res, sep='')
+
 ###################################################################
+[standard method]
+
 x,y= map(int, input().split())
 T=[]
 for i in range(50):
@@ -231,8 +235,6 @@ def nextgo6(R):
     return R1
 
 
-
-
 R=[[[x,y]]]
 for i in range(2500):
     R=nextgo6(R)
@@ -256,4 +258,5 @@ def udgen(R):
     return trace    
     
 print(udgen(R))
+
 ###################################################################
