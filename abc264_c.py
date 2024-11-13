@@ -20,19 +20,16 @@ for bit_h in range(1 << H1):
   for i in range(H1):
     if bit_h & (1 << i):
       tmp.append(A[i][:])
-  
   for bit_w in range(1 << W1):
     Flag = [False] * W1
     for j in range(W1):
       if bit_w & (1 << j):
         Flag[j] = True
-    
     C = [[] for _ in range(len(tmp))]
     for i in range(len(tmp)):
       for j in range(W1):
         if Flag[j]:
           C[i].append(tmp[i][j])
-    
     if B == C:
       exit(print("Yes"))
 
@@ -45,7 +42,6 @@ input = sys.stdin.readline
 
 H1,W1=map(int,input().split())
 A=[list(map(int,input().split())) for i in range(H1)]
-
 H2,W2=map(int,input().split())
 A2=[list(map(int,input().split())) for i in range(H2)]
 
@@ -55,19 +51,12 @@ for i in range(1<<H1):
         for k in range(H1):
             if i & (1<<k) != 0 :
                 C.append(A[k])
-                
-        #print(C)
-
         for k in range(len(C)):
             D=[]
             for l in range(W1):
                 if j & (1<<l) != 0:
                     D.append(C[k][l])
-                    
             C[k]=D
-
-        #print(C)
-
         if C==A2:
             print("Yes")
             exit()
@@ -103,6 +92,7 @@ else:
 [list is faster than array]
 
 from itertools import combinations
+
 H1, W1 = map(int, input().split()) 
 A0 = [list(map(int, input().split())) for _ in range(H1)] 
 H2, W2 = map(int, input().split()) 
