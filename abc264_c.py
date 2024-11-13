@@ -97,7 +97,26 @@ for a_ind in combinations(range(H1), H2):
 else:
   print('No')
 
-
 ##########################################################
+
+[MY ANS AC]
+[list is faster than array]
+
+from itertools import combinations
+H1, W1 = map(int, input().split()) 
+A0 = [list(map(int, input().split())) for _ in range(H1)] 
+H2, W2 = map(int, input().split()) 
+B0 = [list(map(int, input().split())) for _ in range(H2)]  
+B=B0
+for a_ind in combinations(range(H1), H2):
+    for b_ind in combinations(range(W1), W2):
+        A2 = [A0[i] for i in a_ind]                   
+        A3 = [[row[j] for j in b_ind] for row in A2]  
+        if A3 == B:  
+            print('Yes')
+            exit()
+else:
+  print('No')
+  
 ##########################################################
 ##########################################################
