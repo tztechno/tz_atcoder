@@ -109,4 +109,30 @@ else:
   print('No')
   
 ##########################################################
+
+[CGPT AC]
+
+H1, W1 = map(int, input().split()) 
+A0 = [list(map(int, input().split())) for _ in range(H1)] 
+H2, W2 = map(int, input().split()) 
+B0 = [list(map(int, input().split())) for _ in range(H2)]  
+B=B0
+# H1 ビットの中で 1 の数が H2 になるパターン
+a_candidates = [i for i in range(1 << H1) if bin(i).count('1') == H2]
+# W1 ビットの中で 1 の数が W2 になるパターン
+b_candidates = [i for i in range(1 << W1) if bin(i).count('1') == W2]
+
+for a_mask in a_candidates:
+    for b_mask in b_candidates:
+        # a_mask, b_mask のビット位置が 1 のインデックスを抽出
+        a_ind = [i for i in range(H1) if (a_mask >> i) & 1]
+        b_ind = [j for j in range(W1) if (b_mask >> j) & 1]
+        A2 = [A0[i] for i in a_ind]                    
+        A3 = [[row[j] for j in b_ind] for row in A2]   
+        if A3 == B:  
+            print('Yes')
+            exit()
+else:
+  print('No')
+
 ##########################################################
