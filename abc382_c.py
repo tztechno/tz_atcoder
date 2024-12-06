@@ -35,10 +35,10 @@ for b in B:
         print(Aidx[ok]+1)
 
 #############################################
+[cannot understand]
 
 import sys
 input = sys.stdin.readline
-
 from bisect import bisect
 
 N,M=map(int,input().split())
@@ -54,17 +54,12 @@ for i in range(N):
         now=A[i]
 
 LIST.append((-1,-1,))
-
 LIST.reverse()
-
 ANS=[]
-
 
 for i in range(M):
     x=B[i]
-
     k=bisect(LIST,(x,1<<30))
-
     ANS.append(LIST[k-1][1])
 
 print(*ANS)
