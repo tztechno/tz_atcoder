@@ -31,7 +31,9 @@ for af in set(AF):
         exit()
 else:
   print('No')
+
 ############################################
+
 [titia]
 
 import sys
