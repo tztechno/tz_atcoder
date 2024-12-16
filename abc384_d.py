@@ -23,6 +23,34 @@ for af in set(AF):
 else:
   print('No')
 ############################################
+[titia]
+
+import sys
+input = sys.stdin.readline
+
+N,S=map(int,input().split())
+A=list(map(int,input().split()))
+
+SUM=[0]
+for a in A:
+    SUM.append(SUM[-1]+a)
+
+SUM0=SUM[-1]
+S%=SUM0
+
+for a in A:
+    SUM.append(SUM[-1]+a)
+for a in A:
+    SUM.append(SUM[-1]+a)
+
+SET=set(SUM)
+for a in SUM:
+    if S+a in SET:
+        print("Yes")
+        exit()
+
+print("No")
+
 ############################################
 ############################################
 ############################################
