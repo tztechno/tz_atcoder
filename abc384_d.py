@@ -52,6 +52,31 @@ for a in SUM:
 print("No")
 
 ############################################
+[cgpt]
+
+import sys
+input = sys.stdin.readline
+
+N, S = map(int, input().split())
+A = list(map(int, input().split()))
+
+# 累積和の計算
+SUM = [0]
+for a in A:
+    SUM.append(SUM[-1] + a)
+
+SUM0 = SUM[-1]
+S %= SUM0
+
+# 部分列の検出
+SET = set(SUM)
+for a in SUM:
+    if S + a in SET:
+        print("Yes")
+        exit()
+
+print("No")
+
 ############################################
 ############################################
 ############################################
