@@ -1,5 +1,28 @@
 #################################################
 ```
+[my tle]
+import sys
+input = sys.stdin.readline
+n=int(input())
+H=list(map(int,input().split()))
+
+Mcount=1
+for i in range(n):
+  for d in range(n):
+    now=i
+    nxt=i+d
+    count=1
+    while nxt<n and H[now]==H[nxt]:
+      count+=1
+      now=nxt
+    Mcount=max(Mcount,count)
+
+print(Mcount)
+```
+
+
+#################################################
+```
 [titia]
 
 import sys
