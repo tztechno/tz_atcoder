@@ -6,13 +6,36 @@
 
 ```
 ---
+---
 
 ```
+[titia]
 
+import sys
+input = sys.stdin.readline
+
+N=int(input())
+A=list(map(int,input().split()))
+
+PLUS=[0]*(N+10)
+
+for i in range(N):
+    PLUS[i]+=PLUS[i-1]
+    A[i]+=PLUS[i]
+    a=A[i]
+    # 最大N-i-1個をあげる。
+
+    w=min(a,N-i-1)
+
+    A[i]-=w
+    if w>0:
+        PLUS[i+1]+=1
+        PLUS[i+1+w]-=1
+
+print(*A)
 
 ```
 ---
-
 
 
 このコードは、リスト `A` の要素を特定のルールに従って変更し、最終的なリストの状態を出力するプログラムです。以下にコードの詳細な説明を示します。
@@ -96,8 +119,6 @@ print(*A)
    2 1 3 1 4
    ```
 
----
-
 ### ポイント
 1. **差分配列の活用**
    - `PLUS` を用いて効率的に値を調整する。
@@ -108,6 +129,8 @@ print(*A)
 
 3. **計算量**
    - このアプローチは、各要素を1度だけ処理するため、計算量は O(N) です。
+  
+---
 ---
 ```
 [my TLE ans]
@@ -120,6 +143,8 @@ for i in range(N):
       A[i+j+1]+=1
       A[i]-=1
 print(*A)
+
+このアプローチの計算量は O(sum(A)) であり、A の総和が大きい場合に TLE になります。
 
 ```
 ---
