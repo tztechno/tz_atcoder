@@ -137,6 +137,24 @@ print(*A)
 
 N=int(input())
 A=list(map(int,input().split()))
+for i in range(1,N):
+  diff = [0]*(N+1) 
+  give = min(A[i-1],N-i)
+  diff[i]+=1
+  diff[i+give]-=1
+  A[i-1]-=give
+  current = 0
+  for i in range(1,N):
+    current += diff[i]
+    A[i]+=current    
+print(*A)
+```
+---
+```
+[my TLE ans]
+
+N=int(input())
+A=list(map(int,input().split()))
 for i in range(N):
   for j in range(A[i]):
     if i+j+1<N:
