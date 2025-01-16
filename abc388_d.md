@@ -1,8 +1,50 @@
+---
+```
 
+
+```
+---
+---
+```
+
+
+```
+---
+---
+```
+
+
+```
+---
+---
+```
+
+
+```
+---
+---
+```
+
+
+```
+---
 
 ---
 ```
 
+N=int(input())
+A=[-1]+list(map(int,input().split()))
+given = [0]*(N+2)
+
+for i in range(1,N+1):
+  given[i] += given[i-1]
+  A[i] += given[i]
+  if A[i] > 0:
+    given[i+1]+=1
+    given[i+min(A[i] , N-i)+1]-=1
+    A[i] -= min(A[i] , N-i)
+
+print(*A[1:])
 
 ```
 ---
