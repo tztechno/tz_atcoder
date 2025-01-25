@@ -23,6 +23,7 @@ for parts in partitions:
 print(len(B))
 
 ##############################################
+[shogo314]
 
 from more_itertools import set_partitions
 
@@ -68,7 +69,34 @@ print(len(res))
 
 ##############################################
 
+import sys
+input = sys.stdin.readline
 
+N=int(input())
+A=list(map(int,input().split()))
+
+def calc(X,ind):
+    if ind==len(A):
+        ANS=0
+        for a in X:
+            ANS^=a
+        LANS.append(ANS)
+        return
+    a=A[ind]
+
+    for i in range(len(X)):
+        X[i]+=a
+        calc(X,ind+1)
+        X[i]-=a
+
+    X.append(a)
+    calc(X,ind+1)
+    X.pop()
+
+LANS=[]
+calc([],0)
+
+print(len(set(LANS)))
 
 ##############################################
 
