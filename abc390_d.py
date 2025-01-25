@@ -1,4 +1,11 @@
 ##############################################
+
+from more_itertools import set_partitions
+
+data = [1, 2, 3]
+partitions = list(set_partitions(data))
+print(partitions)
+
 ##############################################
 
 
