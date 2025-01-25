@@ -8,6 +8,21 @@ print(partitions)
 
 ##############################################
 
+[my TLE]
+
+import sys
+input = sys.stdin.readline
+N=int(input())
+A=list(map(int,input().split()))
+from more_itertools import set_partitions
+partitions = list(set_partitions(A))
+A=set()
+for parts in partitions:
+  ans=0
+  for p in parts:
+    ans=ans^sum(p)
+  A.add(ans)
+print(len(A))
 
 ##############################################
 
