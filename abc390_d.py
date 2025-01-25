@@ -22,7 +22,24 @@ for parts in partitions:
   B.add(ans)
 print(len(B))
 
+------------------------------------
+
+from more_itertools import set_partitions
+N=int(input())
+A=list(map(int,input().split()))
+B=set()
+for parts in list(set_partitions(A)):
+  ans=0
+  for p in parts:
+    s=0
+    for pi in p:
+      s+=pi
+    ans^=s
+  B.add(ans)
+print(len(B))
+
 ##############################################
+
 [shogo314]
 
 from more_itertools import set_partitions
