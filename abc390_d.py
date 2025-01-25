@@ -13,9 +13,8 @@ print(partitions)
 from more_itertools import set_partitions
 N=int(input())
 A=list(map(int,input().split()))
-partitions = list(set_partitions(A))
 B=set()
-for parts in partitions:
+for parts in set_partitions(A):
   ans=0
   for p in parts:
     ans^=sum(p)
@@ -24,11 +23,13 @@ print(len(B))
 
 ------------------------------------
 
+[my TLE]
+
 from more_itertools import set_partitions
 N=int(input())
 A=list(map(int,input().split()))
 B=set()
-for parts in list(set_partitions(A)):
+for parts in set_partitions(A):
   ans=0
   for p in parts:
     s=0
@@ -37,6 +38,39 @@ for parts in list(set_partitions(A)):
     ans^=s
   B.add(ans)
 print(len(B))
+
+------------------------------------
+
+[AC]
+
+from more_itertools import set_partitions
+N=int(input())
+A=list(map(int,input().split()))
+B=[]
+for parts in set_partitions(A):
+  ans=0
+  for p in parts:
+    ans^=sum(p)
+  B.append(ans)
+print(len(set(B)))
+
+------------------------------------
+
+[AC]
+
+from more_itertools import set_partitions
+N=int(input())
+A=list(map(int,input().split()))
+B=[]
+for parts in set_partitions(A):
+  ans=0
+  for p in parts:
+    s=0
+    for pi in p:
+      s+=pi
+    ans^=s
+  B.append(ans)
+print(len(set(B)))
 
 ##############################################
 
