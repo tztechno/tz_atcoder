@@ -8,6 +8,8 @@ sys.setrecursionlimit(10**8)
 from math import gcd,sqrt,log,exp,inf,pi,nan
 from itertools import product,permutations,combinations,accumulate
 from itertools import groupby, zip_longest
+from more_itertools import set_partitions
+
 from bisect import bisect_left,bisect_right,bisect
 from heapq import heappush,heappop,heapify,heappushpop,heapreplace,merge,nlargest,nsmallest
 import networkx as nx
