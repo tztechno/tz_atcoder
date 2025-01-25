@@ -41,7 +41,7 @@ print(len(B))
 
 ------------------------------------
 
-[AC]
+[TLE]
 
 from more_itertools import set_partitions
 N=int(input())
@@ -55,6 +55,9 @@ for parts in set_partitions(A):
 print(len(set(B)))
 
 ------------------------------------
+
+* sum よりも for_loop で足し算
+* set.add よりも list.appendしてからset
 
 [AC]
 
