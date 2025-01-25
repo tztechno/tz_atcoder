@@ -10,22 +10,34 @@ print(partitions)
 
 [my TLE]
 
-import sys
-input = sys.stdin.readline
+from more_itertools import set_partitions
 N=int(input())
 A=list(map(int,input().split()))
-from more_itertools import set_partitions
 partitions = list(set_partitions(A))
-A=set()
+B=set()
 for parts in partitions:
   ans=0
   for p in parts:
-    ans=ans^sum(p)
-  A.add(ans)
-print(len(A))
+    ans^=sum(p)
+  B.add(ans)
+print(len(B))
 
 ##############################################
 
+from more_itertools import set_partitions
+
+N = int(input())
+A = list(map(int, input().split()))
+s = []
+for p in set_partitions(A):
+    t = 0
+    for x in p:
+        y = 0
+        for i in x:
+            y += i
+        t ^= y
+    s.append(t)
+print(len(set(s)))
 
 ##############################################
 
@@ -55,20 +67,8 @@ while stk:
 print(len(res))
 
 ##############################################
-from more_itertools import set_partitions
 
-N = int(input())
-A = list(map(int, input().split()))
-s = []
-for p in set_partitions(A):
-    t = 0
-    for x in p:
-        y = 0
-        for i in x:
-            y += i
-        t ^= y
-    s.append(t)
-print(len(set(s)))
+
 
 ##############################################
 
@@ -101,6 +101,7 @@ for dist in distributions:
   D.add(ans)
 #print(D)
 print(len(D))
+
 ##############################################
 
 
