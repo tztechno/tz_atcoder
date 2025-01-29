@@ -118,8 +118,6 @@ for i in range(N):
     PLUS[i]+=PLUS[i-1]
     A[i]+=PLUS[i]
     a=A[i]
-    # 最大N-i-1個をあげる。
-
     w=min(a,N-i-1)
 
     A[i]-=w
