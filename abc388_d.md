@@ -2,7 +2,22 @@
 
 ---
 ```
+[my understandig AC]
 
+N=int(input())
+A=list(map(int,input().split()))
+PLUS=[0]*(N+20)
+#方針：誕生年の持分を求める、プレゼント可能総数を求める、終了時の残数を求める
+for i in range(N):#i番目は誕生年
+  PLUS[i]+=PLUS[i-1]#PLUS[-1]=0にするためにリストの数を余計に増やしている
+  A[i]+=PLUS[i]#誕生年なのでプレゼントを貰う
+  a=A[i]#Aiを確定させる
+  w=min(a,N-1-i)#プレゼント可能分確定
+  A[i]-=w#最終的にはプレゼントしただけ減る
+  if w>0:#もしプレゼントできるなら
+    PLUS[i+1]+=1#来年分から
+    PLUS[i+1+w]-=1#できなくなる年を示す
+print(*A)
 
 ```
 ---
