@@ -15,18 +15,69 @@
 ---
 ```
 
+N = int(input())
+A = list(map(int, input().split()))
+
+memo = [0 for _ in range(len(A))]
+ans = []
+accumulator = 0
+for i, v in enumerate(A):
+    accumulator += memo[i]
+    v += accumulator
+    if v <= 0:
+        ans.append(str(0))
+        continue
+    if i+1 < len(A):
+        memo[i+1] += 1
+    if i+v+1 < len(A):
+        memo[i+v+1] -= 1
+    v = max(0, v - ((len(A) - 1) - i))
+    ans.append(str(v))
+
+print(' '.join(ans))
 
 ```
 ---
 ---
 ```
 
+n=int(input())
+a=list(map(int,input().split()))
+diff=[0]*(n+1)
+for i in range(n):
+    score=a[i]+diff[i]-(n-1-i)
+    if score<0:
+        diff[n+score]-=1
+        score=0
+    diff[i+1]+=diff[i]+1
+    a[i]=score
+print(*a)
 
 ```
 ---
 ---
 ```
+N = int(input())
+A = list(map(int, input().split()))
+S = [0] * N
+for i, a in enumerate(A):
+    S[i] += S[i-1]
+    a += S[i]
+    
+    remain = N - i - 1
+    if remain == 0:
+        A[i] = a
+        continue
+    
+    if a >= remain:
+        S[i+1] += 1
+        A[i] = a - remain
+    else:
+        S[i+1] += 1
+        S[i+a+1] -= 1
+        A[i] = 0
 
+print(*A)
 
 ```
 ---
