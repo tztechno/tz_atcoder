@@ -12,12 +12,30 @@
 
 N,S=map(int,input().split())
 A=list(map(int,input().split()))
-sa=sum(A)
+B=[0]
+for a in A:
+  B+=[B[-1]+a]
+sa=B[-1]  
+
 for i in range(N):
   for j in range(N):
-    a=sum(A[i:])
-    b=sum(A[:j])
-    if a+b==S%sa or a+b==S%sa+sa:
+    ab=sa-B[i]+B[j]
+    if ab%sa==S%sa:
+      print('Yes')
+      exit()
+else:
+  print('No')
+
+-----------------------------------------
+
+N,S=map(int,input().split())
+A=list(map(int,input().split()))
+sa=sum(A)
+
+for i in range(N):
+  for j in range(N):
+    ab=sum(A[i:])+sum(A[0:j])
+    if ab%sa==S%sa:
       print('Yes')
       exit()
 else:
