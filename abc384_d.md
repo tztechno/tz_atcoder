@@ -5,6 +5,25 @@
 ############################################
 
 ############################################
+[myans AC]
+
+N,S = map(int,input().split())
+A = list(map(int,input().split()))
+
+B = [0]
+for a in A:
+  B+ = [B[-1]+a]
+
+SUM = B[-1]
+S% = SUM
+C = set(B)#累積和
+
+for b in B:
+  if (S+b)%SUM in C:  #(S+B[i])%SUM==B[j] #inを使えばi,j不要
+    print("Yes")
+    exit()
+
+print("No")
 
 ############################################
 
