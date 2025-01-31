@@ -16,6 +16,27 @@ B=[0]
 for a in A:
   B+=[B[-1]+a]
 sa=B[-1]  
+C=[0]
+for a in A[::-1]:
+  C+=[C[-1]+a]
+D=[]
+for b in B:
+  for c in C:
+    D+=[(b+c)%sa]
+DS=set(D)
+if S%sa in DS:
+  print('Yes')
+else:
+  print('No')
+
+-------------------------------------
+
+N,S=map(int,input().split())
+A=list(map(int,input().split()))
+B=[0]
+for a in A:
+  B+=[B[-1]+a]
+sa=B[-1]  
 
 for i in range(N):
   for j in range(N):
