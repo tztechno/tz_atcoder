@@ -13,18 +13,16 @@
 N,S=map(int,input().split())
 A=list(map(int,input().split()))
 B=[0]
-for a in A:
-  B+=[B[-1]+a]
-sa=B[-1]  
 C=[0]
-for a in A[::-1]:
-  C+=[C[-1]+a]
-D=[]
+for i in range(N):
+  B+=[B[-1]+A[i]]
+  C+=[C[-1]+A[N-1-i]]
+sa=B[-1]  
+D=set()
 for b in B:
   for c in C:
-    D+=[(b+c)%sa]
-DS=set(D)
-if S%sa in DS:
+    D.add((b+c)%sa)
+if S%sa in D:
   print('Yes')
 else:
   print('No')
