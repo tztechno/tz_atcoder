@@ -19,8 +19,51 @@
 ####################################################
 
 ####################################################
+[cgpt]
 
+import sys
+input = sys.stdin.readline
 
+N, W = map(int, input().split())
+
+ANS = [float('inf')] * N
+
+H = [[] for _ in range(W)]
+for i in range(N):
+    x, y = map(int, input().split())
+    x -= 1
+    H[x].append((y, i))
+
+for i in range(W):
+    H[i].sort()
+
+max_length = max(len(H[i]) for i in range(W))  # 各列の最大長
+
+for ll in range(max_length):
+    IND = []
+    MAX = 0
+    valid = True  # すべての列に要素が存在するか
+
+    for i in range(W):
+        if len(H[i]) <= ll:
+            valid = False
+            break
+        height, ind = H[i][ll]
+        MAX = max(MAX, height)
+        IND.append(ind)
+
+    if not valid:
+        break
+
+    for ind in IND:
+        ANS[ind] = MAX
+
+Q = int(input())
+
+for _ in range(Q):
+    t, x = map(int, input().split())
+    x -= 1
+    print("No" if ANS[x] <= t else "Yes")
 ####################################################
 [baro]
 
