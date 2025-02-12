@@ -64,6 +64,14 @@ A = list(map(int, lines[1].split()))
 N = int(input())
 A = list(map(int,input().split()))
 
+
+
+file_path = "/kaggle/input/my-atcoder/ahc042_in/0000.txt"
+with open(file_path, 'r') as file:
+    content = file.readlines()  # 各行をリストとして取得
+array_2d = np.array([list(map(int, line.split())) for line in content[1:]])
+
+
 from collections import deque
 
 左から取る (popleft()):
