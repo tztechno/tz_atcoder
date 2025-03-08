@@ -4,45 +4,39 @@
 ##################################################################
 [cgpt]
 
-class UnionFind:
-    def __init__(self, n):
-        self.parent = list(range(n + 1))  # 初期状態では自分自身が親
-        self.rank = [0] * (n + 1)
-
-    def find(self, x):
-        if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x])  # 経路圧縮
-        return self.parent[x]
-
-    def union(self, x, y):
-        root_x = self.find(x)
-        root_y = self.find(y)
-        if root_x != root_y:
-            if self.rank[root_x] < self.rank[root_y]:
-                self.parent[root_x] = root_y
-            elif self.rank[root_x] > self.rank[root_y]:
-                self.parent[root_y] = root_x
-            else:
-                self.parent[root_y] = root_x
-                self.rank[root_x] += 1
-
 N, Q = map(int, input().split())
-uf = UnionFind(N)
+
+# 鳩がどの巣にいるかを記録（初期状態では鳩 i は巣 i にいる）
+Nest = list(range(N + 1))
+
+# 巣ごとの鳩リストを管理（初期状態では巣 i に鳩 i のみがいる）
+BirdsInNest = {i: [i] for i in range(N + 1)}
 
 for _ in range(Q):
     qr = list(map(int, input().split()))
 
     if qr[0] == 1:
         a, b = qr[1], qr[2]
-        uf.parent[a] = b  # 鳩 a の巣を直接 b にする
+        # 鳩 a を現在の巣から削除し、新しい巣 b に移動
+        prev_nest = Nest[a]
+        BirdsInNest[prev_nest].remove(a)  # 以前の巣から削除
+        BirdsInNest[b].append(a)          # 新しい巣に追加
+        Nest[a] = b  # 鳩 a の巣情報を更新
 
     elif qr[0] == 2:
         a, b = qr[1], qr[2]
-        uf.union(a, b)  # 巣 a と巣 b を統合する
+        # 巣 a と巣 b の鳩を交換
+        BirdsInNest[a], BirdsInNest[b] = BirdsInNest[b], BirdsInNest[a]
+
+        # 鳩の巣情報を更新
+        for bird in BirdsInNest[a]:
+            Nest[bird] = a
+        for bird in BirdsInNest[b]:
+            Nest[bird] = b
 
     elif qr[0] == 3:
         a = qr[1]
-        print(uf.find(a))  # 鳩 a のいる巣を出力
+        print(Nest[a])  # 鳩 a のいる巣を出力
 
 
 
