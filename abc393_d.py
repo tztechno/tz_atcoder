@@ -1,6 +1,45 @@
 ##################################################################
 ##################################################################
 ##################################################################
+[cgpt2]
+
+N, Q = map(int, input().split())
+
+# 鳩がどの巣にいるかを記録（初期状態では鳩 i は巣 i にいる）
+Nest = list(range(N + 1))
+
+# 巣ごとの鳩リスト（遅延更新）
+BirdsInNest = None
+
+for _ in range(Q):
+    qr = list(map(int, input().split()))
+
+    if qr[0] == 1:
+        a, b = qr[1], qr[2]
+        # 鳩 a の巣情報を変更（リストの更新は遅延）
+        Nest[a] = b  
+
+    elif qr[0] == 2:
+        a, b = qr[1], qr[2]
+
+        # `BirdsInNest` を作り直す
+        BirdsInNest = {i: [] for i in range(N + 1)}
+        for bird in range(N + 1):
+            BirdsInNest[Nest[bird]].append(bird)
+
+        # 巣 a と巣 b の鳩を入れ替える
+        BirdsInNest[a], BirdsInNest[b] = BirdsInNest[b], BirdsInNest[a]
+
+        # `Nest` の情報を更新
+        for bird in BirdsInNest[a]:
+            Nest[bird] = a
+        for bird in BirdsInNest[b]:
+            Nest[bird] = b
+
+    elif qr[0] == 3:
+        a = qr[1]
+        print(Nest[a])  # 鳩 a の現在の巣を出力
+
 ##################################################################
 [cgpt,TLE]
 
