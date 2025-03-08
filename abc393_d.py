@@ -37,39 +37,43 @@ for tests in range(Q):
 
 ##################################################################
 [my TLE]
-import sys
-input = sys.stdin.readline
 
 N,Q=map(int,input().split())
-from collections import defaultdict,deque,Counter
-bird= defaultdict(int)
+Nest=list(range(0,N+1))#鳥を入れると巣がわかる
 
-for i in range(N):
-  bird[i+1]=i+1
+Bird=[]#巣を入れると鳥のリスト
+for k in range(N+1):
+  Bird+=[[]]
   
 for i in range(Q):
+  
   qr=list(map(int,input().split()))
   
   if qr[0]==1:
     a,b=qr[1],qr[2]
-    bird[a]=b
+    #鳩aを今いる巣から取り出し、巣bへ移動する。
+    Nest[a]=b
     
   elif qr[0]==2:
     a,b=qr[1],qr[2]
-    A=[]
-    B=[]
-    for j in range(N):
-      if bird[j+1]==a:
-        A+=[j+1]
-      if bird[j+1]==b:
-        B+=[j+1]
+    
+    for j in range(N+1):
+      Bird[Nest[j]]+=[j]      
 
-    for a in A:
-      bird[a]=b
-    for b in B:
-      bird[b]=a
-
+    birdsA=Bird[a]
+    for c in birdsA:
+      Nest[c]=b
+      
+    birdsB=Bird[b]
+    for c in birdsB:
+      Nest[c]=a
+        
+    for j in range(N+1):
+      Bird[Nest[j]]+=[j]  
+      
   elif qr[0]==3:
     a=qr[1]
-    print(bird[a])
+    #鳩aが今いる巣の番号を報告する。
+    print(Nest[a])
+
 ##################################################################
