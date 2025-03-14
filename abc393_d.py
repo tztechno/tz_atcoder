@@ -2,7 +2,54 @@
 ##################################################################
 ##################################################################
 ##################################################################
+[poe]
+N, Q = map(int, input().split())
+
+# 鳥, 場所, 箱
+bird_to_place = list(range(N))
+place_to_box = list(range(N))
+box_to_place = list(range(N))
+for _ in range(Q):
+    query = tuple(map(lambda x: int(x)-1, input().split()))
+    op = query[0]
+    if op == 0:
+        # 鳥の場所を箱の場所に更新する(鳥→場所, 箱→場所)
+        a, b = query[1], query[2]
+        place = box_to_place[b]
+        bird_to_place[a] = place
+    if op == 1:
+        # 箱Aの場所を箱Bの場所と入れ替える(場所→箱)
+        a, b = query[1], query[2]
+        place_a, place_b = box_to_place[a], box_to_place[b]
+        place_to_box[place_a], place_to_box[place_b] = b, a
+        box_to_place[a], box_to_place[b] = place_b, place_a
+    if op == 2:
+        # 鳥の場所の箱を参照する(鳥→場所→箱)
+        a = query[1]
+        place = bird_to_place[a]
+        box = place_to_box[place]
+        print(box+1)
+
 ##################################################################
+[irb]
+
+N, Q = map(int, input().split())
+
+hato = [i for i in range(N+1)]
+index2su = [i for i in range(N+1)]
+su2index = [i for i in range(N+1)]
+for _ in range(Q):
+  op = list(map(int, input().split()))
+  if op[0] == 1:
+    a, b = op[1:]
+    hato[a] = su2index[b]
+  elif op[0] == 2:
+    a, b = op[1:]
+    index2su[su2index[a]] = b
+    index2su[su2index[b]] = a
+    su2index[a], su2index[b] = su2index[b], su2index[a]
+  else:
+    print(index2su[hato[op[1]]])
 
 ##################################################################
 [cgpt2,TLE]
