@@ -65,6 +65,8 @@ N = int(input())
 A = list(map(int,input().split()))
 
 
+query = tuple(map(lambda x: int(x)-1, input().split()))
+
 
 file_path = "/kaggle/input/my-atcoder/ahc042_in/0000.txt"
 with open(file_path, 'r') as file:
