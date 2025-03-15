@@ -7,6 +7,29 @@
 
 ###################################################
 ###################################################
+[hob]
+
+def is_subsequence(s, t):  # s は t の（連続とは限らない）部分列となっているか？
+    i = 0
+    for c in s:
+        ok = False
+        for j in range(i, len(t)):
+            if c == t[j]:
+                ok = True
+                i = j+1
+                break
+        if not ok:
+            return False
+    return True
+
+
+S = input()
+c = 1
+while True:
+    T = 'io'*c
+    if is_subsequence(S, T):
+        exit(print(2*c - len(S)))
+    c += 1
 ###################################################
 [titia]
 
