@@ -1,5 +1,29 @@
 ##################################################
+[some]
 
+N, M = map(int, input().split())
+n, m = 0, 0
+B = list(map(int, input().split()))
+W = list(map(int, input().split()))
+B.sort()
+W.sort()
+value = 0
+while B and B[-1] >= 0:
+    value += B.pop()
+    n += 1
+
+while W and W[-1] >= 0:
+    if n == m:
+        if B and W[-1] + B[-1] >= 0:
+            value += W.pop() + B.pop()
+            n += 1
+            m += 1
+        else:
+            break
+    else:
+        value += W.pop()
+        m += 1
+print(value)
 ##################################################
 [nata]
 
