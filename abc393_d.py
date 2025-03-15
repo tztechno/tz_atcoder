@@ -1,6 +1,83 @@
 
+################################################################
+[my WA]
+#同時処理の形にしたが
+
+N,Q=map(int,input().split())
+
+bird2bag=[] #birdを入力するとbagがわかる
+bag2nest=[] #bagを入力するとnestがわかる
+nest2bag=[] #nestを入力するとbagがわかる
+
+for i in range(N+1):
+  bird2bag+=[i]
+  bag2nest+=[i]
+  nest2bag+=[i]
+  
+for i in range(Q):
+  qr= tuple(map(int,input().split()))
+  if qr[0]==1:
+    a,b=qr[1],qr[2]
+    bagi=nest2bag[b]
+    bird2bag[a]=bagi #birdを正しいbagに入れる、nestは知らん
+    
+  elif qr[0]==2:
+    a,b=qr[1],qr[2] #nestの情報であって、bagの情報はわからない前提
+    bag_b=bag2nest[a] #nestのbagを調べる
+    bag_a=bag2nest[b] 
+    nest2bag[a],nest2bag[b]=bag_b,bag_a  #同時処理の形
+    bag2nest[bag_a],bag2nest[bag_b]=a,b  #同時処理の形
+
+  elif qr[0]==3:
+    a=qr[1]
+    bagi=bird2bag[a]
+    nesti=bag2nest[bagi]
+    print(nesti)
+    
+
 ##################################################################
-##################################################################
+[my WA]
+
+'''
+種類1:整数a,bが与えられる。鳩aを今いる巣から取り出し、巣bへ移動する。
+種類2:整数a,bが与えられる。巣aにいる鳩をすべて巣bへ移動し、巣bにいる鳩をすべて巣aへ移動する。
+種類3:整数a(1≤a≤N)が与えられる。鳩aが今いる巣の番号を報告する。
+'''
+N,Q=map(int,input().split())
+
+bird2bag=[] #birdを入力するとbagがわかる
+bag2nest=[] #bagを入力するとnestがわかる
+nest2bag=[] #nestを入力するとbagがわかる
+
+for i in range(N+1):
+  bird2bag+=[i]
+  bag2nest+=[i]
+  nest2bag+=[i]
+  
+for i in range(Q):
+  qr= tuple(map(int,input().split()))
+  if qr[0]==1:
+    a,b=qr[1],qr[2]
+    bagi=nest2bag[b]
+    bird2bag[a]=bagi #birdを正しいbagに入れる、nestは知らん
+    
+  elif qr[0]==2:
+    a,b=qr[1],qr[2] #nestの情報であって、bagの情報はわからない前提
+    bag_b=bag2nest[a] #nestのbagを調べる
+    bag_a=bag2nest[b] 
+    nest2bag[a]=bag_b 
+    nest2bag[b]=bag_a 
+    bag2nest[bag_a]=a
+    bag2nest[bag_b]=b
+
+  elif qr[0]==3:
+    a=qr[1]
+    bagi=bird2bag[a]
+    nesti=bag2nest[bagi]
+    print(nesti)
+    
+    
+
 ##################################################################
 [poe]
 N, Q = map(int, input().split())
