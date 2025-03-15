@@ -1,39 +1,33 @@
 
 ################################################################
-[my WA]
-#同時処理の形にしたが
+[my AC]
+
+# 入力する属性を謝らなければ、自然にACにつながる
 
 N,Q=map(int,input().split())
 
-bird2bag=[] #birdを入力するとbagがわかる
-bag2nest=[] #bagを入力するとnestがわかる
-nest2bag=[] #nestを入力するとbagがわかる
-
-for i in range(N+1):
-  bird2bag+=[i]
-  bag2nest+=[i]
-  nest2bag+=[i]
+bird2bag=list(range(N)) #birdを入力するとbagがわかる
+bag2nest=list(range(N)) #bagを入力するとnestがわかる
+nest2bag=list(range(N)) #nestを入力するとbagがわかる
   
 for i in range(Q):
-  qr= tuple(map(int,input().split()))
-  if qr[0]==1:
-    a,b=qr[1],qr[2]
-    bagi=nest2bag[b]
-    bird2bag[a]=bagi #birdを正しいbagに入れる、nestは知らん
+  qr= tuple(map(lambda x: int(x)-1, input().split()))
+  if qr[0]==0:
+    a,b=qr[1],qr[2] #aはbird,bはnest
+    bag=nest2bag[b] #bはnestなので、nest2bagに入力可能
+    bird2bag[a]=bag #aはbirdなので、bird2bagに入力可能
     
-  elif qr[0]==2:
-    a,b=qr[1],qr[2] #nestの情報であって、bagの情報はわからない前提
-    bag_b=bag2nest[a] #nestのbagを調べる
-    bag_a=bag2nest[b] 
-    nest2bag[a],nest2bag[b]=bag_b,bag_a  #同時処理の形
-    bag2nest[bag_a],bag2nest[bag_b]=a,b  #同時処理の形
+  elif qr[0]==1:
+    a,b=qr[1],qr[2] #a,bはnestなので、nest2bagに入力可能
+    bag_a,bag_b=nest2bag[a],nest2bag[b] 
+    bag2nest[bag_a],bag2nest[bag_b]=b,a  #bagのnestを入れ替える
+    nest2bag[a],nest2bag[b]=bag_b,bag_a  #nestのbagを入れ替える
 
-  elif qr[0]==3:
-    a=qr[1]
-    bagi=bird2bag[a]
-    nesti=bag2nest[bagi]
-    print(nesti)
-    
+  elif qr[0]==2:
+    a=qr[1] #aはbirdなので、bird2bagに入力可能
+    bag=bird2bag[a]
+    nesti=bag2nest[bag]
+    print(nesti+1)
 
 ##################################################################
 [my WA]
