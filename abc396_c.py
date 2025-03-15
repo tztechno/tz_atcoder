@@ -3,7 +3,23 @@
 ##################################################
 
 ##################################################
+[saturn]
 
+n,m = map(int,input().split())
+A = [*map(int,input().split())]
+B = [*map(int,input().split())]
+A.sort(reverse=True)
+B.sort(reverse=True)
+if (m < n):
+    B += [0]*(n-m)
+ans = 0
+ta,tb,mb = 0,0,0
+for i in range(n):
+    ta += A[i]
+    tb += B[i]
+    mb = max(mb,tb)
+    ans = max(ans,ta+mb)
+print(ans)
 ##################################################
 [titia]
 
