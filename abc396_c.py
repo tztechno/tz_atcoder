@@ -1,7 +1,37 @@
 ##################################################
 
 ##################################################
+[nata]
 
+#累積和でMAX_W[i] = 白i個以下選ぶときの最大値
+
+N,M = map(int,input().split())
+
+B = list(map(int,input().split()))
+W = list(map(int,input().split()))
+B.sort(reverse=True)
+W.sort(reverse=True)
+
+SUM_W = [0]*(M+1)
+for i in range(M):
+  SUM_W[i+1] = SUM_W[i] + W[i]
+
+MAX_W = [0]*(M+1)
+for i in range(M):
+  MAX_W[i+1] = max(MAX_W[i] , SUM_W[i+1])
+
+SUM_B = [0]*(N+1)
+for i in range(N):
+  SUM_B[i+1] = SUM_B[i] + B[i]
+
+ANS = (-1)*10**18
+for i in range(N+1):
+  if i <= M:
+    ANS = max(ANS,SUM_B[i]+MAX_W[i])
+  else:
+    ANS = max(ANS,SUM_B[i]+MAX_W[-1])
+
+print(ANS)
 ##################################################
 [saturn]
 
