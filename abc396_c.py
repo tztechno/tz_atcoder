@@ -7,8 +7,19 @@
 ##################################################
 
 ##################################################
+[harada]
 
-
+n,m = map(int, input().split())
+b = list(map(int, input().split()))
+w = list(map(int, input().split()))+[0]*n
+b.sort()
+w.sort()
+ans = 0
+for i in range(n):
+ u,v = b.pop(),w.pop()
+ if u+v > 0:
+  ans += u+v
+print(ans)
 ##################################################
 [some,理解不能]
 
