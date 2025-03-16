@@ -2,6 +2,24 @@
 ###################################################
 ###################################################
 ###################################################
+[my TLE] y:forloop,w:binary tree
+
+def f(a, b):
+    return a*a*a-b*b*b
+N=int(input())
+for y in range(1,10000000):
+    ok=1
+    ng=int(1e7)
+    while (ng-ok)>1:
+        m=(ok+ng)//2
+        if(f(y+m,y)<=N): 
+          ok=m
+        else: 
+          ng=m
+    if(f(y+ok,y)==N):
+        print(y+ok,y)
+        exit()
+print(-1)
 ###################################################
 [ard]
 
@@ -33,7 +51,7 @@ print(-1)
 
 
 ###################################################
-[tetsu]
+[tetsu] w:forloop,y:binary tree
 
 def f(a, b):
     return a*a*a-b*b*b
