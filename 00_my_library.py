@@ -39,6 +39,22 @@ while NG > OK + 1:
         OK = mid
     else:
         NG = mid
+
+------------------------------------------------
+def f(a, b):
+    return a*a*a-b*b*b
+N=int(input())
+for w in range(1,1000000):
+    ok=1
+    ng=int(1e9)
+    while (ng-ok)>1:
+        m=(ok+ng)//2
+        if(f(w+m,m)<=N): ok=m
+        else: ng=m
+    if(f(ok+w,ok)==N):
+        print(ok+w,ok)
+        exit()
+print(-1)
 ------------------------------------------------
 
 from operator import itemgetter
