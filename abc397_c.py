@@ -4,6 +4,24 @@
 #########################################################
 
 #########################################################
+[my AC]
+
+N=int(input())
+A=list(map(int,input().split()))
+Sa=set()
+Sb=set()
+Na=[]
+Nb=[]
+MAX=0  
+for i in range(N-1):
+  Sa.add(A[i])
+  Sb.add(A[N-1-i])
+  Na+=[len(Sa)]
+  Nb+=[len(Sb)]
+Nb=Nb[::-1]
+for i in range(N-1):
+  MAX=max(MAX,Na[i]+Nb[i])
+print(MAX)
 
 #########################################################
 [my TLE]
