@@ -360,6 +360,80 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+##################################################################
+
+##################################################################
+
+##################################################################
+
+##################################################################
+
+##################################################################
+
+##################################################################
+
+##################################################################
+
+##################################################################
+
+[my TLE24]
+
+from itertools import product,permutations,combinations,accumulate
+
+N,K=map(int,input().split())
+S=list(input())
+
+for i in range(N-1):
+  if S[i]=='o':
+    S[i+1]='.'
+  if S[N-1-i]=='o':
+    S[N-2-i]='.'
+
+m=S.count('?')
+r=K-S.count('o')
+
+
+def generate_patterns(m, r, o='o', x='.'):
+    positions = list(range(m))
+    valid_patterns = []
+    for o_indices in combinations(positions, r):
+        # 連続チェック：並べて隣接したインデックスがあるか
+        if any(b - a == 1 for a, b in zip(o_indices, o_indices[1:])):
+            continue  # 連続してる → 不合格
+        # パターン作成
+        pattern = [x] * m
+        for idx in o_indices:
+            pattern[idx] = o
+        valid_patterns.append(''.join(pattern))
+    return valid_patterns
+
+def has_consecutive_o(lst, o='o'):
+    for i in range(len(lst) - 1):
+        if lst[i] == o and lst[i + 1] == o:
+            return True  # 連続 'o' があった
+    return False  # 連続 'o' なし
+
+
+patterns = generate_patterns(m, r)
+
+S2=[]
+for p in patterns:
+    b_iter = iter(p)
+    s2= [next(b_iter) if x == '?' else x for x in S]
+    if has_consecutive_o(s2, o='o')==False:
+      S2+=[s2]
+      
+T = []
+for i in range(N):
+    chars = {s[i] for s in S2}
+    if len(chars) == 1:
+        T.append(chars.pop())
+    else:
+        T.append('?')
+
+print(''.join(T))
+
 ###############################################################################
 [my WA]
 
