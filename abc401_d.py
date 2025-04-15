@@ -263,7 +263,103 @@ def solve():
 
 solve()
 ###############################################################################
-[my WA]
+[deepseekr1,WA]
+
+import bisect
+
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    N = int(data[0])
+    K = int(data[1])
+    S = data[2]
+    
+    M = S.count('o')
+    D = K - M
+    
+    # Handle the case where D is negative (though problem states X is non-empty)
+    if D < 0:
+        print('.' * N)
+        return
+    
+    # Collect candidate positions where '?' can be 'o'
+    candidates = []
+    for i in range(N):
+        if S[i] == '?':
+            left_ok = (i == 0) or (S[i-1] != 'o')
+            right_ok = (i == N-1) or (S[i+1] != 'o')
+            if left_ok and right_ok:
+                candidates.append(i)
+    
+    # Group consecutive candidates
+    groups = []
+    n = len(candidates)
+    if n > 0:
+        current_start = candidates[0]
+        current_end = candidates[0]
+        for i in range(1, n):
+            if candidates[i] == current_end + 1:
+                current_end = candidates[i]
+            else:
+                groups.append((current_start, current_end))
+                current_start = candidates[i]
+                current_end = candidates[i]
+        groups.append((current_start, current_end))
+    
+    # Prepare group information
+    group_info = []
+    group_starts = []
+    group_ends = []
+    for s, e in groups:
+        length = e - s + 1
+        max_count = (length + 1) // 2
+        group_info.append((s, e, max_count))
+        group_starts.append(s)
+        group_ends.append(e)
+    
+    S_max = sum(mc for s, e, mc in group_info)
+    
+    # Build the result string T
+    T = []
+    for i in range(N):
+        if S[i] == 'o':
+            T.append('o')
+        elif S[i] == '.':
+            T.append('.')
+        else:
+            # Check if i is in candidates
+            pos = bisect.bisect_left(candidates, i)
+            if pos < len(candidates) and candidates[pos] == i:
+                # Find the group containing i
+                group_idx = bisect.bisect_right(group_starts, i) - 1
+                if group_idx < 0:
+                    T.append('.')
+                    continue
+                s, e, mc = group_info[group_idx]
+                if i < s or i > e:
+                    T.append('.')
+                    continue
+                # Calculate new max after removing i
+                left_length = i - s
+                right_start = i + 1
+                right_length = e - right_start + 1 if right_start <= e else 0
+                left_max = (left_length + 1) // 2 if left_length > 0 else 0
+                right_max = (right_length + 1) // 2 if right_length > 0 else 0
+                new_part = left_max + right_max
+                original_mc = mc
+                S_new = S_max - original_mc + new_part
+                if S_new >= D:
+                    T.append('?')
+                else:
+                    T.append('o')
+            else:
+                T.append('.')
+    
+    print(''.join(T))
+
+if __name__ == "__main__":
+    main()
 ###############################################################################
 [my WA]
 
