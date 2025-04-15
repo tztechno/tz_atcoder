@@ -376,7 +376,6 @@ if __name__ == "__main__":
 ##################################################################
 
 ##################################################################
-
 [my TLE24]
 
 from itertools import product,permutations,combinations,accumulate
@@ -393,15 +392,10 @@ for i in range(N-1):
 m=S.count('?')
 r=K-S.count('o')
 
-
 def generate_patterns(m, r, o='o', x='.'):
     positions = list(range(m))
     valid_patterns = []
     for o_indices in combinations(positions, r):
-        # 連続チェック：並べて隣接したインデックスがあるか
-        if any(b - a == 1 for a, b in zip(o_indices, o_indices[1:])):
-            continue  # 連続してる → 不合格
-        # パターン作成
         pattern = [x] * m
         for idx in o_indices:
             pattern[idx] = o
@@ -413,7 +407,6 @@ def has_consecutive_o(lst, o='o'):
         if lst[i] == o and lst[i + 1] == o:
             return True  # 連続 'o' があった
     return False  # 連続 'o' なし
-
 
 patterns = generate_patterns(m, r)
 
