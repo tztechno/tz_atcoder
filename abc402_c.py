@@ -1,6 +1,50 @@
 ##################################################################
 
 ##################################################################
+[MyPlan + DeepSeek AC]
+
+N, M = map(int, input().split())
+K = []
+for _ in range(M):
+    ki = list(map(int, input().split()))
+    K.append(ki[1:])  # Skip the first value (number of ingredients), store only ingredients
+B = list(map(int, input().split()))
+
+# Dictionary to record on which day each ingredient is conquered
+ingredient_day = {}
+for day in range(N):
+    ingredient = B[day]
+    # Be careful whether ingredients are 1-based or 0-based; assuming 1-based here
+    ingredient_day[ingredient] = day + 1  # Record the day as 1-based
+
+max_day_per_dish = []
+for kj in K:
+    max_day = 0
+    for ingredient in kj:
+        if ingredient in ingredient_day:
+            day = ingredient_day[ingredient]
+            if day > max_day:
+                max_day = day
+        else:
+            # This ingredient is not in list B, so the dish can never be eaten
+            max_day = -1
+            break
+    if max_day != -1:
+        max_day_per_dish.append(max_day)
+
+# Count how many dishes have their max_day on each day
+count_per_day = [0] * (N + 2)  # Using 1-based index for days 1 to N
+for day in max_day_per_dish:
+    count_per_day[day] += 1
+
+# Calculate cumulative count up to each day
+current = 0
+result = []
+for day in range(1, N + 1):
+    current += count_per_day[day]
+    result.append(current)
+
+print('\n'.join(map(str, result)))
 
 ##################################################################
 [titia]
