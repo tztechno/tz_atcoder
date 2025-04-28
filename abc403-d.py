@@ -52,7 +52,7 @@ for ci in C:
 print(len(E)//2)
 
 ##################################################################
-[titia]
+[titia 理解不能]
 
 import sys
 input = sys.stdin.readline
