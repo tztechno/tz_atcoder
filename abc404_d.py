@@ -20,9 +20,58 @@
 ##################################################################
 
 ##################################################################
+[rukou]
 
+import sys
+sys.setrecursionlimit(10**6)
+
+n,m=map(int,input().split())
+C=list(map(int,input().split()))
+K,A=[-1]*m,[[] for _ in range(n)]
+for i in range(m):
+    K[i],*a=map(int,input().split())
+    for ai in a:
+        A[ai-1].append(i)
+        
+def rec(pos,vis):
+    if pos==n:
+        return 0 if all(v>=2 for v in vis) else float('inf')
+    
+    res=float('inf')
+    for i in range(3):
+        for a in A[pos]:
+            vis[a]+=i
+        res=min(res,rec(pos+1,vis)+C[pos]*i)
+        for a in A[pos]:
+            vis[a]-=i
+    return res
+
+print(rec(0,[0]*(m)))
 ##################################################################
+[mimam]
 
+N,M = map(int, input().split())
+C = list(map(int, input().split()))
+zoo = [[] for _ in range(N)] # 園別に見られる動物
+for i in range(M):
+    A = list(map(int, input().split()))[1:]
+    for a in A:
+        zoo[a-1].append(i)
+
+ans = sum(C) * 2
+for i in range(2**(2*N)):
+    price = 0
+    animal = [0] * M
+    for j in range((2*N)):
+        if ((i >> j) & 1):
+            k = j % N
+            price += C[k]
+            for z in zoo[k]:
+                animal[z] += 1
+    all_seen = sum([a>=2 for a in animal])
+    if all_seen == M and price < ans:
+        ans = price
+print(ans)
 ##################################################################
 [my parts]
 
