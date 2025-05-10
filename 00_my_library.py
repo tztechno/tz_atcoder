@@ -25,6 +25,13 @@ from atcoder.dsu import DSU
 for i in range(1 << K):
     for j in range(K):  # 修正点
         if (i >> j) & 1 == 0:  # 修正点
+            
+------------------------------------------------
+for i in range(1<<(N*2)):
+    for j in range(2*N):
+        if i & (1<<j) != 0:
+
+整数 i のビット表現の中で、j 番目のビットが立っている（つまり1である）かどうかを判定しています。            
 ------------------------------------------------
 for i in range(1 << K):
     bit_string = bin(i)[2:].zfill(K)  # ビット列を K 桁に拡張
