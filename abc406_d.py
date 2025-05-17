@@ -197,7 +197,9 @@ for tests in range(Q):
     print(ANS)
         
 ##################################################################
-[my re]
+[my TLE,RE]
+# ❌ 問題点：NumPyを使っているが意味がない・遅い
+
 import numpy as np
 H,W,N=map(int,input().split())
 A=np.zeros((H,W))
