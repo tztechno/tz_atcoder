@@ -17,11 +17,102 @@
 ##################################################################
 
 ##################################################################
+[cgpt fix AC]
 
+h, w, n = map(int, input().split())
+
+H = [set() for _ in range(h)]
+W = [set() for _ in range(w)]
+
+for _ in range(n):
+    x, y = map(int, input().split())
+    H[x - 1].add(y - 1)
+    W[y - 1].add(x - 1)
+
+q = int(input())
+for _ in range(q):
+    a, b = map(int, input().split())
+    
+    if a == 1:
+        print(len(H[b - 1]))
+        for y in H[b - 1]:   ###
+            W[y].discard(b - 1)  ###
+        H[b - 1] = set()
+    else:
+        print(len(W[b - 1]))
+        for x in W[b - 1]:  ###
+            H[x].discard(b - 1)  ###
+        W[b - 1] = set()
+       
 ##################################################################
+[my TLE]
+h,w,n=map(int,input().split())
 
+H=[]
+for i in range(h):
+  H+=[set()]
+  
+W=[]
+for j in range(w):
+  W+=[set()]
+
+XY=[]
+for i in range(n):
+  x,y=map(int,input().split())
+  H[x-1].add(y-1)
+  W[y-1].add(x-1)
+
+q=int(input())
+for i in range(q):
+  a,b=map(int,input().split())
+  
+  if a==1:
+    print(len(H[b-1]))
+    H[b-1]=set()
+    for j in range(w):
+      W[j].discard(b-1)
+  
+  else:
+    print(len(W[b-1]))
+    W[b-1]=set()
+    for j in range(h):
+      H[j].discard(b-1)
+    
 ##################################################################
+[my TLE,WA]
 
+h,w,n=map(int,input().split())
+
+H=[]
+for i in range(h):
+  H+=[set()]
+  
+W=[]
+for j in range(w):
+  W+=[set()]
+
+XY=[]
+for i in range(n):
+  x,y=map(int,input().split())
+  H[x-1].add(y-1)
+  W[y-1].add(x-1)
+
+q=int(input())
+for i in range(q):
+  a,b=map(int,input().split())
+  
+  if a==1:
+    print(sum(H[b-1]))
+    H[b-1]=set()
+    for j in range(w):
+      W[j].discard(b-1)
+  
+  else:
+    print(sum(W[b-1]))
+    W[b-1]=set()
+    for j in range(h):
+      H[j].discard(b-1)
+    
 ##################################################################
 [titia]
 
