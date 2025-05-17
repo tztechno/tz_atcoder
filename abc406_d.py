@@ -15,7 +15,38 @@
 ##################################################################
 
 ##################################################################
+[my TLE]
 
+H,W,N=map(int,input().split())
+
+C=set()
+for i in range(N):
+  x,y=map(int,input().split())
+  C.add((x-1,y-1))
+
+C2=C.copy()
+  
+Q=int(input())
+for i in range(Q):
+  a,b=map(int,input().split())
+  
+  if a==1:
+    ans=0
+    for c in C:
+      if c[0]==b-1:
+        ans+=1
+        C2.discard(c)
+    print(ans)
+    
+  elif a==2:
+    ans=0
+    for c in C:
+      if c[1]==b-1:
+        ans+=1
+        C2.discard(c)
+    print(ans)
+    
+  C=C2.copy()
 ##################################################################
 [cgpt fix AC]
 
