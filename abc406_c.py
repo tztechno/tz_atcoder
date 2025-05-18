@@ -52,7 +52,7 @@ for i in range(len(run_length)):
         before = run_length[i][1]
 print(count)
 ##################################################################
-[karu]
+[karu HIGH]
 ans = 0
 n = int(input())
 a = [*map(int, input().split())] + [-1]
