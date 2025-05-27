@@ -17,9 +17,57 @@
 ##################################################################
 
 ##################################################################
+[my TLE,WA]
 
+N=int(input())
+A=list(map(int,input().split()))
+#print(A)
+B=''
+for i in range(N-1):
+  if A[i]<A[i+1]:
+    B+='i'
+  else:
+    B+='d'
+#print(B)
+from itertools import product,permutations,combinations,accumulate
+C0=combinations(list(range(N)),2)
+d=0
+for ci in C0:
+  t=B[ci[0]:ci[1]]
+  di=0
+  id=0
+  for i in range(len(t)-1):
+    if t[i:i+2]=='di':
+      di+=1
+    elif t[i:i+2]=='id':
+      id+=1
+  if di==1 and id==1:
+    d+=1
+print(d)
+    
 ##################################################################
+[my TLE,WA]
+# the condition that number of each part be one is ignored. 
 
+N=int(input())
+A=list(map(int,input().split()))
+#print(A)
+B=''
+for i in range(N-1):
+  if A[i]<A[i+1]:
+    B+='i'
+  else:
+    B+='d'
+#print(B)
+from itertools import product,permutations,combinations,accumulate
+C0=combinations(list(range(N)),2)
+d=0
+for ci in C0:
+  t=B[ci[0]:ci[1]]
+  if 'id' in t and 'di' in t:
+    d+=1
+print(d)
+    
 ##################################################################
 [torugam]
 
@@ -71,26 +119,7 @@ for i in range(n):
         b, c = c, 0
 print(ans)
 ##################################################################
-[my WA]
 
-N=int(input())
-A=list(map(int,input().split()))
-C=''
-for i in range(N-1):
-  if A[i]<A[i+1]:
-    C+='<'
-  else:
-    C+='>'
-C=C.replace('<>','aa').replace('><','bb')
-
-ANS=set()
-for i in range(N-1):
-  for j in range(i+1,N-1):
-    if j-i>=4 and C[i:j+1].count('aa')==1 and C[i:j+1].count('bb')==1 and (C[i]=='a' or C[i]=='<'):
-      ANS.add(C[i:j+1])
-print(len(ANS))
-
-##################################################################
 [titia]
 
 import sys
