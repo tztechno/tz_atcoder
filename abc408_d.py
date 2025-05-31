@@ -25,7 +25,35 @@
 ##################################################################
 
 ##################################################################
+[titia]
+import sys
+input = sys.stdin.readline
 
+T=int(input())
+
+for tests in range(T):
+    N=int(input())
+    S=input().strip()
+
+    DP0=[1<<60]*(N+1)
+    DP1=[1<<60]*(N+1)
+    DP2=[1<<60]*(N+1)
+
+    DP0[0]=0
+    DP1[0]=0
+    DP2[0]=0
+
+    for i in range(N):
+        if S[i]=="1":
+            DP0[i+1]=min(DP0[i+1],DP0[i]+1)
+            DP1[i+1]=min(DP1[i+1],DP1[i],DP0[i])
+            DP2[i+1]=min(DP2[i+1],DP2[i]+1,DP1[i]+1)
+        else:
+            DP0[i+1]=min(DP0[i+1],DP0[i])
+            DP1[i+1]=min(DP1[i+1],DP1[i]+1,DP0[i]+1)
+            DP2[i+1]=min(DP2[i+1],DP2[i],DP1[i])
+
+    print(min(DP0[-1],DP1[-1],DP2[-1]))
 ##################################################################
 [my WA]
 t=int(input())
