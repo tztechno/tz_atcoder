@@ -15,9 +15,47 @@
 ##################################################################
 
 ##################################################################
+[my AC] #default version
 
+N,M=map(int,input().split())
+
+A=[]
+for i in range(M):
+  l,r=map(int,input().split())
+  A+=[(l,1),(r+1,-1)]
+
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(int)
+for order,val in A:
+  cnt[order]+=val
+
+t=0
+ans=M
+
+if sorted(cnt)[0]>1 or sorted(cnt)[-1]<N:
+  print(0)
+  exit()
+  
+else:
+  for c in sorted(cnt):
+    if 1<=c<=N:
+      t+=cnt[c]
+      ans=min(ans,t)
+    else:
+      break
+  print(ans)
 ##################################################################
-
+[my AC] #全体リスト作る
+N,M=map(int,input().split())
+B=[0]*(N+1)
+for i in range(M):
+  l,r=map(int,input().split())
+  B[l-1]+=1
+  B[r]-=1
+C=[0]
+for b in B:
+  C+=[C[-1]+b]
+print(min(C[1:-1]))
 ##################################################################
 [mana]
 n, m = map(int, input().split())
