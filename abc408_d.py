@@ -23,7 +23,22 @@
 ##################################################################
 
 ##################################################################
-
+[wisteria]
+T = int(input())
+for _ in range(T):
+    N = int(input())
+    S = input()
+    one_cnt = S.count('1')
+    if one_cnt == 0:
+        print(0)
+        continue
+    max_gain = 0
+    cnt = 0
+    for ch in S:
+        val = 1 if ch == '1' else -1
+        cnt = max(val, cnt + val)
+        max_gain = max(max_gain, cnt)
+    print(one_cnt - max_gain)
 ##################################################################
 [titia]
 import sys
