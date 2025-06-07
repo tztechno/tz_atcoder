@@ -13,7 +13,18 @@
 ##################################################################
 
 ##################################################################
-
+[cgpt]
+N = int(input())
+A = list(map(int, input().split()))
+A.sort(reverse=True)
+max_x = 0
+for i in range(N):
+    x = i + 1  
+    if A[i] >= x:
+        max_x = x
+    else:
+        break
+print(max_x)
 ##################################################################
 
 ##################################################################
@@ -23,9 +34,48 @@
 ##################################################################
 
 ##################################################################
-
+[titia]
+import sys
+input = sys.stdin.readline
+N=int(input())
+A=list(map(int,input().split()))
+ANS=[0]*200
+for a in A:
+    MIN=min(a,199)
+    for i in range(MIN,-1,-1):
+        ANS[i]+=1
+score=0
+for i in range(len(ANS)):
+    if ANS[i]>=i:
+        score=i
+print(score)
 ##################################################################
-
+[not use counter,check all,then select max]
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+A.sort(reverse=True)
+t=0
+for i in range(N):
+  x=i+1
+  a=A[i]
+  if a>=x: ### 要素aがx以上で、x回現れる
+    t+=1
+    if t>=x:
+      print(x)
+      exit()
 ##################################################################
-
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+from collections import defaultdict,deque,Counter
+C=Counter(A)
+S=sorted(list(C))[::-1]
+#print(S)
+t=0
+for si in S:
+  t+=C[si]
+  if t>=si:
+    print(si)
+    exit()
 ##################################################################
