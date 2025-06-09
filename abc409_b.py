@@ -1,5 +1,5 @@
 ##################################################################
-[cgpt]
+[cgpt AC]
 N = int(input())
 A = list(map(int, input().split()))
 A.sort(reverse=True)
@@ -17,23 +17,116 @@ print(max_x)
 Aに、x以上の要素が重複を含めてx回以上現れる。
 制約1≤N≤100,0≤Ai​≤10**9入力はすべて整数
 ##################################################################
-
+[cgpt AC]
+N = int(input())
+A = list(map(int, input().split()))
+A.sort(reverse=True)
+max_x = 0
+for i,a in enumerate(A):
+    x = i+1  
+    if a >= x:
+        max_x = x
+    else:
+        break
+print(max_x)
+##################################################################
+[cgpt+my AC]
+回数のmaxを求める
+条件が適合した時だけ更新する
+N = int(input())
+A = list(map(int, input().split()))
+A.sort(reverse=True)
+max_x = 0
+for i,a in enumerate(A):
+    x = i+1  
+    if a >= x:
+        max_x = max(max_x,x)
+print(max_x)
 ##################################################################
 
 ##################################################################
 
 ##################################################################
+[my AC]
+N = int(input())
+A = list(map(int,input().split()))
+#print(A)
+A.sort(reverse=True)
 
+#a以上の要素がa回以上(a<=t,a>=t)
+#回数tのmaxを求める
+
+#print('a,t')
+ans=0
+t=0#回数
+for a in A:
+  t+=1
+  if a>=t: #aは減って、tは増えて
+    ans=max(ans,t)
+    #print(a,t)
+print(ans)
 ##################################################################
-
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+#print(A)
+A.sort(reverse=True)
+t=0#回数
+#a以上の要素がa回以上(a<=t)
+#print('a,t')
+ans=0
+for a in A:
+  t+=1
+  #print(a,t)
+  if a<=t:
+    ans=max(ans,min(a,t))
+print(ans)
 ##################################################################
-
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+#print(A)
+A.sort(reverse=True)
+t=0#回数
+#a以上の要素がa回以上(a<=t)
+#print('a,t')
+ans=0
+for a in A:
+  t+=1
+  #print(a,t)
+  if a<=t:
+    ans=max(ans,min(a,t))
+print(ans)
 ##################################################################
-
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+#print(A)
+A.sort(reverse=True)
+t=0#回数
+#a以上の要素がa回以上(a<=t)
+#print('a,t')
+for a in A:
+    t+=1
+    #print(a,t)
+    if a<=t:
+        print(min(a,t))
+        break
 ##################################################################
-
-##################################################################
-
+[my WA]
+N = int(input())
+A = list(map(int,input().split()))
+#print(A)
+A.sort(reverse=True)
+t=0#回数
+#a以上の要素がa回以上(a<=t)
+#print('a,t')
+for a in A:
+    t+=1
+    #print(a,t)
+    if a<=t:
+        print(a)
+        break
 ##################################################################
 [my WA]
 N = int(input())
