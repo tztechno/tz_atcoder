@@ -1,5 +1,6 @@
 ##################################################################
-
+円周がLの円があり、この円周上に点1,2,…,Nが配置されています。
+i=1,2,…,N−1に対し、点i+1は点iから時計回りに円周上をdi​進んだ位置にあります。
 ##################################################################
 
 ##################################################################
@@ -21,9 +22,49 @@
 ##################################################################
 
 ##################################################################
+[titia]
+import sys
+input = sys.stdin.readline
+N,L=map(int,input().split())
+A=list(map(int,input().split()))
 
+X=[0]*L
+X[0]=1
+now=0
+for a in A:
+    now+=a
+    now%=L
+    X[now]+=1
+ANS=0
+if L%3==0:
+    for i in range(L//3):
+        ANS+=X[i]*X[i+L//3]*X[i+L//3*2]
+print(ANS)
 ##################################################################
+[cgpt AC]
+from collections import defaultdict
 
+def count_equilateral_triangles(N, L, D):
+    if L % 3 != 0:
+        return 0
+    k = L // 3
+    A = [0]
+    for d in D:
+        A.append((A[-1] + d) % L)
+    freq = defaultdict(int)
+    for pos in A:
+        freq[pos] += 1
+    count = 0
+    for d in freq:
+        d2 = (d + k) % L
+        d3 = (d + 2 * k) % L
+        if d2 in freq and d3 in freq:
+            count += freq[d] * freq[d2] * freq[d3]
+    return count // 3  # 各三角形を3回数えているので割る
+
+N, L = map(int, input().split())
+D = list(map(int, input().split()))
+print(count_equilateral_triangles(N, L, D))
 ##################################################################
 
 ##################################################################
