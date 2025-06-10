@@ -45,7 +45,21 @@ print(max_x)
 ##################################################################
 
 ##################################################################
+[my AC]
+#a以上の要素がa回以上の考え方
+#xとa都度小さい方で（どちらもいい）、より大きいものを探す
 
+N = int(input())
+A = list(map(int, input().split()))
+A.sort(reverse=True)
+max_ax = 0
+for i,a in enumerate(A):
+  x=i+1
+  if x>=a:
+    max_ax=max(max_ax,a)
+  elif a>=x:
+    max_ax=max(max_ax,x)
+print(max_ax)
 ##################################################################
 [my AC]
 N = int(input())
