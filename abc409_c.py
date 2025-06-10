@@ -20,34 +20,9 @@ i=1,2,…,N−1に対し、点i+1は点iから時計回りに円周上をdi​�
 ##################################################################
 
 ##################################################################
-[my WA]
-N, L = map(int, input().split())
-D = list(map(int, input().split()))
-A=[0]
-for d in D:
-  A+=[(A[-1]+d)%L]
-#print(A)
-from collections import defaultdict,deque,Counter
-E=Counter(A)
-w=L//3
-R=[]
-for i,a in enumerate(A):
-  b=(a+w)%L
-  c=(a-w)%L
-  if  b in A and c in A:
-    D=sorted([a,b,c])
-    t=E[a]*E[b]*E[c]
-    R+=[(D,t)]
-#print(R)
-Q=[]
-for r in R:
-  if r not in Q:
-    Q+=[r]
-t=0
-#print(Q)
-for q in Q:
-  t+=q[1]
-print(t)
+
+##################################################################
+
 ##################################################################
 [titia]
 import sys
@@ -93,7 +68,26 @@ N, L = map(int, input().split())
 D = list(map(int, input().split()))
 print(count_equilateral_triangles(N, L, D))
 ##################################################################
-
-##################################################################
-
+[my WA]
+N, L = map(int, input().split())
+D = list(map(int, input().split()))
+A=[0]
+for d in D:
+  A+=[(A[-1]+d)%L]
+#print(A)
+from collections import defaultdict,deque,Counter
+E=Counter(A)
+w=L//3
+R=[]
+T=0
+for i,a in enumerate(A):
+  b=(a+w)%L
+  c=(a-w)%L
+  if  b in A and c in A:
+    D=sorted([a,b,c])
+    t=E[a]*E[b]*E[c]
+    if (D,t) not in R:
+      R+=[(D,t)]
+      T+=t
+print(T)
 ##################################################################
