@@ -24,7 +24,29 @@
 ##################################################################
 
 ##################################################################
+[titia]
+import sys
+input = sys.stdin.readline
 
+n,q=map(int,input().split())
+A=list(range(1,n+1))
+
+start=0
+
+for tests in range(q):
+    L=list(map(int,input().split()))
+
+    if L[0]==1:
+        p,x=L[1],L[2]
+        p-=1
+        A[(p+start)%n]=x
+    elif L[0]==2:
+        p=L[1]
+        p-=1
+        print(A[(p+start)%n])
+    else:
+        k=L[1]
+        start+=k
 ##################################################################
 [myai AC]
 import sys
