@@ -26,7 +26,49 @@
 ##################################################################
 
 ##################################################################
+[myai AC]
+import sys
+input = sys.stdin.readline
 
+N, Q = map(int, input().split())
+A = list(range(1, N + 1))
+offset = 0 
+
+def get_index(p):
+    return (offset + p - 1) % N
+
+for _ in range(Q):
+    qr = list(map(int, input().split()))
+    if qr[0] == 1:
+        p, x = qr[1], qr[2]
+        A[get_index(p)] = x
+    elif qr[0] == 2:
+        p = qr[1]
+        print(A[get_index(p)])
+    elif qr[0] == 3:
+        k = qr[1]
+        offset = (offset + k) % N  
 ##################################################################
+[myai TLE]
+import sys
+input = sys.stdin.readline
 
+N,Q=map(int,input().split())
+A=list(range(1,N+1))
+
+def rotate(A, k):
+    k = k % len(A) 
+    return A[k:] + A[:k]
+
+for i in range(Q):
+  qr=list(map(int,input().split()))
+  if qr[0]==1:
+    p,x=qr[1],qr[2]
+    A[p-1]=x
+  elif qr[0]==2:
+    p=qr[1]
+    print(A[p-1])
+  elif qr[0]==3:
+    k=qr[1]
+    A=rotate(A,k)
 ##################################################################
