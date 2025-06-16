@@ -24,7 +24,46 @@
 ##################################################################
 
 ##################################################################
+[titia]
+import sys
+input = sys.stdin.readline
 
+N,M=map(int,input().split())
+
+E=[[] for i in range(N)]
+
+for i in range(M):
+    a,b,w=map(int,input().split())
+    a-=1
+    b-=1
+    E[a].append((b,w))
+
+DP=[[0]*(1<<10) for i in range(N)]
+DP[0][0]=1
+
+Q=[(0,0)]
+
+while Q:
+    now,b=Q.pop()
+
+    for to,w in E[now]:
+        tob=b^w
+
+        if DP[to][tob]==0:
+            DP[to][tob]=1
+            Q.append((to,tob))
+
+MIN=1<<60
+for i in range(1<<10):
+    if DP[-1][i]==1:
+        if i<MIN:
+            MIN=i
+
+if MIN>=(1<<50):
+    print(-1)
+else:
+    print(MIN)
+            
 ##################################################################
 [myai WA]
 import sys
