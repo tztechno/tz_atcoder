@@ -17,9 +17,72 @@
 ##################################################################
 
 ##################################################################
+[tako]
 
+A, N = map(int, open(0))
+
+ans = 0
+for i in range(1, 10 ** 6):
+    S = str(i)
+    for o in map(int, (S + S[::-1][1:], S + S[::-1])):
+        if o > N:
+            continue
+        q = o
+        B = []
+        while q > 0:
+            q, r = divmod(q, A)
+            B += r,
+        if B == B[::-1]:
+            ans += o
+
+print(ans)
 ##################################################################
+[kocha]
 
+a=int(input())
+n=int(input())
+
+kai=set()
+for i in range(1,10):
+  kai.add(i)
+cnt=len(list(str(n)))-1
+
+d=(len(list(str(n))))//2
+
+for i in range(10**d):
+  s=str(i)
+  if s==s[::-1]:
+    kai.add(i)
+  kai.add(int(s+s[::-1]))
+  for j in range(0,10):
+    if i>=10**5:
+      break
+    jt=str(j)
+    if s==str(0):
+      break
+    kai.add(int(s+jt+s[::-1]))
+#kai=sorted(kai)
+#print(kai)
+
+def f(v):
+  sn=''
+  while v:
+    if v%a>=10:
+      return -1
+    sn+=str(v%a)
+    v//=a
+  if sn==sn[::-1]:
+    return True
+  else:
+    return False
+ans=0
+for i in kai:
+  if i>n:
+    continue
+  if f(i):
+    ans+=i
+
+print(ans)
 ##################################################################
 import sys
 input = sys.stdin.readline
