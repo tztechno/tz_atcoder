@@ -127,7 +127,28 @@ $$
 ##################################################################
 
 ##################################################################
-
+[ngid] modify
+T = int(input())
+cases = []
+for i in range(T):
+    N, M = map(int, input().split(' '))
+    A = list(map(int, input().split(' ')))
+    B = list(map(int, input().split(' ')))
+    A = sorted(A)
+    B = sorted(B, reverse=True)
+    n = len(A)
+    pairs = 0
+    i = 0
+    j = 0
+    for i in range(n):
+        while j < n and A[i] + B[j] < M:
+            j += 1
+        if j >= n:
+            break
+        pairs += 1
+        j += 1
+    res = sum(A) + sum(B) - pairs * M
+    print(res)
 ##################################################################
 [claude WA]
 def solve():
