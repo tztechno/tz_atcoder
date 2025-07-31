@@ -21,6 +21,52 @@
 ##################################################################
 
 ##################################################################
+[hobit]
+import sys
+input = sys.stdin.readline
+INF = 10**18
+N, M = map(int, input().split())
+G = [[INF]*(N+1) for i in range(N+1)]  # v=0: sky
+for i in range(N+1):
+    G[i][i] = 0
+for _ in range(M):
+    a, b, c = map(int, input().split())
+    G[a][b] = G[b][a] = min(G[a][b], c*2)  # a<->b, cost=c*2
+K, T = map(int, input().split())
+for i in map(int, input().split()):  # D
+    G[0][i] = G[i][0] = T  # i<->sky, cost=T
+
+
+def update(k):
+    for i in range(N+1):
+        if G[k][i] < INF:
+            for j in range(i):  # 対角線上について対象である前提で
+                G[j][i] = G[i][j] = min(G[i][j], G[i][k] + G[k][j])
+
+
+for k in range(N+1):  # floyd_warshall
+    update(k)
+
+for _ in range(int(input())):  # Q
+    ty, *op = map(int, input().split())
+    if ty == 1:  # (x<y), x<->y の道を作る. x,y 間を time=t で移動可能
+        x, y, t = op
+        G[x][y] = G[y][x] = min(G[x][y], t*2)  # x<->y, cost=t*2
+        update(x)
+        update(y)
+
+    elif ty == 2:  # x の街に空港を作る. 他の空港のある街へ time=T で移動可能
+        x = op[0]
+        G[0][x] = G[x][0] = T  # x<->sky, cost=T
+        update(0)
+        update(x)
+
+    else:  # if ty == 3:  # ΣΣf(x,y) を出力
+        tot = 0
+        for i in range(1, N+1):
+            for j in range(1, i):
+                tot += G[i][j] if G[i][j] != INF else 0
+        print(tot)
 
 ##################################################################
 [cgpt AC]
