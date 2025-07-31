@@ -127,7 +127,7 @@ $$
 ##################################################################
 
 ##################################################################
-[ngid] modify
+[ngid modify WA]
 T = int(input())
 cases = []
 for i in range(T):
@@ -402,7 +402,7 @@ for i in range(T):
     ans+=(a+b)%M
   print(ans)
 ##################################################################
-[ngid]
+[ngid AC]
 T = int(input())
 cases = []
 for i in range(T):
@@ -415,9 +415,9 @@ for i in range(T):
     pairs = 0
     i = 0
     j = 0
-    for i in range(n):
+    for i in range(n): ##大きい順に一つずつ
         while j < n and A[i] + B[j] < M:
-            j += 1
+            j += 1 ##小さい順をジャンプさせる
         if j >= n:
             break
         pairs += 1
