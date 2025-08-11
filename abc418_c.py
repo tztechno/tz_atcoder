@@ -11,16 +11,88 @@ https://atcoder.jp/contests/abc418/submissions
 あなたが選んだb個のティーバッグがすべて同じフレーバーであれば、あなたは勝利する。
 そうでなければ、あなたは敗北する。ディーラーはあなたが敗北するように最善を尽くすものとします。
 Q個の質問が与えられるので、それぞれに答えてください。
-j番目の質問は以下の通りです。難易度Bj​のゲームに勝利するためにはじめに宣言する必要がある整数xの最小値を答えよ。
+j番目の質問は以下の通りです。
+難易度Bj​のゲームに勝利するためにはじめに宣言する必要がある整数xの最小値を答えよ。
 勝利が不可能であれば、代わりに−1と答えよ。
 ##################################################################
-
+4 5
+4 1 8 4
+1
+8
+5
+2
+10
+----------------------
+1
+17
+14
+5
+-1
 ##################################################################
+[cgpt wa]
+N, Q = map(int, input().split())
+A = list(map(int, input().split()))
+S = sum(A)
 
+for _ in range(Q):
+    b = int(input())
+    ans = float('inf')
+    for a in A:
+        if a >= b:  # b個そろえるポテンシャルがあるフレーバー
+            x_needed = b + (S - a)
+            if x_needed <= S:
+                ans = min(ans, max(b, x_needed))
+    print(ans if ans != float('inf') else -1)
 ##################################################################
+[cgpt AC]
+import sys
+import bisect
 
+def solve():
+    input = sys.stdin.readline
+    N, Q = map(int, input().split())
+    A = list(map(int, input().split()))
+    S = sum(A)
+    A.sort()  # ascending
+    pref = [0] * (N + 1)
+    for i in range(N):
+        pref[i+1] = pref[i] + A[i]
+
+    for _ in range(Q):
+        b = int(input().strip())
+        t = b - 1
+        if t <= 0:
+            C = 0
+        else:
+            k = bisect.bisect_right(A, t)  # A[0..k-1] <= t
+            C = pref[k] + (N - k) * t
+        x_min = max(b, C + 1)
+        print(x_min if x_min <= S else -1)
+
+if __name__ == "__main__":
+    solve()
 ##################################################################
+[my+cgpt AC]
+from bisect import bisect_right
+N, M = map(int, input().split())
+A = sorted(list(map(int, input().split())))
+S = sum(A)
 
+C = [0]
+for a in A:
+    C.append(C[-1] + a)
+
+for _ in range(M):
+    b = int(input())
+    t = b - 1
+    if t <= 0:
+        Cb = 0
+    else:
+        k = bisect_right(A, t)
+        Cb = C[k] + (N - k)*t  ####
+
+    x_min = max(b, Cb + 1)
+    print(x_min if x_min <= S else -1)
 ##################################################################
 
 ##################################################################
