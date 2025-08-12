@@ -100,9 +100,48 @@ for _ in range(M):
 ##################################################################
 
 ##################################################################
-
+[MyBrain AC]
+import bisect
+N, Q = map(int, input().split())
+A = sorted(list(map(int, input().split())))
+S = sum(A)
+C=[0]
+for a in A:
+  C+=[C[-1]+a]
+#x:勝利するためにはじめに宣言する必要がある整数 
+for _ in range(Q):
+    b = int(input())#難易度、必要なフラッシュ個数
+    #--------------
+    t=bisect.bisect_right(A,b-1)
+    x=C[t]+(b-1)*(N-t)+1　#aを全部使う部分（境界線の左）+定数を加える（境界線の右）+1
+    #--------------
+    if x>S:
+      print(-1)
+    else:
+      print(x)    
 ##################################################################
-
+[MyBrain TLE6]
+N, Q = map(int, input().split())
+A = sorted(list(map(int, input().split())))
+S = sum(A)
+C=[0]
+for a in A:
+  C+=[C[-1]+a]
+#x:勝利するために宣言する必要がある整数 
+for _ in range(Q):
+    b = int(input())#難易度、必要なフラッシュの枚数
+    #--------------
+    x=1
+    for a in A:
+      if a>=b-1:
+        x+=b-1 #定数を加える、勝たない範囲でできるだけ多く
+      elif a<b-1:
+        x+=a   #aを全部使う
+    #--------------          
+    if x>S:
+      print(-1)
+    else:
+      print(x)    
 ##################################################################
 [titia]
 import sys
