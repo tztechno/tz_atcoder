@@ -98,7 +98,23 @@ for _ in range(M):
 ##################################################################
 
 ##################################################################
-
+[MyBrain AC]
+import bisect
+N, Q = map(int, input().split())
+A = sorted(list(map(int, input().split())))
+S = sum(A)
+C=[0]
+for a in A:
+  C+=[C[-1]+a]
+#x:勝利するためにはじめに宣言する必要がある整数 
+for _ in range(Q):
+    b = int(input())#難易度、必要なフラッシュ個数
+    t=bisect.bisect_left(A,b-1)
+    x=C[t]+(b-1)*(N-t)+1
+    if x>S:
+      print(-1)
+    else:
+      print(x)      
 ##################################################################
 [MyBrain AC]
 import bisect
