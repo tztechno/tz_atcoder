@@ -1,6 +1,13 @@
 
 ##################################################################
-
+5
+0 2
+0 5
+1 0
+2 1
+2 4
+-----
+3
 ##################################################################
 
 ##################################################################
@@ -14,11 +21,91 @@
 ##################################################################
 
 ##################################################################
+[Cgpt TLE]
+from math import gcd
+from itertools import combinations
 
+n = int(input())
+pts = [tuple(map(int, input().split())) for _ in range(n)]
+
+slope_dict = {}
+
+# 全ての線分を傾きごとに分類
+for i, j in combinations(range(n), 2):
+    x1, y1 = pts[i]
+    x2, y2 = pts[j]
+    dx = x2 - x1
+    dy = y2 - y1
+    if dx == 0:      # 垂直線
+        slope = (1, 0)
+    elif dy == 0:    # 水平線
+        slope = (0, 1)
+    else:
+        g = gcd(dx, dy)
+        dx //= g
+        dy //= g
+        if dx < 0:
+            dx, dy = -dx, -dy
+        slope = (dy, dx)
+    slope_dict.setdefault(slope, []).append((i, j))
+
+# 台形を構成する4頂点集合を保存
+trapezoids = set()
+
+for segs in slope_dict.values():
+    m = len(segs)
+    for a in range(m):
+        for b in range(a+1, m):
+            # 頂点が重ならない場合のみ
+            vertices = set(segs[a]) | set(segs[b])
+            if len(vertices) == 4:
+                trapezoids.add(tuple(sorted(vertices)))
+
+# 結果
+print(len(trapezoids))
 ##################################################################
+[Cgpt TLE]
+from itertools import combinations
 
+n = int(input())
+pts = [tuple(map(int, input().split())) for _ in range(n)]
+
+def is_parallel(p1, p2, p3, p4):
+    x1, y1 = pts[p1]
+    x2, y2 = pts[p2]
+    x3, y3 = pts[p3]
+    x4, y4 = pts[p4]
+    return (x2 - x1) * (y4 - y3) == (y2 - y1) * (x4 - x3)
+
+count = 0
+for a, b, c, d in combinations(range(n), 4):
+    # 3通りの対辺の組み合わせを調べる
+    if (is_parallel(a, b, c, d) or
+        is_parallel(a, c, b, d) or
+        is_parallel(a, d, b, c)):
+        count += 1
+
+print(count)
 ##################################################################
-
+[MyBrain TLE]
+#4点を頂点とする多角形として台形がとれるもの
+n=int(input())
+N=list(range(n))
+XY=[]
+for i in range(n):
+  x,y=map(int,input().split())
+  XY+=[(x,y)]
+from itertools import product,permutations,combinations,accumulate
+C0=list(permutations(N,4))
+T=set()
+for ci in C0:
+  x0,y0=XY[ci[0]]
+  x1,y1=XY[ci[1]]
+  x2,y2=XY[ci[2]]
+  x3,y3=XY[ci[3]]
+  if (x3-x2)*(y1-y0)==(x1-x0)*(y3-y2):
+    T.add(str(sorted(ci)))
+print(len(T))
 ##################################################################
 [hobbit]
 from collections import defaultdict
@@ -215,8 +302,6 @@ for d in D:
 
 print(ANS-double//2)
             
-
-
 ##################################################################
 [MyAi AC]
 import sys
