@@ -15,11 +15,64 @@
 ##################################################################
 
 ##################################################################
+[MyAi AC]
+N, M = map(int, input().split())
+S = list(input())
+T = list(input())
 
+# 差分配列（0/1 だけで管理するので ^ を使う）
+diff = [0] * (N + 1)
+
+for _ in range(M):
+    l, r = map(int, input().split())
+    diff[l-1] ^= 1   # 左端にXOR
+    diff[r]   ^= 1   # 右端にXOR
+
+cur = 0
+for i in range(N):
+    cur ^= diff[i]   # 累積XOR（= 区間フラグ反映）
+    if cur:          # 1なら奇数回操作された
+        S[i] = T[i]
+
+print(''.join(S))
 ##################################################################
+[MyAi AC]
+N, M = map(int, input().split())
+S = list(input())
+T = list(input())
 
+# 差分配列
+diff = [0] * (N + 1)
+
+for _ in range(M):
+    l, r = map(int, input().split())
+    diff[l-1] += 1
+    diff[r] -= 1  # 範囲外処理のため r はそのまま
+
+# 累積和をとって各位置の操作回数を求める
+cur = 0
+for i in range(N):
+    cur += diff[i]
+    if cur % 2 == 1:
+        S[i] = T[i]
+
+print(''.join(S))
 ##################################################################
-
+[MyBrain TLE6]
+N,M=map(int,input().split())
+S=list(input())
+T=list(input())
+U=[0]*N
+for i in range(M):
+  l,r=map(int,input().split())
+  for j in range(l-1,r):
+    U[j]+=1
+#print(U)
+for k,ui in enumerate(U):
+  if ui%2==1:
+    S[k]=T[k]
+#print(S)
+print(''.join(S))
 ##################################################################
 [baro]
 N, M = map(int, input().split())
@@ -114,6 +167,5 @@ for i in range(N):
         ans.append(T[i])
 
 print("".join(ans))
-
 ##################################################################
 
