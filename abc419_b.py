@@ -23,9 +23,43 @@
 ##################################################################
 
 ##################################################################
-
+[MyAi AC]#deque
+from collections import deque
+q = int(input())
+B = deque()
+for _ in range(q):
+    qr = list(map(int, input().split()))
+    if qr[0] == 1:
+        x = qr[1]
+        B.append(x)
+    elif qr[0] == 2:
+        B = deque(sorted(B)) 
+        print(B.popleft())
+##################################################################
+[MyBrain AC]#list
+q = int(input())
+B = []  
+for _ in range(q):
+    qr = list(map(int, input().split()))
+    if qr[0] == 1:
+        x = qr[1]
+        B+=[x]
+    elif qr[0] == 2:
+        B.sort()
+        print(B[0])
+        B=B[1:]
+##################################################################
+[MyAi AC]#heapq
+import heapq
+q = int(input())
+B = []  
+for _ in range(q):
+    qr = list(map(int, input().split()))
+    if qr[0] == 1:
+        x = qr[1]
+        heapq.heappush(B, x)  
+    elif qr[0] == 2:
+        m = heapq.heappop(B)   
+        print(m)
 ##################################################################
 
-##################################################################
-
-##################################################################
