@@ -32,7 +32,31 @@ answer
 ##################################################################
 
 ##################################################################
+[Copilot AC]
+N, M, L = map(int, input().split())
+A = list(map(int, input().split()))
 
+INF = 10**18
+
+# 各 i % L ごとにグルーピング
+cost = [[0]*M for _ in range(L)]
+for i in range(N):
+    for k in range(M):
+        cost[i % L][(A[i] + k) % M] += k
+
+# dp[mod] := 代表値のmod合計がmod であるときの最小コスト
+dp = [INF]*M
+dp[0] = 0
+
+for i in range(L):
+    ndp = [INF]*M
+    for mod in range(M):
+        for add in range(M):
+            nmod = (mod + add) % M
+            ndp[nmod] = min(ndp[nmod], dp[mod] + cost[i][add])
+    dp = ndp
+
+print(dp[0])
 ##################################################################
 [CGPT AC]
 # corrected_solution.py
