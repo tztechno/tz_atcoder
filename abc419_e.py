@@ -1,15 +1,26 @@
 ##################################################################
 長さNの整数列A=(A1​,A2​,…,AN​)が与えられます。
-あなたの目的は、以下の操作を繰り返し行うことにより、Aのすべての長さLの連続部分列についてその総和がMの倍数であるようにすることです。
+あなたの目的は、以下の操作を繰り返し行うことにより、
+Aのすべての長さLの連続部分列についてその総和がMの倍数であるようにすることです。
 1≤i≤Nなる整数iを選び、Ai​の値を1増やす。
 目的を達成するまでの操作回数として考えられる最小値を求めてください。
+---------------------------------------
+input is given as
+N, M, L = map(int, input().split())
+A = list(map(int, input().split()))
+これに続くpythonコードを作る
 ##################################################################
+sample input
 4 5 3
 4 2 1 3
 --------
+answer
 4
 ##################################################################
-
+7 10 4
+7 0 9 1 6 4 2
+--------------
+10
 ##################################################################
 
 ##################################################################
@@ -25,7 +36,88 @@
 ##################################################################
 
 ##################################################################
+[GPTOSS AC]
+import sys
 
+INF = 10**18
+
+def solve() -> None:
+    data = list(map(int, sys.stdin.read().strip().split()))
+    if not data:
+        return
+    it = iter(data)
+    N = next(it)
+    M = next(it)
+    L = next(it)
+    A = [next(it) for _ in range(N)]
+
+    # 1. prefixes
+    pref = [0] * (N + 1)
+    for i in range(N):
+        pref[i + 1] = pref[i] + A[i]
+
+    # 2. c array
+    W = N - L + 1            # number of windows
+    c = [0] * W
+    for k in range(W):
+        s = pref[k + L] - pref[k]          # sum of window k (0‑based)
+        c[k] = (-s) % M                   # cj
+
+    # 3. d array
+    d = [0] * (N)          # only indices 0 .. N-L-1 are used
+    for k in range(N - L):
+        d[k] = (c[k + 1] - c[k]) % M
+
+    # 4. offsets for every position
+    # positions are 0‑based
+    offset = [0] * N
+    for start in range(L):
+        pos = start
+        off = 0
+        while pos < N:
+            offset[pos] = off
+            if pos + L < N:
+                off = (off + d[pos]) % M
+            pos += L
+
+    # 5. contributions for each class
+    contr = []              # list of lists
+    for start in range(L):
+        offs = []
+        pos = start
+        while pos < N:
+            offs.append(offset[pos])
+            pos += L
+        # compute contribution for all a in 0..M-1
+        arr = [0] * M
+        for a in range(M):
+            s = 0
+            for off in offs:
+                s += (a + off) % M
+            arr[a] = s
+        contr.append(arr)
+
+    # 6. DP
+    dp = [INF] * M
+    dp[0] = 0
+    for arr in contr:
+        new = [INF] * M
+        for r in range(M):
+            if dp[r] == INF:
+                continue
+            base = dp[r]
+            for a in range(M):
+                nr = (r + a) % M
+                val = base + arr[a]
+                if val < new[nr]:
+                    new[nr] = val
+        dp = new
+
+    ans = dp[c[0]]          # c1 = c[0]
+    print(ans)
+
+if __name__ == "__main__":
+    solve()
 ##################################################################
 [loop]
 INF = 10**18
@@ -106,8 +198,6 @@ for i in range(len(X)):
     DP=NDP
 
 print(DP[0])
-    
-
 ##################################################################
 [MyAi AC]
 N, M, L = map(int, input().split())
