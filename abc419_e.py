@@ -35,49 +35,81 @@ answer
 
 ##################################################################
 [CGPT WA]
-N, M, L = map(int, input().split())
-A = list(map(int, input().split()))
-
-# 最初の区間和
-S1 = sum(A[:L])
-
-# L周期ごとにクラス分け
-groups = [[] for _ in range(L)]
-for i in range(N):
-    groups[i % L].append(A[i])
-
-# 各グループごとに「揃える候補余り」ごとのコストを計算
-costs = []
-for g in groups:
-    group_cost = {}
-    for r in range(M):
-        c = 0
-        for x in g:
-            need = (r - (x % M)) % M
-            c += need
-        group_cost[r] = c
-    costs.append(group_cost)
-
-# 最小コスト探索
-# ただし sum_r (選んだr * group_size) ≡ S1 (mod M) が成り立つ必要あり
+# corrected_solution.py
+import sys
 from math import inf
 
-dp = { (0, 0): 0 }  # (group_index, total_mod) -> min_cost
+def solve():
+    input_data = sys.stdin.read().strip().split()
+    it = iter(input_data)
+    N = int(next(it)); M = int(next(it)); L = int(next(it))
+    A = [int(next(it)) for _ in range(N)]
+    if L > N:
+        # 長さLの区間が存在しない場合の扱い（問題制約により通常起こらない）
+        print(0)
+        return
 
-for idx, g in enumerate(groups):
-    new_dp = {}
-    for (i, mod), val in dp.items():
-        for r, c in costs[idx].items():
-            new_mod = (mod + r * len(g)) % M
-            key = (i+1, new_mod)
-            new_dp[key] = min(new_dp.get(key, inf), val + c)
-    dp = new_dp
+    # 初期の最初の区間和 S1
+    S1 = sum(A[:L])
+    target_mod = (-S1) % M  # 代表増分合計がこれに等しくなる必要がある
 
-# 最終的に total_mod ≡ S1 (mod M) でなければならない
-answer = dp.get((L, S1 % M), -1)
+    # グループ分け（group j はインデックス i で i % L == j の要素）
+    groups = [[] for _ in range(L)]
+    for i in range(N):
+        groups[i % L].append(A[i])
 
-print(answer)
+    # 各グループ j について、各 r (0..M-1) の
+    # C_j(r) = グループ全体を剰余 r に揃えるための増分合計
+    # F_j(r) = 代表要素（最初の区間に入る要素）の増分
+    # 代表要素はグループ j の中で最小インデックスの要素、つまり A[j]（N >= L 前提）
+    # （N>=Lが満たされる想定：問題設定上通常はそう）
+    C = [None]*L
+    F = [None]*L
+    for j in range(L):
+        g = groups[j]
+        # 要素の剰余を事前計算
+        mods = [x % M for x in g]
+        Cj = [0]*M
+        Fj = [0]*M
+        for r in range(M):
+            s = 0
+            for m in mods:
+                s += (r - m) % M
+            Cj[r] = s
+            # 代表要素の増分（代表は最初に現れる要素の剰余）
+            # 代表の値は A[j]（N >= L）だが安全のため存在チェック
+            if j < N:
+                rep_mod = A[j] % M
+                Fj[r] = (r - rep_mod) % M
+            else:
+                Fj[r] = 0
+        C[j] = Cj
+        F[j] = Fj
 
+    # DP: dp[g][mod] = 最小コスト（グループ0..g-1まで選んだとき）で代表増分合計 ≡ mod (mod M)
+    # メモリは2行でロール
+    prev = [inf]*M
+    prev[0] = 0
+    for j in range(L):
+        cur = [inf]*M
+        for mod in range(M):
+            if prev[mod] == inf:
+                continue
+            base = prev[mod]
+            # 各 r を試す
+            for r in range(M):
+                new_mod = (mod + F[j][r]) % M
+                cost = base + C[j][r]
+                if cost < cur[new_mod]:
+                    cur[new_mod] = cost
+        prev = cur
+
+    ans = prev[target_mod]
+    # 答えは整数（必ず可能なので inf にはならない想定）
+    print(ans if ans != inf else -1)
+
+if __name__ == "__main__":
+    solve()
 ##################################################################
 [GPTOSS AC]
 import sys
