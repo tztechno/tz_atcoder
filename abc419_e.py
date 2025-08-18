@@ -34,6 +34,49 @@ answer
 ##################################################################
 
 ##################################################################
+[CGPT AC]
+N, M, L = map(int, input().split())
+A = list(map(int, input().split()))
+
+# 最初の区間和
+S1 = sum(A[:L])
+
+# L周期ごとにクラス分け
+groups = [[] for _ in range(L)]
+for i in range(N):
+    groups[i % L].append(A[i])
+
+# 各グループごとに「揃える候補余り」ごとのコストを計算
+costs = []
+for g in groups:
+    group_cost = {}
+    for r in range(M):
+        c = 0
+        for x in g:
+            need = (r - (x % M)) % M
+            c += need
+        group_cost[r] = c
+    costs.append(group_cost)
+
+# 最小コスト探索
+# ただし sum_r (選んだr * group_size) ≡ S1 (mod M) が成り立つ必要あり
+from math import inf
+
+dp = { (0, 0): 0 }  # (group_index, total_mod) -> min_cost
+
+for idx, g in enumerate(groups):
+    new_dp = {}
+    for (i, mod), val in dp.items():
+        for r, c in costs[idx].items():
+            new_mod = (mod + r * len(g)) % M
+            key = (i+1, new_mod)
+            new_dp[key] = min(new_dp.get(key, inf), val + c)
+    dp = new_dp
+
+# 最終的に total_mod ≡ S1 (mod M) でなければならない
+answer = dp.get((L, S1 % M), -1)
+
+print(answer)
 
 ##################################################################
 [GPTOSS AC]
