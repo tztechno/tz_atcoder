@@ -28,5 +28,27 @@
 ##################################################################
 
 ##################################################################
+[myai]
+import sys
+input = sys.stdin.readline
 
+N, Q = map(int, input().split())
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
+
+S = sum(min(A[i], B[i]) for i in range(N))
+
+for _ in range(Q):
+    c, X, V = input().split()
+    X = int(X) - 1
+    V = int(V)
+    
+    S -= min(A[X], B[X])
+    if c == 'A':
+        A[X] = V
+    else:
+        B[X] = V
+    S += min(A[X], B[X])
+    
+    print(S)
 ##################################################################
