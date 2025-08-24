@@ -32,7 +32,31 @@ M回の投票を終えた後、それらの投票における合計の得点が�
 ##################################################################
 
 ##################################################################
-
+[mybrain AC]
+N,M=map(int,input().split())
+S=[]
+for i in range(N):
+  s=list(input())
+  S+=[s]
+St = [list(col) for col in zip(*S)]
+P=[0]*N
+for si in St:
+  if len(set(si))==1:
+    for i in range(N):
+      P[i]+=1
+  elif si.count('0')>si.count('1'):
+    for i,sii in enumerate(si):
+      if sii=='1':
+        P[i]+=1
+  elif si.count('1')>si.count('0'):
+    for i,sii in enumerate(si):
+      if sii=='0':
+        P[i]+=1    
+ans=[]
+for i,pi in enumerate(P):
+  if pi==max(P):
+    ans+=[i+1]
+print(*ans)
 ##################################################################
 [mybrain AC]
 import numpy as np
@@ -67,7 +91,6 @@ for i,pi in enumerate(P3):
   if pi==m:
     ans+=[i+1]
 print(*ans)
-    
 ##################################################################
 [myai AC]
 N, M = map(int, input().split())
