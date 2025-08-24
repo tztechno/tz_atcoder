@@ -28,5 +28,56 @@
 ##################################################################
 
 ##################################################################
+[myai]
+from collections import deque
+
+H, W = map(int, input().split())
+grid = [list(input().strip()) for _ in range(H)]
+
+for i in range(H):
+    for j in range(W):
+        if grid[i][j] == 'S':
+            sx, sy = i, j
+        if grid[i][j] == 'G':
+            gx, gy = i, j
+
+INF = 10**9
+dist = [[[INF]*2 for _ in range(W)] for _ in range(H)]
+dq = deque()
+dist[sx][sy][0] = 0
+dq.append((sx, sy, 0))
+
+dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+
+def can_move(cell, t):
+    if cell == '#':
+        return False
+    if cell == 'o':
+        return t == 0
+    if cell == 'x':
+        return t == 1
+    return True
+
+while dq:
+    x, y, t = dq.popleft()
+    d = dist[x][y][t]
+    if (x, y) == (gx, gy):
+        print(d)
+        exit()
+    for dx, dy in dirs:
+        nx, ny = x+dx, y+dy
+        if not (0 <= nx < H and 0 <= ny < W):
+            continue
+        cell = grid[nx][ny]
+        if not can_move(cell, t):
+            continue
+        nt = t
+        if cell == '?':
+            nt = 1 - t
+        if dist[nx][ny][nt] > d+1:
+            dist[nx][ny][nt] = d+1
+            dq.append((nx, ny, nt))
+
+print(-1)
 
 ##################################################################
