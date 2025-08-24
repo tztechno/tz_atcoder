@@ -27,5 +27,29 @@
 ##################################################################
 
 ##################################################################
+[myai]
+import math
+
+X = int(input())
+res = set()
+
+target = 1 - 4*X
+for d in range(1, int(abs(target)**0.5)+1):
+    if target % d != 0:
+        continue
+    a = d
+    b = target // d
+    for (aa, bb) in [(a,b), (-a,-b)]:
+        if (aa + bb) % 2 != 0:
+            continue
+        k = (aa + bb) // 2
+        if (bb - aa) % 4 != 0:
+            continue
+        for n in [(-1 + k)//2, (-1 - k)//2]:
+            res.add(n)
+
+res = sorted(res)
+print(len(res))
+print(*res)  
 
 ##################################################################
