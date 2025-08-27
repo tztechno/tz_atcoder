@@ -17,9 +17,72 @@
 ##################################################################
 
 ##################################################################
+[Claude TLE]
+# 正しい入力形式に対応
+N,R, C = map(int, input().split())
+S = input().strip()
 
+# 方向のマッピング
+directions = {
+    'N': (-1, 0),
+    'S': (1, 0),
+    'W': (0, -1),
+    'E': (0, 1)
+}
+
+# 累積移動を計算
+cumulative = [(0, 0)]
+for i in range(N):
+    prev_r, prev_c = cumulative[-1]
+    dr, dc = directions[S[i]]
+    cumulative.append((prev_r + dr, prev_c + dc))
+
+# 結果を格納する文字列
+result = ""
+
+# 各時刻について判定
+for t in range(1, N + 1):
+    found = False
+    
+    # 時刻tで(R,C)にある煙の出発時刻を逆算
+    target_r, target_c = cumulative[t][0] - R, cumulative[t][1] - C
+    
+    # この位置が過去の累積移動にあるかチェック
+    for start_time in range(t + 1):
+        if cumulative[start_time] == (target_r, target_c):
+            found = True
+            break
+    
+    result += "1" if found else "0"
+
+print(result)
 ##################################################################
-
+[mybrain TLE]
+N,R,C=map(int,input().split())
+S=list(input())
+P1=[(0,0)]
+ANS=''
+for si in S:
+  P2=[(0,0)]
+  if si=='N':
+    for p in P1+[(0,0)]:
+      P2+=[(p[0]-1,p[1])]
+  elif si=='S':
+    for p in P1+[(0,0)]:
+      P2+=[(p[0]+1,p[1])]
+  elif si=='E':
+    for p in P1+[(0,0)]:
+      P2+=[(p[0],p[1]+1)]
+  elif si=='W':
+    for p in P1+[(0,0)]:
+      P2+=[(p[0],p[1]-1)]      
+  #print(P2)
+  if (R,C) in P2:
+    ANS+='1'
+  else:
+    ANS+='0'
+  P1=list(set(P2))
+print(ANS)
 ##################################################################
 [kota]
 N, R, C = map(int, input().split())
