@@ -15,7 +15,40 @@
 ##################################################################
 
 ##################################################################
+[CGPT AC]
+def solve():
+    import sys
+    input = sys.stdin.readline
 
+    N,R,C = map(int, input().split())
+    S = input().strip()
+
+    # 移動ベクトル
+    move = {'N': (-1, 0), 'S': (1, 0), 'W': (0, -1), 'E': (0, 1)}
+
+    # 累積位置 P_t
+    x, y = 0, 0
+    P = [(0,0)]
+    for ch in S:
+        dx, dy = move[ch]
+        x += dx
+        y += dy
+        P.append((x,y))
+
+    ans = []
+    seen = set()
+    for t in range(N+1):
+        seen.add(P[t])  # P_t を登録
+        if t >= 1:
+            target = (P[t][0] - R, P[t][1] - C)
+            if target in seen:
+                ans.append("1")
+            else:
+                ans.append("0")
+
+    print("".join(ans))
+
+solve()
 ##################################################################
 [Claude TLE]
 # 正しい入力形式に対応
