@@ -29,6 +29,33 @@ S.xG
 ##################################################################
 
 ##################################################################
+[gemini solution]
+
+### ## Core Idea: State-Expansion BFS 💡
+
+This solution uses a technique called **state-expansion Breadth-First Search (BFS)**. 
+Instead of just tracking the shortest path to a physical location `(y, x)`, it finds the shortest path to a "state".
+
+### ## How It Works
+
+1.  **Defining a "State"**: A state is defined by the tuple **`(y, x, s)`**:
+    * `y`, `x`: Your current coordinates on the grid.
+    * `s`: The **switch state** (`0` for an even number of switch presses, `1` for an odd number). 
+This determines whether doors are open or closed.
+
+2.  **3D Distance Array**: A 3D array, `dist[y][x][s]`, stores the minimum steps to reach cell `(y, x)` 
+with the switches in state `s`. This prevents visiting the same state multiple times.
+
+3.  **Exploration**: The code explores the grid layer by layer (the "BFS" part):
+    * When moving to a normal cell, the switch state `s` remains the same.
+    * When moving to a door (`o` or `x`), it checks if the *current* switch state `s` allows passage.
+    * When moving onto a switch (`?`), the switch state **flips** for the next step (from `0` to `1` or `1` to `0`).
+
+### ## Finding the Answer
+
+After the search is complete, the goal `G` might be reachable in either switch state. 
+The code checks the costs to reach the goal with the switches OFF (`dist[gy][gx][0]`) and 
+ON (`dist[gy][gx][1]`) and prints the smaller of the two. If neither is reachable, it prints -1.
 
 ##################################################################
 [gemini AC]
