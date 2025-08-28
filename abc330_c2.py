@@ -19,7 +19,15 @@
 ##################################################################
 
 ##################################################################
-
+[mybrain AC]
+import math
+D = int(input())
+MIN = D 
+for x in range(int(math.sqrt(D)) + 2):  
+    y_float = math.sqrt(abs(D-x**2))
+    for y in [int(y_float), int(y_float)+1]:
+        MIN = min(MIN, abs(x**2 + y**2 - D))
+print(MIN)
 ##################################################################
 [mybrain WA]
 import math
@@ -51,9 +59,9 @@ print(ans)
 import math
 D = int(input())
 MIN = D 
-for x in range(int(math.sqrt(D)) + 1): #x,yはなるべく近い値とわかっている
+for x in range(int(math.sqrt(D)) + 1):
     y_float = math.sqrt(D - x**2)
-    for y in [int(y_float), int(y_float)+1]: #yは2通りチェックするだけ
+    for y in [int(y_float), int(y_float)+1]:
         MIN = min(MIN, abs(x**2 + y**2 - D))
 print(MIN)
 ##################################################################
