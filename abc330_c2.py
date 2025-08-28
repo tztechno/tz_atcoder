@@ -21,11 +21,39 @@
 ##################################################################
 
 ##################################################################
-
+[mybrain WA]
+import math
+D = int(input())
+ans = D 
+for x in range(int(math.sqrt(D)) + 1):  
+  for y in range(x-2,x+3):
+    ans=min(ans,abs(x**2+y**2-D))
+print(ans)
 ##################################################################
-
+[mybrain TLE]
+import math
+D = int(input())
+ans = D 
+for x in range(int(math.sqrt(D)) + 1):  
+  for y in range(int(math.sqrt(D)) + 1):
+    ans=min(ans,abs(x**2+y**2-D))
+print(ans)
 ##################################################################
-
+[mybrain TLE]
+D=int(input())
+ans=D
+for x in range(D):
+  for y in range(D):
+    ans=min(ans,abs(x**2+y**2-D))
+print(ans)
 ##################################################################
-
+[myai AC]
+import math
+D = int(input())
+MIN = D 
+for x in range(int(math.sqrt(D)) + 1): #x,yはなるべく近い値とわかっている
+    y_float = math.sqrt(D - x**2)
+    for y in [int(y_float), int(y_float)+1]: #yは2通りチェックするだけ
+        MIN = min(MIN, abs(x**2 + y**2 - D))
+print(MIN)
 ##################################################################
