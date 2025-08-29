@@ -17,27 +17,74 @@ Sの空でない部分文字列であって、1種類の文字のみからなる
 ##################################################################
 
 ##################################################################
+[claude explanation]
 
-##################################################################
+目的は、文字列 `S` の「連続する同じ文字の最大長」を各文字ごとに求め、その合計を計算することです。
 
-##################################################################
+```python
+char_max_length = {}
+```
 
-##################################################################
-
-##################################################################
-[gemini explanation]
+* 各文字ごとに「連続して出現する最大長」を格納する辞書。
 
 ---
 
 ```python
-N = int(input())
-S = str(input())
+i = 0
+while i < N:
+    current_char = S[i]
+    start = i
+    while i < N and S[i] == current_char:
+        i += 1
+    length = i - start
+    char_max_length[current_char] = max(char_max_length.get(current_char, 0), length)
 ```
 
-* 標準入力から2つ読み取ります：
+1. `i` を使って文字列を走査。
+2. `current_char` に現在の文字を代入。
+3. 内側の `while` で同じ文字が続く限り `i` を進める。
+4. `length = i - start` でその文字の連続部分の長さを計算。
+5. `char_max_length[current_char]` に既存の最大値と比較して更新。
 
-  1. `N`：文字列の長さ（整数）
-  2. `S`：文字列
+---
+
+```python
+total = sum(char_max_length.values())
+print(total)
+```
+
+* 辞書に保存された各文字の「最大連続長」の合計を計算して出力。
+
+---
+
+💡 **ポイント**
+
+* 内側の `while` で連続文字をまとめてスキップしているので効率的。
+* 辞書を使うことで、文字ごとの最大長だけを保持できる。
+* 計算量は O(N) です。
+
+---
+
+##################################################################
+[claude AC]
+N = int(input())
+S = input()
+char_max_length = {}
+i = 0
+while i < N:
+    current_char = S[i]
+    start = i
+    while i < N and S[i] == current_char:
+        i += 1
+    length = i - start
+    char_max_length[current_char] = max(char_max_length.get(current_char, 0), length)
+total = sum(char_max_length.values())
+print(total)
+##################################################################
+[deepseek WA]
+[cgpt WA]
+##################################################################
+[gemini explanation]
 
 ```python
 from itertools import groupby
@@ -66,6 +113,7 @@ if S:
 
   * `key` は文字
   * `group` はその連続する文字のイテレータ
+
 * `length = len(list(group))` でその連続ブロックの長さを求めます。
 * `if` 文は、辞書にまだ文字がない場合、または今回のブロックが既存の最大より長い場合に更新します。
 
