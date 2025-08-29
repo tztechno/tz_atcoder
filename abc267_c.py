@@ -23,9 +23,65 @@
 ##################################################################
 
 ##################################################################
+[my comment]
+該当区間手前の和（累積和から計算）を次の三角の計算にうまく使う
+それを見越して累積和を予め作る
+for_loopが一重になる
+初期値を使う時に累積和は使わない
+aiAC解答の徹底研究完全理解
+同じ反省が繰り返されるかどうか、二度と同じ轍は踏まないか
+##################################################################
+[cgpt explanation]
+N, M = map(int, input().split())
+A = list(map(int, input().split()))
+#ここまでは普通
 
+# prefix sum for A
+prefix = [0] * (N+1)
+for i in range(N):
+    prefix[i+1] = prefix[i] + A[i]
+#prefixは単純累積和になる
+
+# 初期値 S(0)
+#初期値を求める時に累積和は使わない
+t = sum((k+1) * A[k] for k in range(M))
+#ansの初期値として
+ans = t
+
+# スライド
+#　部分列の頭の範囲は1..N-M
+for i in range(1, N-M+1):
+    # sum of window A[i-1 : i-1+M]
+    # 該当区間手前の和
+    window_sum = prefix[i+M-1] - prefix[i-1]
+    # 更新
+    # 底の行を削除すると、残りが次の区間で欲しいものになる
+    t = t - window_sum + M * A[i-1+M]
+    ans = max(ans, t)
+
+print(ans)
+##################################################################
+[cgpt AC]
+N, M = map(int, input().split())
+A = list(map(int, input().split()))
+
+# prefix sum for A
+prefix = [0] * (N+1)
+for i in range(N):
+    prefix[i+1] = prefix[i] + A[i]
+
+# 初期値 S(0)
+t = sum((k+1) * A[k] for k in range(M))
+ans = t
+
+# スライド
+for i in range(1, N-M+1):
+    # sum of window A[i-1 : i-1+M]
+    window_sum = prefix[i+M-1] - prefix[i-1]
+    # 更新
+    t = t - window_sum + M * A[i+M-1]
+    ans = max(ans, t)
+
+print(ans)
 ##################################################################
 
-##################################################################
-
-##################################################################
