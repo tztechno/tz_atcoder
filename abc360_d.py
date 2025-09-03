@@ -1,5 +1,11 @@
 ##################################################################
-
+    data = sys.stdin.read().split()
+    if not data:
+        return
+    it = iter(data)
+    N = int(next(it)); T = int(next(it))
+    S = list(next(it))
+    X = [int(next(it)) for _ in range(N)]
 ##################################################################
 
 ##################################################################
@@ -15,9 +21,75 @@
 ##################################################################
 
 ##################################################################
+[mybrain2 TLE26]同程度に遅い
+import sys
 
+def main():
+    data = sys.stdin.read().split()
+    if not data:
+        return
+    it = iter(data)
+    N = int(next(it)); T = int(next(it))
+    S = list(next(it))
+    X = [int(next(it)) for _ in range(N)]
+    
+    mp = {'1': 1, '0': -1}
+    G = []
+    for i in range(N):
+        g_val = X[i] + mp[S[i]] * (T + 0.1)
+        G.append(g_val)
+    
+    XG = list(zip(X, G))
+    XG.sort(key=lambda p: p[0])   # xでソート
+    #print('XG',XG)
+    
+    # gの値を座標圧縮
+    g_list = [g for x, g in XG]
+    sorted_g = sorted(set(g_list))
+    #print('sorted_g',sorted_g)
+    
+    comp_map = {}
+    for idx, val in enumerate(sorted_g):
+        comp_map[val] = idx + 1   # 1-indexed
+    comp_g = [comp_map[g] for g in g_list]
+    #print('comp_g',comp_g)
+    
+    # Fenwick Treeクラス
+    class Fenw:
+        def __init__(self, n):
+            self.n = n
+            self.tree = [0] * (n+1)
+        def update(self, index, delta):
+            while index <= self.n:
+                self.tree[index] += delta
+                index += index & -index
+        def query(self, index):
+            s = 0
+            while index:
+                s += self.tree[index]
+                index -= index & -index
+            return s
+    ans=0
+    n = len(comp_g)
+    for i in range(n):
+      for j in range(i+1,n):
+        if comp_g[i]>comp_g[j]:
+          ans+=1
+
+    print(ans)
+
+if __name__ == '__main__':
+    main()
 ##################################################################
-
+[deepseek1 説明]
+6 3
+101010
+-5 -1 0 1 2 4
+---------
+XG [(-5, -1.9), (-1, -4.1), (0, 3.1), (1, -2.1), (2, 5.1), (4, 0.8999999999999999)]
+sorted_g [-4.1, -2.1, -1.9, 0.8999999999999999, 3.1, 5.1]
+comp_g [3, 1, 5, 2, 6, 4]
+ans 5
 ##################################################################
 [deepseek1 説明]
 
