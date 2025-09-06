@@ -1,4 +1,147 @@
 #####################################################
+例題：「Lはループで小さくし、Rはminで小さくする」手法を使う典型的な問題をいくつか紹介します。
+
+## 練習問題 1: 包含関係を扱う問題
+
+### 問題
+長さMの数列とN個の区間が与えられる。各位置lから始まる区間で、すべての与えられた区間と交差するものの個数を求めよ。
+
+```python
+def solve():
+    N, M = map(int, input().split())
+    P = [10**9] * (M+2)
+    
+    for _ in range(N):
+        l, r = map(int, input().split())
+        P[l] = min(P[l], r)
+    
+    R = M + 1
+    ans = 0
+    for L in range(M, 0, -1):
+        R = min(R, P[L])
+        # LからR-1までが条件を満たす
+        ans += max(0, R - L)
+    
+    print(ans)
+
+# テストケース
+test_input = ["3 5", "1 3", "2 4", "3 5"]
+```
+
+## 練習問題 2: 最小値の伝播
+
+### 問題
+各位置iに値A[i]がある。各位置lから始まる連続部分列で、最大値が閾値K以下である最長の長さを求めよ。
+
+```python
+def solve_min_max():
+    N, K = map(int, input().split())
+    A = list(map(int, input().split()))
+    
+    # 右から左へ処理して最小の「悪い」位置を見つける
+    P = [N] * (N+2)  # P[i]: iから見て最初にA[j] > Kとなるj
+    
+    for i in range(N-1, -1, -1):
+        if A[i] > K:
+            P[i] = i
+        else:
+            P[i] = P[i+1] if i+1 < N else N
+    
+    R = N
+    result = []
+    for L in range(N-1, -1, -1):
+        R = min(R, P[L])
+        max_length = R - L
+        result.append(max_length)
+    
+    result.reverse()
+    print(*result)
+
+# テストケース: N=5, K=3, A=[1,4,2,5,3]
+```
+
+## 練習問題 3: 貪欲な区間スケジューリング
+
+### 問題
+N個の仕事があり、各仕事は時間[L_i, R_i]で行われる。重ならないように選べる仕事の最大数を求めよ。
+
+```python
+def interval_scheduling():
+    N = int(input())
+    intervals = []
+    max_r = 0
+    for _ in range(N):
+        l, r = map(int, input().split())
+        intervals.append((l, r))
+        max_r = max(max_r, r)
+    
+    # 各開始時間に対する最小終了時間
+    P = [10**9] * (max_r+2)
+    for l, r in intervals:
+        P[l] = min(P[l], r)
+    
+    # 右から左へ処理
+    R = max_r + 1
+    count = 0
+    current_time = max_r + 1
+    
+    for L in range(max_r, 0, -1):
+        if P[L] < 10**9:  # この開始時間の仕事が存在
+            if P[L] < current_time:  # 重ならない
+                count += 1
+                current_time = L
+            else:
+                # より早く終わる仕事を選ぶ
+                if P[L] < R:
+                    R = P[L]
+        else:
+            R = min(R, current_time)
+    
+    print(count)
+
+# テストケース
+test_intervals = [(1,3), (2,5), (4,6), (5,7)]
+```
+
+## 練習問題 4: 水位問題
+
+### 問題
+各位置iの高さH[i]が与えられる。各位置から右に見て、水位が下がらない最長の連続区間の長さを求めよ。
+
+```python
+def water_level():
+    N = int(input())
+    H = list(map(int, input().split()))
+    
+    # P[i]: iから右へ見て最初にH[j] < H[j-1]となる位置
+    P = [N] * (N+2)
+    
+    for i in range(N-2, -1, -1):
+        if H[i+1] < H[i]:
+            P[i] = i+1
+        else:
+            P[i] = P[i+1]
+    
+    R = N
+    result = []
+    for L in range(N-1, -1, -1):
+        R = min(R, P[L])
+        length = R - L
+        result.append(length)
+    
+    result.reverse()
+    print(*result)
+
+# テストケース: H = [1,2,3,2,1,4,3]
+```
+
+## 解き方のコツ
+
+1. **逆方向処理**: 右から左へループ
+2. **最小値伝播**: `R = min(R, P[L])`で制約を伝える
+3. **連続性の利用**: 現在の状態を1変数で管理
+4. **問題変換**: 求めたいものを「全区間数 - 条件を満たさない区間数」と考える
+
 #####################################################
 #####################################################
 #####################################################
