@@ -3,8 +3,72 @@
 #####################################
 #####################################
 #####################################
+[cgpt AC]
+import sys
+sys.setrecursionlimit(1000000)
+
+memo = {}
+
+def solve(x):
+    if x < 2:
+        return 0
+    if x in memo:
+        return memo[x]
+    
+    a = x // 2
+    b = x - a  # ceil(x/2) = x - floor(x/2)
+    
+    res = x + solve(a) + solve(b)
+    memo[x] = res
+    return res
+
+N = int(input())
+print(solve(N))
+
 #####################################
+[cgpt WA]
+import math
+import sys
+sys.setrecursionlimit(10**6)
+
+memo = {}
+
+def f(x):
+    if x < 2:
+        return 0
+    if x in memo:
+        return memo[x]
+    y = f(x // 2) + f(math.ceil(x / 2)) + x
+    memo[x] = y
+    return y
+
+N = int(input())
+print(f(N))
+
 #####################################
+[cgpt TLE]
+[stackをリストでなくdequeで形成する,それだけではだめ]
+
+from collections import deque
+import math
+
+N = int(input())
+stack = deque([N])
+P = 0
+
+while stack:
+    p0 = stack.popleft()  # 先頭から取り出す
+    if p0 >= 2:
+        P += p0
+        p1 = p0 // 2
+        p2 = math.ceil(p0 / 2)
+        if p1 >= 2:
+            stack.append(p1)
+        if p2 >= 2:
+            stack.append(p2)
+
+print(P)
+
 #####################################
 [deepseek3 AC]
 def main():
