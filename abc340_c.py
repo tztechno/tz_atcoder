@@ -20,6 +20,7 @@ import pypyjit
 pypyjit.set_param('max_unroll_recursion=-1')
 N = int(input())
 d = {}
+
 def f(n):
     if n == 1:
         return 0
@@ -27,32 +28,23 @@ def f(n):
         return d[n]
     d[n] = f(n //2) + f((n + 1) // 2) + n
     return d[n]
+    
 print(f(N))
 #####################################
 [riz AC]
-memo = {} # メモ用の辞書
+memo = {} 
 
 def f(x):
-  # xが1以下のときはコスト0なので、ここで処理を終える
   if x <= 1:
     return 0
-
-  # 1. memo の中に答えがあるかチェック
   if x in memo:
     return memo[x]
-
-  # 2. なければ計算する
   result = x + f(x // 2) + f((x + 1) // 2)
-
-  # 3. 計算結果をメモに保存
   memo[x] = result
-
-  # 4. 結果を返す
   return result
 
 N = int(input())
 print(f(N))
-
 #####################################
 [kkc AC]
 N = int(input())
@@ -66,17 +58,43 @@ print(ans)
 import sys
 input = sys.stdin.readline
 n=int(input())
+# memo不要
+
 from functools import lru_cache
 @lru_cache(maxsize=None)
 def calc(n):
     if n<=1:
         return 0
     return n+calc(n//2)+calc((n+1)//2)
+    
 print(calc(n))
+#####################################
+[cgpt 説明]
+sys.setrecursionlimit(1000000)
+👉 Pythonのデフォルト再帰上限は1000回程度。深い再帰でもエラーにならないように、再帰の最大回数を100万回に引き上げている。
+memo = {}
+👉 計算結果を保存するためのメモ化用辞書。
+👉 基底条件。
+x が 0 または 1 のときは処理終了。追加の分割ができないので結果は 0 を返す。
+    if x in memo:
+        return memo[x]
+👉 すでに計算済みの値なら、辞書 memo から即座に取り出して返す。
+（再計算を避け、計算量を減らす。）
+    a = x // 2
+👉 x を 2 で割った切り捨て値（floor）を a とする。
+    b = x - a  # ceil(x/2) = x - floor(x/2)
+👉 残りを b とする。
+    res = x + solve(a) + solve(b)
+👉 x 自身の値に、さらに a と b に対する再帰計算結果を足す。
+要は「x を分割 → それぞれの部分を再帰的に処理 → 合計する」という動作。
+    memo[x] = res
+👉 計算した結果 res を memo に保存しておく。
+次に同じ x を呼ばれたときはこの結果をそのまま返す。
 #####################################
 [cgpt AC]
 import sys
 sys.setrecursionlimit(1000000)
+
 memo = {}
 def solve(x):
     if x < 2:
@@ -84,10 +102,11 @@ def solve(x):
     if x in memo:
         return memo[x]
     a = x // 2
-    b = x - a  # ceil(x/2) = x - floor(x/2)
+    b = x - a
     res = x + solve(a) + solve(b)
     memo[x] = res
     return res
+    
 N = int(input())
 print(solve(N))
 #####################################
