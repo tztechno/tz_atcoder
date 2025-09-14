@@ -13,6 +13,45 @@
 ###############################################
 ###############################################
 ###############################################
+[cgpt]
+import sys
+input = sys.stdin.readline
+
+N, Q = map(int, input().split())
+P = [input().strip() for _ in range(N)]
+
+# B=1, W=0 に変換
+grid = [[1 if P[i][j] == 'B' else 0 for j in range(N)] for i in range(N)]
+
+# 2次元累積和
+psum = [[0]*(N+1) for _ in range(N+1)]
+for i in range(1, N+1):
+    for j in range(1, N+1):
+        psum[i][j] = grid[i-1][j-1] + psum[i-1][j] + psum[i][j-1] - psum[i-1][j-1]
+
+totalB = psum[N][N]  # 1ブロック内の黒マス数
+
+def block_sum(x, y):
+    """(0,0)～(x-1,y-1) の黒マス数"""
+    qx, rx = divmod(x, N)
+    qy, ry = divmod(y, N)
+    res = qx * qy * totalB
+    res += qx * psum[N][ry]
+    res += qy * psum[rx][N]
+    res += psum[rx][ry]
+    return res
+
+def query(a, b, c, d):
+    # [a,c]×[b,d] の黒マス数
+    return (block_sum(c+1, d+1)
+          - block_sum(a, d+1)
+          - block_sum(c+1, b)
+          + block_sum(a, b))
+
+for _ in range(Q):
+    A, B, C, D = map(int, input().split())
+    print(query(A, B, C, D))
+
 ###############################################
 [tetsu]
 n, q = map(int, input().split())
