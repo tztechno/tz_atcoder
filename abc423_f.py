@@ -1,7 +1,26 @@
 ###############################################
 32bit 整数に収まらない場合でも大丈夫
-N種類、Y年間、M種大量発生
-大量発生する年が何回あるか
+N種類セミ、Y年間、M種類大量発生する年が何回あるか
+###############################################
+問題文
+AtCoder島にはN種類のセミが生息しています。種類iのセミ(1≤i≤N)はAi​の倍数の年にのみ大量発生します。
+1年からY年までのY年間のうち、ちょうどM種類のセミが大量発生する年が何回あるかを求めてください。
+制約
+1≤M≤N≤20
+1≤Y≤10**18
+1≤Ai​≤10**18(1≤i≤N)
+入力される値はすべて整数入力入力は以下の形式で標準入力から与えられる。
+N　M　Y
+A1​⋯AN​
+出力答えを出力せよ。
+入力例
+3　2　16　
+4　2　3
+1年から16年までのうち、各種類のセミが大量発生するのは以下の年です。
+種類1のセミは4,8,12,16年に大量発生する。
+種類2のセミは2,4,6,8,10,12,14,16年に大量発生する。
+種類3のセミは3,6,9,12,15年に大量発生する。
+1年から16年までのうち、ちょうど2種類のセミが大量発生するのは4,6,8,16年の4回です。
 ###############################################
 ###############################################
 ###############################################
@@ -12,22 +31,38 @@ N種類、Y年間、M種大量発生
 ###############################################
 ###############################################
 ###############################################
+[cgpt RE]
+N, M, Y = map(int, input().split())
+A = list(map(int, input().split()))
+count = [0] * (Y + 1)
+for a in A:
+    for j in range(a, Y + 1, a):
+        count[j] += 1
+t = sum(1 for j in range(1, Y + 1) if count[j] == M)
+print(t)
 ###############################################
+[mybrain RE]
+N,M,Y=map(int,input().split())
+A=list(map(int,input().split()))
+import numpy as np
+S=np.zeros((N,Y))
+for i in range(N):
+  for j in range(1,Y+1):
+    if j%A[i]==0:
+      S[i][j-1]=1
+t=0
+for i in range(Y):
+  if S[:,i].sum()==M:
+    t+=1
+print(t)
 ###############################################
-###############################################
-###############################################
-[nani]
+[nani AC]
 from math import gcd, comb
-
 def popcount(x):
     return bin(x).count("1")
-
 N, M, Y = map(int, input().split())
-
 A = list(map(int, input().split()))
-
 binom = {}
-
 ans = 0
 for mask in range(1 << N):
     count = popcount(mask)
@@ -42,13 +77,10 @@ for mask in range(1 << N):
     else:
         if (count, M) not in binom:
             binom[count, M] = comb(count, M)
-
         ans += (-1 if (count - M) & 1 else 1) * (Y // lcm) * binom[count, M]
-
 print(ans)
-
 ###############################################
-[was]
+[was AC]
 n, m, y = map(lambda s_: int(s_), input().split())
 a = tuple(map(lambda s_: int(s_), input().split()))
 
@@ -70,12 +102,8 @@ for i in range(n):
 ans = sum(c for bit, c in enumerate(f) if bit.bit_count() == m)
 print(ans)
 
-
-
-
-
 ###############################################
-[coin]
+[coin AC]
 n,m,y = [int(t) for t in input().split()]
 a = [int(t) for t in input().split()]
 from math import lcm
@@ -99,7 +127,7 @@ for b in range(n):
 S = sum(x[e] for e in range(1<<n) if e.bit_count() == m)
 print(S)
 ###############################################
-[titia]
+[titia AC] 
 import sys
 input = sys.stdin.readline
 
@@ -112,7 +140,6 @@ for i in range(1,N+1):
     for j in range(i):
         Combi[i].append(Combi[i-1][j]+Combi[i-1][j+1])
     Combi[i].append(0)
-
 
 from math import gcd,lcm
 
@@ -143,7 +170,7 @@ for i in range(1<<N):
 print(ANS)
 
 ###############################################
-[ai]
+[ai AC]
 
 import math
 
@@ -208,3 +235,46 @@ if __name__ == "__main__":
     solve()
 
 ###############################################
+[cgpt AC]
+import math
+from itertools import combinations
+
+N, M, Y = map(int, input().split())
+A = list(map(int, input().split()))
+
+# lcmがYを超えたらカウントに寄与しないので、その時点で打ち切り
+def safe_lcm(a, b, limit):
+    g = math.gcd(a, b)
+    a_div = a // g
+    if a_div > limit // b:
+        return limit + 1
+    return a_div * b
+
+ans = 0
+
+# 部分集合を全探索
+for mask in range(1, 1 << N):
+    bits = bin(mask).count("1")
+    l = 1
+    ok = True
+    for i in range(N):
+        if mask >> i & 1:
+            l = safe_lcm(l, A[i], Y)
+            if l > Y:
+                ok = False
+                break
+    if not ok:
+        continue
+    cnt = Y // l
+    if bits == M:
+        ans += cnt
+    if bits > M:
+        # 包除原理で調整
+        if (bits - M) % 2 == 1:
+            ans -= math.comb(bits, M) * cnt
+        else:
+            ans += math.comb(bits, M) * cnt
+
+print(ans)
+###############################################
+
