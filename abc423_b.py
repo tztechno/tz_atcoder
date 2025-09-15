@@ -16,5 +16,54 @@
 ###############################################
 ###############################################
 ###############################################
+[ai AC]
+N=int(input())
+L=list(map(int,input().split()))
+
+def unreachable_rooms(N, L):
+    left = 0
+    for i in range(1, N+1):
+        if L[i-1] == 0:  
+            left = i
+        else:
+            break
+    left_reachable = set(range(0, left+1))
+    right = N
+    for i in range(N, 0, -1):
+        if L[i-1] == 0:
+            right = i-1
+        else:
+            break
+    right_reachable = set(range(right, N+1))
+    all_rooms = set(range(N+1))
+    unreachable = all_rooms - (left_reachable | right_reachable)
+    return len(unreachable)
+
+print(unreachable_rooms(N, L))  
 ###############################################
+[mybrain WA]
+N=int(input())
+A=list(map(int,input().split()))
+B=A[::-1]
+I=0
+for i in range(N):
+  if A[i]==1:
+    I=i
+    break
+J=N-1
+for i in range(N):
+  if B[i]==1:
+    J=N-1-i
+    break
+if J>I:
+  print(J-I)
+else:
+  print(0)
+###############################################
+[mybrain RE]
+N=int(input())
+L=list(map(int,input().split()))
+a = L.index(1) 
+b= len(L) - 1 - L[::-1].index(1) 
+print(b-a)
 ###############################################
