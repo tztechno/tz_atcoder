@@ -21,7 +21,43 @@ N+1個の部屋が一列に並んでおり、順に0,1,…,Nの番号が付け�
 ###############################################
 ###############################################
 ###############################################
+[mybrain AC]
+N=int(input())
+L=list(map(int,input().split()))#N
+if max(L)==0:
+  print(0)
+  exit()
+ans=N-1 #max
+for i in range(N):
+  if L[i]==0:
+    ans-=1
+  else:
+    break
+for i in range(N-1,-1,-1): ##### 逆順にしない
+  if L[i]==0:
+    ans-=1
+  else:
+    break
+print(ans)
+  
 ###############################################
+[mybrain AC]
+N=int(input())
+L=list(map(int,input().split()))#N
+if max(L)==0:
+  print(0)
+  exit()
+for i in range(N):
+  if L[i]==1:
+    a=i
+    break
+for i in range(N-1,-1,-1): ##### 逆順にしない
+  if L[i]==1:
+    b=i
+    break
+#print(a,b)
+print(b-a)
+  
 ###############################################
 [titia AC]
 import sys
