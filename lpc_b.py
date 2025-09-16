@@ -30,7 +30,6 @@ for _ in range(q):
 ###############################################
 [futa]
 import sys
-
 from atcoder.fenwicktree import FenwickTree
 
 n,q = map(int,input().split())
@@ -111,17 +110,22 @@ for _ in range(Q):
         print(seg.prod(l, r))
 
 ###############################################
-[cgpt RE] ##使えない
+[claude AC] #SegTree
+
 from atcoder.segtree import SegTree
 
 # 区間和
-def op(x, y): return x + y
-def e(): return 0
+def op(x, y): 
+    return x + y
+
+def e(): 
+    return 0
 
 N, Q = map(int, input().split())
 A = list(map(int, input().split()))
 
-seg = SegTree(op, e, A)
+# Create SegTree with the operation function and identity element
+seg = SegTree(op, 0, A)
 
 for _ in range(Q):
     q = list(map(int, input().split()))
@@ -133,8 +137,7 @@ for _ in range(Q):
         print(seg.prod(l, r))
 
 ###############################################
-
-[cgpt AC]
+[cgpt AC] #FenwickTree
 
 import sys
 from atcoder.fenwicktree import FenwickTree
