@@ -20,6 +20,30 @@ N棟のビルが等間隔に一列に並んでいます。
 ###############################################
 ###############################################
 ###############################################
+[my learning AC]
+N=int(input())
+H=list(map(int,input().split()))
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(list)
+H2=sorted(set(H))
+for i,h in enumerate(H):
+  cnt[h].append(i)
+MAX=1
+for h in H2:
+  lst=cnt[h]
+  k=len(lst)
+  if k<=MAX:
+    continue
+  DP=[]
+  for i in range(k):
+    DP+=[defaultdict(int)]
+  for j in range(k):
+    for i in range(j):
+      d=lst[j]-lst[i]
+      DP[j][d]=max(DP[j][d],DP[i][d]+1)
+      MAX=max(MAX,DP[j][d]+1)
+print(MAX)
+      
 ###############################################
 [cgpt]　私の理解
 
