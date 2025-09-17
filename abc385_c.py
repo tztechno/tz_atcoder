@@ -7,6 +7,34 @@
 ###############################################
 ###############################################
 ###############################################
+[cgpt]
+from collections import defaultdict
+
+N = int(input())
+H = list(map(int, input().split()))
+
+# 高さごとに出現位置を集める
+pos = defaultdict(list)
+for i, h in enumerate(H):
+    pos[h].append(i)
+
+ans = 1
+for h, idxs in pos.items():
+    k = len(idxs)
+    if k <= ans:  # すでにこれより大きい答えがあるなら飛ばす
+        continue
+
+    dp = [defaultdict(int) for _ in range(k)]
+    # dp[j][d] = 長さ（idxs[i], idxs[j]) が公差 d の等差数列
+
+    for j in range(k):
+        for i in range(j):
+            d = idxs[j] - idxs[i]
+            dp[j][d] = max(dp[j][d], dp[i][d] + 1)
+            ans = max(ans, dp[j][d] + 1)  # +1 で長さに換算
+
+print(ans)
+
 ###############################################
 ###############################################
 ###############################################
