@@ -62,6 +62,27 @@ for i in range(N):#回転量
 print(MAX)
 
 ###############################################
+[my TLE]
+N=int(input())
+P=list(map(int,input().split()))
+P2=[]
+for i,p in enumerate(P):
+  P2+=[(i,p)] #位置、料理
+
+score=[0]*N
+
+for j in range(N):#回転量
+  for i, p in P2:#各料理
+    dish=(i+j)%N
+    if -1<=dish-p<=1:
+      score[j]+=1
+    if dish==N-1 and p==0:
+      score[j]+=1      
+    if dish==0 and p==N-1:
+      score[j]+=1     
+      
+print(max(score))
+
 ###############################################
 ###############################################
 ###############################################
