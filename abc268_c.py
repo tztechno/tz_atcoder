@@ -45,8 +45,24 @@ def main():
 if __name__ == "__main__":
     main()
 ###############################################
-[my deepseek AC]
+[gemini AC]
+import sys
+N = int(input())
+P = list(map(int, input().split()))
 
+score_counts = [0] * N
+
+for i, p in enumerate(P):
+    j1 = (p - 1 - i + N) % N
+    score_counts[j1] += 1
+
+    j2 = (p - i + N) % N
+    score_counts[j2] += 1
+
+    j3 = (p + 1 - i + N) % N
+    score_counts[j3] += 1
+    
+print(max(score_counts))
 ###############################################
 [my TLE]
 N=int(input())
@@ -65,14 +81,11 @@ print(MAX)
 [my TLE]
 N=int(input())
 P=list(map(int,input().split()))
-P2=[]
-for i,p in enumerate(P):
-  P2+=[(i,p)] #位置、料理
 
 score=[0]*N
 
 for j in range(N):#回転量
-  for i, p in P2:#各料理
+  for i,p in enumerate(P):
     dish=(i+j)%N
     if -1<=dish-p<=1:
       score[j]+=1
@@ -82,6 +95,7 @@ for j in range(N):#回転量
       score[j]+=1     
       
 print(max(score))
+      
 
 ###############################################
 ###############################################
