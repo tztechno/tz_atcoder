@@ -11,8 +11,56 @@
 ###############################################
 ###############################################
 ###############################################
+[deepseek AC]
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    
+    n = int(data[0])
+    P = list(map(int, data[1:1+n]))
+    
+    # 各回転量における満足人数をカウントする配列
+    count = [0] * n
+    
+    for j in range(n):
+        # 人jが満足する回転量を計算
+        # 3つの料理位置について
+        for offset in [-1, 0, 1]:
+            # 料理が届く位置: (P[j] + offset) % n
+            dish_pos = (P[j] + offset) % n
+            if dish_pos < 0:
+                dish_pos += n
+            
+            # この料理が人jに届く回転量i
+            # i ≡ (dish_pos - j) % n
+            i_val = (dish_pos - j) % n
+            if i_val < 0:
+                i_val += n
+            
+            count[i_val] += 1
+    
+    print(max(count))
+
+if __name__ == "__main__":
+    main()
 ###############################################
+[my deepseek AC]
+
 ###############################################
+[my TLE]
+N=int(input())
+P=list(map(int,input().split()))
+
+MAX=0
+for i in range(N):#回転量
+  m=0
+  for j in range(N):#各人において
+    if j in [P[(j-1+i)%N],P[(j+i)%N],P[(j+1+i)%N]]:
+      m+=1
+  MAX=max(MAX,m)
+print(MAX)
+
 ###############################################
 ###############################################
 ###############################################
