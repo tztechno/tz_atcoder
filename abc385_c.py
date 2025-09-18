@@ -20,7 +20,7 @@ N棟のビルが等間隔に一列に並んでいます。
 ###############################################
 ###############################################
 ###############################################
-[my learning AC]
+[my cgpt AC]
 N=int(input())
 H=list(map(int,input().split()))
 from collections import defaultdict,deque,Counter
@@ -130,6 +130,24 @@ for i in range(n):
 print(ANS)
 
 ###############################################
+[my tita AC]
+
+N=int(input())
+H=list(map(int,input().split()))
+ANS=1
+for i in range(N):#start
+  for j in range(1,N):#width
+    now=i#右の先端
+    count=0
+    while True:
+      if now<N and H[now]==H[i]:
+        now+=j
+        count+=1
+      else:
+        break
+    ANS=max(ANS,count)
+print(ANS)
+
 ###############################################
 ###############################################
 ###############################################
