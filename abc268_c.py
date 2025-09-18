@@ -64,6 +64,23 @@ for i, p in enumerate(P):
     
 print(max(score_counts))
 ###############################################
+[my gemini AC]
+N=int(input())
+P=list(map(int,input().split()))
+
+score=[0]*N
+
+for i,p in enumerate(P): #dishごとにどれだけ動いたときに満足か
+  j1=(p-i-1+N)%N
+  score[j1]+=1
+  j2=(p-i+N)%N
+  score[j2]+=1
+  j3=(p-i+1+N)%N
+  score[j3]+=1
+
+print(max(score))
+      
+###############################################
 [my TLE]
 N=int(input())
 P=list(map(int,input().split()))
@@ -95,8 +112,6 @@ for j in range(N):#回転量
       score[j]+=1     
       
 print(max(score))
-      
-
 ###############################################
 ###############################################
 ###############################################
