@@ -39,6 +39,30 @@ def main():
 if __name__ == "__main__":
     main()
 ###############################################
+[my deepseek AC]
+T=str(input())
+mapp={'(':')','<':'>','[':']'}
+stack=[]
+for t in T:
+  if t in mapp.keys():
+    stack.append(t)
+  
+  else:
+    if not stack:
+      print('No')
+      exit()
+      
+    w=stack.pop()
+    if t!=mapp.get(w):
+      print('No')
+      exit()
+      
+if not stack:
+  print('Yes')
+else:
+  print('No')
+###############################################
+
 [my TLE]
 T=str(input())
 for i in range(len(T)//2+1):
