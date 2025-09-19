@@ -1,7 +1,69 @@
 ###############################################
+[claude,deepseek WA]
 ###############################################
 ###############################################
 ###############################################
+[gemini AC]
+# 改善版: より読みやすく、効率的な最小費用流による解法
+
+n, k = map(int, input().split())
+a = [list(map(int, input().split())) for _ in range(n)]
+
+from atcoder.mincostflow import MCFGraph
+
+# 定数の改善: より小さな値で十分（オーバーフローリスクを減らす）
+MAX_VALUE = max(max(row) for row in a)
+B = MAX_VALUE + 1  # 元の値より少し大きい値で十分
+
+# より明確な変数名
+SOURCE = n * 2
+SINK = n * 2 + 1
+graph = MCFGraph(SINK + 1)
+
+# エッジIDの管理を改善
+grid_edges = [[0] * n for _ in range(n)]
+
+# グラフ構築
+# 1. SOURCE -> 各行（容量k: 各行で最大k個選択可能）
+for i in range(n):
+    graph.add_edge(SOURCE, i, k, 0)
+
+# 2. 各列 -> SINK（容量k: 各列で最大k個選択可能）
+for j in range(n):
+    graph.add_edge(j + n, SINK, k, 0)
+
+# 3. 行i -> 列(j+n)（容量1, コストB-a[i][j]で最大化を最小化に変換）
+for i in range(n):
+    for j in range(n):
+        edge_id = graph.add_edge(i, j + n, 1, B - a[i][j])
+        grid_edges[i][j] = edge_id
+
+# 4. SOURCE -> SINK（必要な流量確保のため）
+# 改善: 実際に必要な流量のみ（n*kは過大）
+max_possible_flow = min(n * k, n * n)  # 実際に選択可能な最大数
+graph.add_edge(SOURCE, SINK, max_possible_flow, B)
+
+# 最小費用流実行
+flow_result = graph.flow(SOURCE, SINK, max_possible_flow)
+total_flow = flow_result[0]
+total_cost = flow_result[1]
+
+# 実際の最大値計算（改善: より明確な計算）
+max_sum = B * total_flow - total_cost
+
+print(max_sum)
+
+# 解の復元
+result_grid = [['.' for _ in range(n)] for _ in range(n)]
+for i in range(n):
+    for j in range(n):
+        edge = graph.get_edge(grid_edges[i][j])
+        if edge.flow > 0:
+            result_grid[i][j] = 'X'
+
+# 出力
+for row in result_grid:
+    print(''.join(row))
 ###############################################
 ###############################################
 ###############################################
