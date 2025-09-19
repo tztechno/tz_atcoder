@@ -6,6 +6,29 @@
 ###############################################
 ###############################################
 ###############################################
+[my ai AC]
+N=int(input())
+S=list(input())
+opencount=0
+T=[]
+for s in S:
+  if s=='(':
+    opencount+=1
+    T+=[s]
+  elif s==')':
+    if opencount>0:
+      while T:
+        t=T.pop()
+        if t!='(':
+          continue
+        else:
+          opencount-=1
+          break
+    else:
+      T+=[s]      
+  else:
+    T+=[s]
+print(''.join(T))
 ###############################################
 [ai AC]
 N = int(input())
