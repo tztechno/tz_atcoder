@@ -7,10 +7,54 @@
 ###############################################
 ###############################################
 ###############################################
+[ai AC]
+N = int(input())
+S = input()
+
+result = []
+open_count = 0
+
+for char in S:
+    if char == '(':
+        open_count += 1
+        result.append(char)
+    elif char == ')':
+        if open_count > 0:
+            open_count -= 1
+            # 対応する'('までを削除
+            while result and result[-1] != '(':
+                result.pop()
+            if result:
+                result.pop()  # '('を削除
+        else:
+            result.append(char)
+    else:
+        result.append(char)
+
+print(''.join(result))
 ###############################################
 ###############################################
 ###############################################
 ###############################################
+[my WA]
+N=int(input())
+S=list(input())
+stack=[]
+for i,s in enumerate(S):
+  if s=='(':
+    stack+=[i]
+  elif s==')':
+    if stack:
+      idx=stack.pop()
+      for j in range(idx,i+1):
+        S[j]='#'
+    else:
+      break
+ans=''
+for s in S:
+  if s!='#':
+    ans+=s
+print(ans)
 ###############################################
 ###############################################
 ###############################################
