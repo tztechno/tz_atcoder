@@ -102,7 +102,6 @@ if __name__ == "__main__":
 ###############################################
 [ds mod1]
 
-import sys
 from itertools import permutations
 
 N,M=map(int,input().split())
@@ -200,6 +199,44 @@ for perm in permutations(S):#各文字列順列について
 
 print(-1)
 ###############################################
+[cgpt]
+def solve():
+    import sys
+    from itertools import permutations, product
+
+    n, m = map(int, sys.stdin.readline().split())
+    s_list = [sys.stdin.readline().strip() for _ in range(n)]
+    banned = {sys.stdin.readline().strip() for _ in range(m)}
+
+    base_len = sum(len(s) for s in s_list)
+    # 最低限のアンダースコアを入れた長さ
+    if base_len + n - 1 > 16:
+        print(-1)
+        return
+
+    max_us = 16 - base_len
+    gap_count = n - 1
+
+    # gaps に入れるアンダースコア数の列を事前生成
+    # 各隙間に必ず1個以上必要なので、その分を引いて計算する
+    for order in permutations(s_list):
+        for extra in product(range(max_us - gap_count + 2), repeat=gap_count):
+            # まず全ての隙間に最低1個ずつ入れて、さらに extra 分追加
+            if sum(extra) > max_us - gap_count:
+                continue
+            parts = [order[0]]
+            for i, add in enumerate(extra):
+                parts.append('_' * (1 + add))
+                parts.append(order[i + 1])
+            candidate = ''.join(parts)
+            if 3 <= len(candidate) <= 16 and candidate not in banned:
+                print(candidate)
+                return
+    print(-1)
+
+if __name__ == "__main__":
+    solve()
+
 ###############################################
 ###############################################
 ###############################################
