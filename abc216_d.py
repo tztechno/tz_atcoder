@@ -76,7 +76,123 @@ def main():
 if __name__ == "__main__":
     main()
 ###############################################
+[ds mod1] 逆順にして、後ろから取る方法、理解可能
+
+from collections import deque, defaultdict
+import sys
+
+def main():
+    input = sys.stdin.readline
+    N, M = map(int, input().split())
+    
+    tubes = []
+    for _ in range(M):
+        k = int(input())
+        a = list(map(int, input().split()))
+        # 筒を逆順にして、pop()で一番上のボールを取り出せるようにする
+        tubes.append(a[::-1])
+    
+    # 各色がどの筒の一番上にあるかを記録
+    color_to_tubes = defaultdict(list)
+    
+    # キューの準備：取り除けるペアを管理
+    queue = deque()
+    
+    # 初期状態：各筒の一番上のボールをチェック
+    for i in range(M):
+        if tubes[i]:  # 筒が空でない場合
+            color = tubes[i][-1]  # 一番上のボールの色
+            color_to_tubes[color].append(i)
+            
+            # 同じ色が2つ揃ったらキューに追加
+            if len(color_to_tubes[color]) == 2:
+                queue.append(color)
+    
+    removed_count = 0
+    
+    while queue:
+        color = queue.popleft()
+        tube1, tube2 = color_to_tubes[color]
+        
+        # ボールを取り除く（popで削除）
+        tubes[tube1].pop()
+        tubes[tube2].pop()
+        
+        removed_count += 2
+        
+        # 筒1の新しい一番上のボールをチェック
+        if tubes[tube1]:
+            new_color1 = tubes[tube1][-1]
+            color_to_tubes[new_color1].append(tube1)
+            if len(color_to_tubes[new_color1]) == 2:
+                queue.append(new_color1)
+        
+        # 筒2の新しい一番上のボールをチェック
+        if tubes[tube2]:
+            new_color2 = tubes[tube2][-1]
+            color_to_tubes[new_color2].append(tube2)
+            if len(color_to_tubes[new_color2]) == 2:
+                queue.append(new_color2)
+    
+    # すべてのボールが取り除けたかチェック
+    if removed_count == 2 * N:
+        print("Yes")
+    else:
+        print("No")
+
+if __name__ == "__main__":
+    main()
 ###############################################
+[ds mod2] simplified
+
+from collections import deque, defaultdict
+
+N, M = map(int, input().split())
+
+tubes = []
+for _ in range(M):
+    k = int(input())
+    a = list(map(int, input().split()))
+    tubes.append(a[::-1])
+
+color_to_tubes = defaultdict(list)
+queue = deque()
+
+for i in range(M):
+    if tubes[i]: 
+        color = tubes[i][-1]  
+        color_to_tubes[color].append(i)
+
+        if len(color_to_tubes[color]) == 2:
+            queue.append(color)
+
+removed_count = 0
+
+while queue:
+    color = queue.popleft()
+    tube1, tube2 = color_to_tubes[color]
+
+    tubes[tube1].pop()
+    tubes[tube2].pop()
+    
+    removed_count += 2
+
+    if tubes[tube1]:
+        new_color1 = tubes[tube1][-1]
+        color_to_tubes[new_color1].append(tube1)
+        if len(color_to_tubes[new_color1]) == 2:
+            queue.append(new_color1)
+
+    if tubes[tube2]:
+        new_color2 = tubes[tube2][-1]
+        color_to_tubes[new_color2].append(tube2)
+        if len(color_to_tubes[new_color2]) == 2:
+            queue.append(new_color2)
+
+if removed_count == 2 * N:
+    print("Yes")
+else:
+    print("No")
 ###############################################
 ###############################################
 ###############################################
