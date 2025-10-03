@@ -4,10 +4,51 @@
 ###############################################
 ###############################################
 ###############################################
-###############################################
-###############################################
+[titia]
 
+import sys
+input = sys.stdin.readline
+
+N,M=map(int,input().split())
+T=[]
+for i in range(M):
+    k=int(input())
+    T.append(list(map(int,input().split())))
+
+NOW=[0]*(N+1)
+
+for i in range(M):
+    t=T[i][0]
+    NOW[t]+=1
+
+NEXT=[[] for i in range(N+1)]
+
+for i in range(M):
+    for j in range(len(T[i])-1):
+        NEXT[T[i][j]].append(T[i][j+1])
+        
+Q=[]
+for i in range(N+1):
+    if NOW[i]==2:
+        Q.append(i)
+
+while Q:
+    x=Q.pop()
+    NOW[x]=0
+    for to in NEXT[x]:
+        NOW[to]+=1
+        if NOW[to]==2:
+            Q.append(to)
+
+if max(NOW)==0:
+    print("Yes")
+else:
+    print("No")
+
+###############################################
+###############################################
 [ds]
+
 from collections import deque, defaultdict
 
 def main():
@@ -143,7 +184,7 @@ def main():
 if __name__ == "__main__":
     main()
 ###############################################
-[ds mod2] simplified
+[ds mod2 == my AC] simplified
 
 from collections import deque, defaultdict
 
