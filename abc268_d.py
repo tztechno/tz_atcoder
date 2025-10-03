@@ -159,6 +159,46 @@ for perm in permutations(S):
 
 print(-1)
 ###############################################
+[ds mod2]完全理解
+
+from itertools import product,permutations,combinations,accumulate
+N,M=map(int,input().split())
+
+S = []
+for i in range(N):
+    S.append(input())
+T = set()
+for i in range(M):
+    T.add(input())
+    
+tot_len = sum(len(s) for s in S)#文字合計、usなし
+min_len = tot_len + (N - 1)#文字合計、us入り
+max_len = 16#上限
+
+if min_len > max_len:
+    print(-1)
+    exit()
+
+avail_us = max_len - tot_len
+
+for perm in permutations(S):#各文字列順列について
+    gaps = N - 1
+    for us in product(range(1, avail_us - gaps + 2), repeat=gaps):#us,各隙間に置くus数
+        if sum(us) > avail_us:
+            continue
+
+        result = perm[0]#文字列、us結合
+        for i in range(gaps):
+            result += '_' * us[i] + perm[i + 1]
+
+        if len(result) < 3 or len(result) > 16:
+            continue
+          
+        if result not in T:
+            print(result)
+            exit()
+
+print(-1)
 ###############################################
 ###############################################
 ###############################################
