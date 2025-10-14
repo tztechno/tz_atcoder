@@ -11,6 +11,9 @@ from itertools import groupby, zip_longest
 from more_itertools import set_partitions
 
 from bisect import insort, bisect_left, bisect_right
+from sortedcontainers import SortedList
+sl = SortedList([0, L])
+
 from heapq import heappush,heappop,heapify,heappushpop,heapreplace,merge,nlargest,nsmallest
 import networkx as nx
 
