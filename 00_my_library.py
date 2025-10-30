@@ -1,3 +1,7 @@
+from collections import deque
+d = deque([1, 2, 3, 4, 5])
+# 1. 右に 1 回回転 (末尾の 5 が先頭へ)
+d.rotate(1)
 
 import sys
 input = sys.stdin.readline
