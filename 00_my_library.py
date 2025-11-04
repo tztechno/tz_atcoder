@@ -1,3 +1,8 @@
+
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(int)
+cnt = defaultdict(deque)
+
 from collections import deque
 d = deque([1, 2, 3, 4, 5])
 d.rotate(1)
@@ -78,9 +83,6 @@ print(-1)
 from operator import itemgetter
 from decimal import Decimal
 
-from collections import defaultdict,deque,Counter
-cnt = defaultdict(int)
-cnt = defaultdict(deque)
 
 INF = float("INF")
 FourNb=[(-1,0),(1,0),(0,1),(0,-1)]
