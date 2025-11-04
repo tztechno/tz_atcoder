@@ -71,4 +71,26 @@ start_node = 'A'
 end_node = 'F'
 result = bfs_shortest_path(graph, start_node, end_node)
 print(result)  # ['A', 'C', 'F']
+
+##########################################################
+
+def dfs(s):
+    res = [-1] * n
+    res[s] = 0
+    stack = [[s, 0]]
+    while stack:
+        i, d = stack.pop()
+        for j in path[i]:
+            if res[j] >= 0:
+                continue
+            res[j] = d + 1
+            stack.append([j, d + 1])
+    return res
+
+s	    探索の開始ノード（頂点）のインデックス。
+res	    各ノードへの最短距離を格納した配列。
+path	グラフの隣接リスト。
+
+##########################################################
+
 ##########################################################
