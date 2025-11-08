@@ -3,6 +3,39 @@
 ###############################################
 ###############################################
 ###############################################
+[claude modified]
+n = int(input())
+WHB = []
+tw = 0
+for _ in range(n):
+    w, h, b = map(int, input().split())
+    WHB.append((w, h, b))
+    tw += w
+
+DP = {(0, 0): (0, 0)}
+
+for w, h, b in WHB:
+    DP2 = {}
+    for (hw, bw), (hj, bj) in DP.items():
+
+        key1 = (hw, bw + w)
+        val1 = (hj, bj + b)
+        if key1 not in DP2 or hj + bj + b > DP2[key1][0] + DP2[key1][1]:
+            DP2[key1] = val1
+
+        if hw + w <= tw // 2:
+            key2 = (hw + w, bw)
+            val2 = (hj + h, bj)
+            if key2 not in DP2 or hj + h + bj > DP2[key2][0] + DP2[key2][1]:
+                DP2[key2] = val2
+    
+    DP = DP2
+
+jmax = 0
+for (hw, bw), (hj, bj) in DP.items():
+    jmax = max(jmax, hj + bj)
+
+print(jmax)
 ###############################################
 [MLE46]
 n=int(input())
