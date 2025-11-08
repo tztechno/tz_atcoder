@@ -4,6 +4,28 @@
 ###############################################
 ###############################################
 ###############################################
+[MLE46]
+n=int(input())
+WHB=[]
+tw=0
+for _ in range(n):
+  w,h,b=map(int,input().split())
+  WHB+=[(w,h,b)]
+  tw+=w
+DP=[(0,0,0,0)]#HW,BW,HJ,BJ
+for i,(w,h,b) in enumerate(WHB):
+  DP2=[]
+  for dpi in DP:
+    DP2+=[(dpi[0],dpi[1]+w,dpi[2],dpi[3]+b)]
+    if dpi[0]+w<=tw//2:
+      DP2+=[(dpi[0]+w,dpi[1],dpi[2]+h,dpi[3])]    
+  DP=DP2
+  #print(DP)
+jmax=0
+for dpi in DP:
+  j=dpi[2]+dpi[3]
+  jmax=max(jmax,j)
+print(jmax)
 ###############################################
 [TLE46]
 n=int(input())
