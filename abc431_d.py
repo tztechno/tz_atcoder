@@ -2,6 +2,33 @@
 ###############################################
 ###############################################
 ###############################################
+[自力AC]
+
+from collections import defaultdict,deque,Counter
+
+n = int(input())
+WHB = []
+tw = 0
+for _ in range(n):
+    w,h,b = map(int, input().split())
+    WHB += [(h,b,w)]
+    tw += w
+
+cnt1 = defaultdict(int)
+cnt1[0]=0#HW,J
+for i, (h, b, w) in enumerate(WHB):
+  cnt2 = defaultdict(int)
+  for wt1 in cnt1.keys():
+    cnt2[wt1]=max(cnt2[wt1],cnt1[wt1]+b) #toboday
+    if wt1+w<=tw//2:
+      cnt2[wt1+w]=max(cnt2[wt1+w],cnt1[wt1]+h) #tohead
+  cnt1=cnt2
+  #print(cnt1)
+
+jmax=0
+for wt in cnt1.keys():
+  jmax=max(jmax,cnt1[wt])
+print(jmax)
 ###############################################
 [TLE40]
 
