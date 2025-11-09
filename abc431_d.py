@@ -5,7 +5,7 @@
 ###############################################
 ###############################################
 ###############################################
-[TLE]
+[TLE47]
 from sortedcontainers import SortedSet
 n=int(input())
 WHB=[]
@@ -22,9 +22,10 @@ for i,(h,b,w) in enumerate(WHB):
     DP2.add((dpi[0]+b,dpi[1]))#tobody
     if dpi[1]+w<=tw//2:
       DP2.add((dpi[0]+h,dpi[1]+w))#tohead
-  #print(i,DP2,tw//2)
+  #print(i,DP2)
   DP=DP2
 print(DP[-1][0])
+
 ###############################################
 [TLE]
 
