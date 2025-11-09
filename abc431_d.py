@@ -17,14 +17,14 @@ for _ in range(n):
   WHB+=[(h,b,w)]
   tw+=w
 DP=SortedSet()
-DP.add((0,0,0))#J,HW,BW
+DP.add((0,0))#J,HW
 for i,(h,b,w) in enumerate(WHB):
   DP2=SortedSet()
   for dpi in DP:
-    DP2.add((dpi[0]+b,dpi[1]+w,dpi[2]))
-    if dpi[2]+w<=tw//2:#head
-      DP2.add((dpi[0]+h,dpi[1],dpi[2]+w))   
-  print(i,DP2,tw//2)
+    DP2.add((dpi[0]+b,dpi[1]))#to body
+    if dpi[1]+w<=tw//2:#head
+      DP2.add((dpi[0]+h,dpi[1]+w))#to head
+  #print(i,DP2,tw//2)
   DP=DP2
 jmax=0
 for dpi in DP:
