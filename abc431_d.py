@@ -6,6 +6,31 @@
 ###############################################
 ###############################################
 ###############################################
+[TLE]
+
+from sortedcontainers import SortedList, SortedSet, SortedDict
+n=int(input())
+WHB=[]
+tw=0
+for _ in range(n):
+  w,h,b=map(int,input().split())
+  WHB+=[(h,b,w)]
+  tw+=w
+DP=SortedSet()
+DP.add((0,0,0))#J,HW,BW
+for i,(h,b,w) in enumerate(WHB):
+  DP2=SortedSet()
+  for dpi in DP:
+    DP2.add((dpi[0]+b,dpi[1]+w,dpi[2]))
+    if dpi[2]+w<=tw//2:#head
+      DP2.add((dpi[0]+h,dpi[1],dpi[2]+w))   
+  print(i,DP2,tw//2)
+  DP=DP2
+jmax=0
+for dpi in DP:
+  j=dpi[0]
+  jmax=max(jmax,j)
+print(jmax)
 ###############################################
 [claude modified, TLE34]
 n = int(input())
