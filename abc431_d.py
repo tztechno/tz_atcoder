@@ -3,7 +3,68 @@
 ###############################################
 ###############################################
 ###############################################
+[TLE40]
+
+from collections import defaultdict,deque,Counter
+
+n = int(input())
+WHB = []
+tw = 0
+for _ in range(n):
+    w, h, b = map(int, input().split())
+    WHB += [(h, b, w)]
+    tw += w
+
+cnt1 = defaultdict(int)
+cnt1[0]=0#HW,J
+for i, (h, b, w) in enumerate(WHB):
+  cnt2 = defaultdict(int)
+  for wt1 in cnt1.keys():
+    if cnt2[wt1]<cnt1[wt1]+b:
+      cnt2[wt1]=cnt1[wt1]+b#toboday
+    if (wt1 + w <= tw // 2) and cnt2[wt1+w]<cnt1[wt1]+h:
+      cnt2[wt1+w]=cnt1[wt1]+h#tohead
+  cnt1=cnt2
+
+jmax=0
+for wt in cnt1.keys():
+  jmax=max(jmax,cnt1[wt])
+print(jmax)
 ###############################################
+[TLE]
+
+from sortedcontainers import SortedSet
+
+n = int(input())
+WHB = []
+tw = 0
+for _ in range(n):
+    w, h, b = map(int, input().split())
+    WHB += [(h, b, w)]
+    tw += w
+
+DP = SortedSet()
+DP.add((0, 0))  # (J, HW)
+
+for i, (h, b, w) in enumerate(WHB):
+    DP2 = SortedSet()
+    for dpi in DP:
+        # 体に装着
+        DP2.add((dpi[0] + b, dpi[1]))
+        # 頭に装着（重さ制限内の場合）
+        if dpi[1] + w <= tw // 2:
+            DP2.add((dpi[0] + h, dpi[1] + w))
+    
+    # 枝刈り：各重さ(HW)ごとに最大のJ(美しさ)を持つ状態のみを残す
+    hw_to_max_j = {}
+    for j, hw in DP2:
+        if hw not in hw_to_max_j or j > hw_to_max_j[hw]:
+            hw_to_max_j[hw] = j
+    
+    DP = SortedSet((j, hw) for hw, j in hw_to_max_j.items())
+    # print(f"Step {i}: {len(DP2)} -> {len(DP)} states, tw//2 = {tw//2}")
+
+print(DP[-1][0])
 ###############################################
 [TLE47]
 from sortedcontainers import SortedSet
