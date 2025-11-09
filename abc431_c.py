@@ -16,7 +16,7 @@ while i < N and j < M:
         j += 1
 print('Yes' if ans >= K else 'No')
 ##################################################################
-[dho]
+[dho]完全理解
 N,M,K=map(int,input().split())
 H=list(map(int,input().split()))
 B=list(map(int,input().split()))
