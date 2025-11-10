@@ -58,7 +58,113 @@ for row in grids:
 ###############################################
 ###############################################
 ###############################################
+[gemini,AC]
+import sys
+
+input = sys.stdin.read
+data = input().split()
+
+N = int(data[0])
+A = int(data[1])
+B = int(data[2])
+P = int(data[3])
+Q = int(data[4])
+R = int(data[5])
+S = int(data[6])
+
+row_len = Q - P + 1
+col_len = S - R + 1
+
+output_lines = []
+
+for i in range(row_len):
+  
+    current_row = P + i
+    c = ['.'] * col_len
+    col1 = current_row - (A - B) 
+
+    if 1 <= col1 <= N:
+        if R <= col1 <= S:
+            j = col1 - R
+            c[j] = '#'
+
+    col2 = (A + B) - current_row
+
+    if 1 <= col2 <= N:
+        if R <= col2 <= S:
+            j = col2 - R
+            c[j] = '#'
+
+    output_lines.append("".join(c))
+
+print('\n'.join(output_lines))
+
 ###############################################
+[gemini,AC]
+import sys
+# 標準入力の読み込みを高速化 (微調整)
+input = sys.stdin.read
+data = input().split()
+
+N = int(data[0])
+A = int(data[1])
+B = int(data[2])
+P = int(data[3])
+Q = int(data[4])
+R = int(data[5])
+S = int(data[6])
+
+# 矩形領域のサイズを計算
+row_len = Q - P + 1
+col_len = S - R + 1
+
+output_lines = []
+
+# 各行 i (0 <= i < row_len) について処理する
+# i は矩形内の行インデックス
+for i in range(row_len):
+    
+    # 矩形内の i 行目は、元のグリッドの P+i 行目にあたる
+    current_row = P + i
+    
+    # 行を初期化
+    c = ['.'] * col_len
+
+    # --- 対角線 1 (傾き +1) の交差判定 ---
+    
+    # 対角線1の式: current_row = col + (A - B)
+    # これを満たす col は: col = current_row - (A - B)
+    
+    col1 = current_row - (A - B) 
+    
+    # N x N グリッド内の制約: 1 <= col1 <= N
+    if 1 <= col1 <= N:
+        # 矩形領域内の列 R <= col1 <= S に入っているか？
+        if R <= col1 <= S:
+            # 矩形内の列インデックス j を計算: j = col1 - R
+            j = col1 - R
+            c[j] = '#'
+
+    # --- 対角線 2 (傾き -1) の交差判定 ---
+    
+    # 対角線2の式: current_row = (A + B) - col
+    # これを満たす col は: col = (A + B) - current_row
+    
+    col2 = (A + B) - current_row
+    
+    # N x N グリッド内の制約: 1 <= col2 <= N
+    if 1 <= col2 <= N:
+        # 矩形領域内の列 R <= col2 <= S に入っているか？
+        if R <= col2 <= S:
+            # 矩形内の列インデックス j を計算: j = col2 - R
+            j = col2 - R
+            c[j] = '#'
+
+    # 行の結果を出力リストに追加
+    output_lines.append("".join(c))
+
+# 全ての行をまとめて出力
+print('\n'.join(output_lines))
 ###############################################
 ###############################################
 ###############################################
