@@ -53,11 +53,44 @@ for i in range(Q - P + 1):
 
 for row in grids:
     print("".join(row))
+    print("".join(row))
 
 ###############################################
 ###############################################
 ###############################################
 ###############################################
+###############################################
+###############################################
+###############################################
+###############################################
+###############################################
+[TLE32]
+N,A,B=map(int,input().split())
+P,Q,R,S=map(int,input().split())
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(list)
+
+for k in range(max(1-A,1-B),min(N-A,N-B)+1):
+  if P-1<=A+k-1<Q and R-1<=B+k-1<S:
+    cnt[A+k-1-(P-1)].append(B+k-1-(R-1))
+    
+for k in range(max(1-A,B-N),min(N-A,B-1)+1):
+  if P-1<=A+k-1<Q and R-1<=B-k-1<S: 
+    cnt[A+k-1-(P-1)].append(B-k-1-(R-1))
+
+#print(cnt)
+for i in range(Q-(P-1)):
+  c=""
+  lst=cnt[i]
+  lst.sort()
+  for j in range(S-(R-1)):
+    if j in lst:
+      c+='#'
+    else:
+      c+='.'
+  print(c)
+
+
 ###############################################
 [TLE31]
 N,A,B=map(int,input().split())
