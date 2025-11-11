@@ -5,14 +5,147 @@
 ###############################################
 ###############################################
 ###############################################
+[tky]
+from sortedcontainers import SortedSet
+N=int(input())
+A=list(map(int,input().split()))
+B=SortedSet()
+rem=0
+for a in A:
+    if a in B:rem+=1
+    else:B.add(a)
+ans=1
+while 1:
+    if ans in B:
+        B.pop(0)
+        ans+=1
+    else:
+        if rem>=2:
+            rem-=2
+            ans+=1
+        elif rem==1:
+            rem=0
+            if len(B)>0:
+                B.pop(-1)
+                ans+=1
+            else:
+                break
+        elif len(B)>=2:
+            B.pop(-1)
+            B.pop(-1)
+            ans+=1
+        else:
+            break
+print(ans-1)
+
+###############################################
+###############################################
+[xim]
+import collections
+
+N = int(input())
+A = list(map(int, input().split()))
+
+C = collections.Counter(A)
+
+Z = 10**9 + 10
+P = []
+yo = 0
+for a, v in C.items():
+    P.append(a)
+    for _ in range(v-1):
+        P.append(Z)
+
+P.sort()
+P = collections.deque(P)
+
+now = 0
+while P:
+    if P[0] == now + 1:
+        now += 1
+        P.popleft()
+    
+    else:
+        if len(P) >= 2:
+            P.pop()
+            P.pop()
+            now += 1
+        else:
+            break
+
+print(now)
 ###############################################
 ###############################################
 ###############################################
+[nami]
+n = int(input())
+a = list(map(int, input().split()))
+
+a = sorted(a)
+
+cnt = 0
+st = set()
+for i in range(n):
+    if a[i] not in st:
+        st.add(a[i])
+    else:
+       cnt += 1
+
+tmp = cnt % 2
+cnt //= 2
+
+       
+a = list(set(a))
+a = sorted(a)
+
+ans = 0
+i = 0
+while i < len(a):
+    if a[i] == ans + 1:
+        i += 1
+        ans += 1
+    else:
+        if cnt > 0:
+            cnt -= 1
+            ans += 1
+        else:
+            if tmp == 1:
+                a.pop()
+                tmp = 0
+                ans += 1
+            else:
+                if len(a) - i >= 2:
+                    a.pop()
+                    a.pop()
+                    ans += 1
+                else:
+                    break
+
+print(ans + cnt)
+
+    
 ###############################################
 ###############################################
 ###############################################
-###############################################
-###############################################
+[pt]
+N = int(input())
+a = list(map(int, input().split()))
+a.sort()
+B = set(a)
+
+count = 0
+
+while(N > 0):
+    if count+1 in B:
+        count+=1
+        N -= 1
+    else:
+        if 2 <= N:
+            count += 1
+            N -= 2
+        elif N == 1:
+            break
+print(count)
 ###############################################
 ###############################################
 ###############################################
