@@ -6,6 +6,35 @@
 ###############################################
 ###############################################
 ###############################################
+[TLE6]
+n=int(input())
+from collections import defaultdict
+cnt = defaultdict(list)
+
+for _ in range(n):
+  a,b=map(int,input().split())
+  cnt[a].append(b)
+  cnt[b].append(a)
+  
+M=set()#到達範囲
+M.add(1)
+checked=set()#check済み
+
+while len(M-checked)>0:
+  #print(M-checked)
+  M2=set()#拡大
+  adchecked=set()
+  for li in list(M-checked):
+    lst2=cnt[li]
+    adchecked.add(li)    
+    M2|=set(lst2)
+  if M2==set():
+    break
+  else:
+    M|=M2
+    checked|=adchecked
+print(max(list(M)))
+
 ###############################################
 ###############################################
 ###############################################
