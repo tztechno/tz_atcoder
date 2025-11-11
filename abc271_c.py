@@ -40,40 +40,6 @@ print(ans-1)
 
 ###############################################
 ###############################################
-[xim]
-import collections
-
-N = int(input())
-A = list(map(int, input().split()))
-
-C = collections.Counter(A)
-
-Z = 10**9 + 10
-P = []
-yo = 0
-for a, v in C.items():
-    P.append(a)
-    for _ in range(v-1):
-        P.append(Z)
-
-P.sort()
-P = collections.deque(P)
-
-now = 0
-while P:
-    if P[0] == now + 1:
-        now += 1
-        P.popleft()
-    
-    else:
-        if len(P) >= 2:
-            P.pop()
-            P.pop()
-            now += 1
-        else:
-            break
-
-print(now)
 ###############################################
 ###############################################
 ###############################################
