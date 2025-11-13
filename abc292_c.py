@@ -29,6 +29,27 @@ for abi in AB:
 print(t)
 
 ###############################################
+[TLE16]
+n=int(input())
+#ab+cd=n
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(list)
+C=[]
+for ab in range(1,n):
+  for a in range(1,n):
+    if ab%a==0:
+      b=ab//a
+      cnt[ab].append((a,b))
+      C+=[ab]
+#print(cnt)
+t=0
+#ANS=[]
+for ab in cnt.keys():
+  cd=n-ab
+  if cd in C:
+    t+=len(cnt[cd])*len(cnt[ab])
+print(t)
+
 ###############################################
 ###############################################
 ###############################################
