@@ -51,6 +51,25 @@ for ab in cnt.keys():
 print(t)
 
 ###############################################
+[TLE15]
+n=int(input())
+#ab+cd=n
+from collections import defaultdict,deque,Counter
+cnt = defaultdict(int)
+for ab in range(1,n):
+  for a in range(1,n):
+    if ab%a==0:
+      b=ab//a
+      cnt[ab]+=1
+#print(cnt)
+t=0
+#ANS=[]
+for ab in cnt.keys():
+  cd=n-ab
+  if cd in cnt.keys():
+    t+=cnt[cd]*cnt[ab]
+print(t)
+
 ###############################################
 ###############################################
 ###############################################
