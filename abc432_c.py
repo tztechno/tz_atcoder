@@ -125,6 +125,29 @@ if len(ANS)==0:
 else:
   print(max(ANS))
 ###############################################
+[WA2]
+N,X,Y=map(int,input().split())
+A=list(map(int,input().split()))
+MX=min(A)*Y
+MN=max(A)*X
+D=Y-X
+if MX<MN:
+  print(-1)
+  exit()
+ANS=[]
+R=MX
+ans=0
+for ai in A:
+  qi = (R-ai*X)//D  ###Y
+  pi = ai-qi        ###X
+  if qi<0 or pi<0:
+    break
+  ans+=qi
+ANS+=[ans]
+if len(ANS)==0:
+  print(-1)
+else:
+  print(max(ANS))
 ###############################################
 ###############################################
 ###############################################
