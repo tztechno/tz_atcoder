@@ -149,6 +149,37 @@ if len(ANS)==0:
 else:
   print(max(ANS))
 ###############################################
+[AC]
+N,X,Y=map(int,input().split())
+A=list(map(int,input().split()))
+MX=min(A)*Y
+MN=max(A)*X
+D=Y-X
+R=MX
+
+-----------------------------------------------
+for i in range(N):  #全てのiについてチェックする
+  if (R - A[i]*X) % D != 0:  #差は割り切れないといけない
+    print(-1)
+    exit()
+  if R - A[i]*X < 0 or R - A[i]*X > A[i]*D:  #全部Xなら>=0になる、全部Yなら<=0になる　A[i]*X<=R<=A[i]*Y でない場合
+      ]*Y    print(-1)
+    exit()
+-----------------------------------------------
+
+ANS=[]
+ans=0
+for ai in A:
+  qi = (R-ai*X)//D
+  pi = ai-qi      
+  if qi<0 or pi<0:
+    break
+  ans+=qi
+ANS+=[ans]
+if len(ANS)==0:
+  print(-1)
+else:
+  print(max(ANS))
 ###############################################
 ###############################################
 ###############################################
