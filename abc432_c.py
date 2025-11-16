@@ -91,48 +91,35 @@ for ai in A:
   #print(f"pi+qi={pi+qi}, pi*X+qi*Y={pi*X + qi*Y}")
 print(ans)
 ###############################################
-[TLE8,WA2]
+[WA2]
 N,X,Y=map(int,input().split())
 A=list(map(int,input().split()))
-A.sort()
-MX=A[0]*Y
-MN=A[-1]*X
+MX=min(A)*Y
+MN=max(A)*X
 D=Y-X
-#print(MX,MN)
-ANS=[]
-for R in range(MX,MN-1,-D):
-  ans=0
-  for ai in A:
-    qi = (R-ai*X)//(Y-X)
-    pi = ai-qi
-    if qi>=0 and pi>=0:
-      ans+=qi
-  ANS+=[ans]
-if len(ANS)==0:
+if MX<MN:
   print(-1)
-else:
-  print(max(ANS))
-
-
-###############################################
-[TLE7,WA2]
-N,X,Y=map(int,input().split())
-A=list(map(int,input().split()))
-A.sort()
-MX=A[0]*Y
-MN=A[-1]*X
-D=Y-X
-#print(MX,MN)
+  exit()
 ANS=[]
-for R in range(MX,MN-1,-D):
-  ans=0
-  for ai in A:
-    qi = (R-ai*X)//(Y-X)
-    pi = ai-qi
-    if qi<0 or pi<0:
-      break
-    ans+=qi
-  ANS+=[ans]
+R=MX
+ans=0
+for ai in A:
+  qi = (R-ai*X)//D  ###Y
+  pi = ai-qi        ###X
+  if qi<0 or pi<0:
+    break
+  ans+=qi
+ANS+=[ans]
+if len(ANS)==0 and MX-D>=MN:
+  for R in range(MX-D,MN-1,-D):
+    ans=0
+    for ai in A:
+      qi = (R-ai*X)//D  ###Y
+      pi = ai-qi        ###X
+      if qi<0 or pi<0:
+        break
+      ans+=qi
+    ANS+=[ans]
 if len(ANS)==0:
   print(-1)
 else:
