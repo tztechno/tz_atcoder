@@ -11,10 +11,21 @@ s = set(range(1, 2*N+1+1))
 while True:
 	print('\t',s.pop())
 	a = int(input())
-	if a==0: exit()
+	if a==0: 
+		exit()
 	s.discard(a)
 
 ###############################################
+[AC]
+n=int(input())
+P=set(range(1,2*n+2))
+while len(P)>0:
+  m=max(P)
+  P.discard(m)
+  print(m)
+  a=int(input())
+  P.discard(a
+
 ###############################################
 ###############################################
 ###############################################
