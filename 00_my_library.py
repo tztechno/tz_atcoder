@@ -100,6 +100,7 @@ A = list(map(int, lines[1].split()))
 N = int(input())
 A = list(map(int,input().split()))
 
+t,k,*a=map(int,input().split())
 
 query = tuple(map(lambda x: int(x)-1, input().split()))
 
