@@ -2,10 +2,70 @@
 ###############################################
 ###############################################
 ###############################################
+[mean]
+from atcoder.scc import SCCGraph
+
+
+def solve(N, A):
+    G = SCCGraph(N)
+    for x, a in enumerate(A):
+        G.add_edge(x, a)
+
+    ans = 0
+    for group in G.scc():
+        if (s := len(group)) > 1:
+            ans += s
+        else:
+            x = group[0]
+            ans += int(x == A[x])
+
+    return ans
+
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    A = [a - 1 for a in A]
+    ans = solve(N, A)
+    print(ans)
+
+
+if __name__ == "__main__":
+    main()
+
 ###############################################
 ###############################################
 ###############################################
 ###############################################
+[sun]
+N = int(input())
+A = [0]+list(map(int, input().split()))
+ret = 0
+vis = [0] * (1+N)
+
+def find(start):
+  l = [start]
+  while True:
+    c = l[-1]
+    nxt = A[c]
+    if vis[nxt]:
+      idx = len(l)
+      for i in range(len(l)):
+        if l[i]==nxt: 
+          idx=i
+          break
+      return len(l)-idx
+    vis[nxt] = 1
+    l.append(nxt)
+
+for i in range(1, N+1):
+  if vis[i]: continue
+  vis[i] = 1
+  if A[i] == i:
+    ret += 1
+  else:
+    ret += find(i)
+print(ret)
 ###############################################
 ###############################################
 ###############################################
