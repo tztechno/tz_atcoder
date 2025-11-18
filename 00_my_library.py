@@ -29,7 +29,7 @@ from functools import lru_cache
 @lru_cache(maxsize=None)
 
 
-
+!pip install atcoder-library-python
 from atcoder.segtree import SegTree
 from atcoder.fenwicktree import FenwickTree
 from atcoder.dsu import DSU
