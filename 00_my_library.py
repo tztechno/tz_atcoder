@@ -34,7 +34,7 @@ from atcoder.segtree import SegTree
 from atcoder.fenwicktree import FenwickTree
 from atcoder.dsu import DSU
 from atcoder.maxflow import MFGraph
-
+from atcoder.scc import SCCGraph
 
 
 ------------------------------------------------
