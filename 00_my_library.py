@@ -1,4 +1,6 @@
 
+!python -m pip install --upgrade pip
+
 from collections import defaultdict,deque,Counter
 cnt = defaultdict(int)
 cnt = defaultdict(deque)
