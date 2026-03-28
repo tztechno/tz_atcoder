@@ -1,3 +1,31 @@
+import sys
+
+def solve():
+    # --- 【入力の型】 ---
+    # 全データを一括で読み込み、空白・改行で分割してイテレータ化
+    data = sys.stdin.read().split()
+    if not data:
+        return
+    it = iter(data)
+    
+    # データの取り出し（すべて next(it) で完結）
+    N = int(next(it))
+    M = int(next(it))
+    
+    # リストの受け取りも内包表記で高速化
+    # A = [int(next(it)) for _ in range(N)]
+    
+    # --- 【ロジック部】 ---
+    results = []
+    # ここに処理を書く（結果を results に append していく）
+    
+    # --- 【出力の型】 ---
+    # 最後に一括で書き出し
+    sys.stdout.write("\n".join(map(str, results)) + "\n")
+
+if __name__ == '__main__':
+    solve()
+
 
 !python -m pip install --upgrade pip
 
